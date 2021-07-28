@@ -1,0 +1,74 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #043220;
+}
+
+html,
+body, 
+#root,
+.App,
+.fullHeight {
+  min-height: 100%;
+  
+}
+
+
+
+
+*, ::before, ::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1{
+    font-size: 3rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    text-align: center;
+}
+
+h2{
+    font-size: 2rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+h3{
+    font-size: 1rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    margin: 0;
+}
+
+p {
+    font-size: .8rem;
+    font-family: pirulen, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #043220;
+}
+
+a {
+    text-decoration: none;
+}
+
+.fullHeight {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    margin-top: 20%;
+}
