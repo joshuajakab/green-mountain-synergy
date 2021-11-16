@@ -1,0 +1,27 @@
+.about-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.about-image-container {
+    width: 100%;
+}
+
+.about-image {
+    width: 75%;
+    margin: auto 12.5%;
+}
+
+.about-content-container {
+    width: 75%;
+    margin: 10% 12.5% 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+@media screen and (max-width: 800px) {
+    .about-content {
+        font-size: 1.5rem;
+    }
+}

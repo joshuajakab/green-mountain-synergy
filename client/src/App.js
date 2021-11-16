@@ -10,6 +10,9 @@ import MainLayout from './layouts/MainLayout';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
 import AdminPage from './components/AdminPage';
+import About from './components/About';
+import Register from './components/Register';
+import Shop from './components/Shop';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,12 +31,12 @@ function App() {
         )} />
         <Route path='/shop' render={() => (
           <MainLayout>
-
+            <Shop />
           </MainLayout>
         )} />
         <Route path='/about' render={() => (
           <MainLayout>
-
+            <About />
           </MainLayout>
         )} />
         <Route path='/contact' render={() => (
@@ -52,6 +55,11 @@ function App() {
               <AdminPage />
             </MainLayout>
             </WithAdminAuth>
+          )} />
+          <Route path='/register' render={() => (
+            <MainLayout >
+              <Register />
+            </MainLayout>
           )} />
       </Switch>
     </div>

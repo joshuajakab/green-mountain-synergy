@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../../media/menu-icon.svg';
+import Icon from '../../media/menu-icon-hamburger.svg';
 import './styles.css';
 
 const MenuIcon = props => {

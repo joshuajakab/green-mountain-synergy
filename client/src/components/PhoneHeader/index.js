@@ -9,9 +9,9 @@ const PhoneHeader = props => {
     
 
     return (
-        <div className='phone-header'>
+        <div className='phone-header' >
             
-            <Link to='/' className='title'><h3>Green Mountain Synergy</h3></Link> 
+            <Link to='/' className='title-container'><h3 className='title' onClick={props.click}>Green Mountain Synergy</h3></Link> 
         </div>
     )
 };

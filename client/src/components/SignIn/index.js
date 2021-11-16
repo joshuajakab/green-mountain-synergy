@@ -70,12 +70,12 @@ const SignIn = props => {
                     />
 
                     <Button type='submit'>
-                        Login
+                        <h2>Login</h2>
                     </Button>
 
 
                     <Button onClick={handleGoogleSignIn}>
-                        Sign in with Google
+                        <h2>Sign in with Google</h2>
                     </Button>
                        
 

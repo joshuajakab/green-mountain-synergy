@@ -1,28 +1,25 @@
 import { firestore } from '../../firebase/utils';
-import productsTypes from './products.types';
 
-export const handleAddProduct = product => {
+export const handleAddBlog = blog => {
     return new Promise((resolve, reject) => {
         firestore
-            .collection('products')
+            .collection('blogs')
             .doc()
-            .set(product)
+            .set(blog)
             .then(() => {
                 resolve();
             })
             .catch(err => {
-                reject(err);
+                reject(err)
             })
     })
-}
+};
 
-export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts = [] }) => {
+export const handleFetchBlogs = ({ filterType, startAfterDoc, persistBlogs = [] }) => {
     return new Promise((resolve, reject) => {
-        const pageSize = 6;
+        let ref = firestore.collection('blogs').orderBy('createdDate');
 
-        let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
-
-        if (filterType) ref = ref.where('productCategory', '==', filterType);
+        if (filterType) ref = ref.where('blogCategory', '===', filterType);
         if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
         ref
@@ -31,18 +28,18 @@ export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts
                 const totalCount = snapshot.size;
 
                 const data = [
-                    ...persistProducts,
+                    ...persistBlogs,
                     ...snapshot.docs.map(doc => {
                         return {
                             ...doc.data(),
                             documentID: doc.id
                         }
                     })
-                ];
+                ]
 
                 resolve({
                     data,
-                    queryDoc: snapshot.docs[totalCount - 1],
+                    queryDoc: snapshot.docs[totalCount-1],
                     isLastPage: totalCount < 1
                 });
             })
@@ -50,28 +47,32 @@ export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts
                 reject(err)
             })
     })
-}
+};
 
-export const handleDeleteProduct = documentID => {
+export const handleDeleteBlog = documentID => {
     return new Promise((resolve, reject) => {
         firestore
-            .collection('products')
+            .collection('blogs')
             .doc(documentID)
-            .delete()
-            .then(() => {
-                resolve();
+            .get()
+            .then(snapshot => {
+                if (snapshot.exists) {
+                    resolve(
+                        snapshot.data()
+                    );
+                }
             })
             .catch(err => {
-                reject(err)
+                reject(err);
             })
     })
-} 
+};
 
-export const handleFetchProduct = productID => {
+export const handleFetchBlog = blogID => {
     return new Promise((resolve, reject) => {
         firestore
-        .collection('products')
-        .doc(productID)
+        .collection('blogs')
+        .doc(blogID)
         .get()
         .then(snapshot => {
             if (snapshot.exists) {

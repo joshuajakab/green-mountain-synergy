@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import PhoneHeader from '../components/PhoneHeader';
 import MenuIcon from '../components/MenuIcon';
 import Menu from '../components/Menu';
+import Footer from '../components/Footer';
 import { useWindowWidthAndHeight } from '../hooks';
 
 const MainLayout = props => {
@@ -20,17 +21,22 @@ const MainLayout = props => {
             {width > 1000 ?
                 <Header />
                 :
-                <PhoneHeader /> &&
+                <div className='phone-header-container'>
+                <PhoneHeader click={() => menuOpen && menuToggle()}/> 
                 <MenuIcon click={menuToggle}/> 
+                </div>
                 
             }
             
             <div className='main'>
                 {menuOpen && [
-                    <Menu />
+                    <Menu click={menuToggle}/>
                 ]}
                 {props.children}
             </div>
+
+            <Footer/>
+
         </div>
     )
 };

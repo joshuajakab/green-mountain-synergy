@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { signUpUserStart } from '../../redux/User/user.actions';
-import './styles.scss';
+import { signUpUserStart } from '../../redux/Users/users.actions';
+import './styles.css';
 
 import AuthWrapper from '../AuthWrapper';
 import Input from '../defaultComponents/Input';

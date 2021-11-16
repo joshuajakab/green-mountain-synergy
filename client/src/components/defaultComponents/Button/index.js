@@ -3,9 +3,11 @@ import './styles.css';
 
 const Button = ({ children, ...otherProps }) => {
     return (
-        <button className='btn' {...otherProps}>
-            {children}
-        </button>
+        <div className='formRow'>
+            <button className='btn' {...otherProps}>
+                {children}
+            </button>
+        </div>
     );
 };
 

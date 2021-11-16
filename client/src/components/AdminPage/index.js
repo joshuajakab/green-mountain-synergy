@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {CKEditor} from 'ckeditor4-react';
+import { CKEditor } from 'ckeditor4-react';
 import Button from '../defaultComponents/Button';
 import Select from '../defaultComponents/Select';
 import Input from '../defaultComponents/Input';
 import Modal from '../defaultComponents/Modal';
 import { fetchProductsStart, addProductStart, deleteProductStart } from '../../redux/Products/products.actions';
+import { addBlogStart } from '../../redux/Blogs/blogs.actions';
 import './styles.css'
+import FormInput from '../defaultComponents/Input';
 
-const mapState =({ productsData }) => ({
-    products: productsData.products
+const mapState = ({ productsData, blogsData }) => ({
+    products: productsData.products,
+    blogs: blogsData.blogs
 });
 
 const AdminPage = props => {
-    const { products } = useSelector(mapState);
+    const { products, blogs } = useSelector(mapState);
     const dispatch = useDispatch();
     const [hideModal, setHideModal] = useState(true);
     const [hideManageModal, setHideManageModal] = useState(true);
+    const [hideBlogModal, setHideBlogModal] = useState(true);
     const [productCategory, setProductCategory] = useState('tinctures');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
@@ -24,7 +28,10 @@ const AdminPage = props => {
     const [fiveHundredPrice, setFiveHundredPrice] = useState(0);
     const [oneThousandPrice, setOneThousandPrice] = useState(0);
     const [twoThousandPrice, setTwoThousandPrice] = useState(0);
-    const [productDesc, setProductDesc]= useState('');
+    const [productDesc, setProductDesc] = useState('');
+    const [blogTitle, setBlogTitle] = useState('');
+    const [blogContent, setBlogContent] = useState('');
+    const [blogImage, setBlogImage] = useState('');
     const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
@@ -35,6 +42,16 @@ const AdminPage = props => {
 
     const toggleModal = () => setHideModal(!hideModal);
     const toggleManageModal = () => setHideManageModal(!hideManageModal);
+    const toggleBlogModal = () => {
+        
+        setHideBlogModal(!hideBlogModal);
+        console.log('right place');
+    };
+
+    const configBlogModal = {
+        hideBlogModal,
+        toggleBlogModal
+    };
 
     const configManageModal = {
         hideManageModal,
@@ -57,9 +74,16 @@ const AdminPage = props => {
         setProductDesc('');
     };
 
+    const resetBlogForm = () => {
+        
+        setBlogTitle('');
+        setBlogImage('');
+        setBlogContent('');
+    };
+
     const handleSubmit = e => {
         e.preventDefault();
-    
+
         dispatch(
             addProductStart({
                 productCategory,
@@ -75,24 +99,43 @@ const AdminPage = props => {
         resetForm();
     };
 
+    const handleBlogSubmit = e => {
+        e.preventDefault();
+        console.log('WRONG PLACE!')
+        dispatch(
+            addBlogStart({
+                blogTitle,
+                blogImage,
+                blogContent
+            })
+        );
+        resetBlogForm();
+    }
+
     return (
         <div className='admin-container'>
             <div className='actions'>
 
-                
-                    <Button onClick={() => toggleModal()}>
-                        <h2>Add New Product</h2>
-                    </Button>
-                    <Button onClick={() => toggleManageModal()}>
-                        <h2>Manage Products</h2>
-                    </Button>
 
-                
+                <Button onClick={() => toggleModal()}>
+                    <h2>Add New Product</h2>
+                </Button>
+                <Button onClick={() => toggleManageModal()}>
+                    <h2>Manage Products</h2>
+                </Button>
+                <Button onClick={() => toggleBlogModal()}>
+                    <h2>Add Blog Post</h2>
+                </Button>
+                <Button onClick={() => toggleManageModal()}>
+                    <h2>Add Home Images</h2>
+                </Button>
+
+
             </div>
 
-            <Modal {...configModal}>
-                <div className='add-new-product'>
-                    <form onSubmit={handleSubmit}>
+            <Modal {...configModal} className='modal'>
+                <div className='add-new-product-container'>
+                    <form onSubmit={handleSubmit} className='add-new-product-form'>
                         <h2>Add New Product</h2>
                         <Select
                             label='Category'
@@ -114,7 +157,7 @@ const AdminPage = props => {
                             handleChange={e => setProductName(e.target.value)}
                         />
 
-                        <Input 
+                        <Input
                             label='Image URL'
                             type='url'
                             value={productThumbnail}
@@ -138,78 +181,81 @@ const AdminPage = props => {
                             handleChange={e => setProductSize(e.target.value)}
                         />
 
-                        {productSize === 'fiveHundredPrice' && 
+                        {productSize === 'fiveHundredPrice' &&
 
-                        <Input  
-                            label='500 mg Price'
-                            type='number'
-                            min='0.00'
-                            max='10000.00'
-                            step='0.01'
-                            value={fiveHundredPrice}
-                            onChange={e => setFiveHundredPrice(e.target.value)}
-                        />
+                            <Input
+                                label='500 mg Price'
+                                type='number'
+                                min='0.00'
+                                max='10000.00'
+                                step='0.01'
+                                value={fiveHundredPrice}
+                                onChange={e => setFiveHundredPrice(e.target.value)}
+                            />
                         }
 
-                        {productSize === 'oneThousandPrice' && 
+                        {productSize === 'oneThousandPrice' &&
 
-                        <Input  
-                            label='1000 mg Price'
-                            type='number'
-                            min='0.00'
-                            max='10000.00'
-                            step='0.01'
-                            value={oneThousandPrice}
-                            onChange={e => setOneThousandPrice(e.target.value)}
-                        />
+                            <Input
+                                label='1000 mg Price'
+                                type='number'
+                                min='0.00'
+                                max='10000.00'
+                                step='0.01'
+                                value={oneThousandPrice}
+                                onChange={e => setOneThousandPrice(e.target.value)}
+                            />
                         }
 
-                        {productSize === 'twoThousandPrice' && 
+                        {productSize === 'twoThousandPrice' &&
 
-                        <Input  
-                            label='2000 mg Price'
-                            type='number'
-                            min='0.00'
-                            max='10000.00'
-                            step='0.01'
-                            value={twoThousandPrice}
-                            onChange={e => setTwoThousandPrice(e.target.value)}
-                        />
+                            <Input
+                                label='2000 mg Price'
+                                type='number'
+                                min='0.00'
+                                max='10000.00'
+                                step='0.01'
+                                value={twoThousandPrice}
+                                onChange={e => setTwoThousandPrice(e.target.value)}
+                            />
                         }
 
                         <CKEditor
                             onChange={evt => setProductDesc(evt.editor.getData())}
                         />
 
-                        <Button type='submit'>
-                            Add product
-                        </Button>
+                        <div className='button-container'>
 
-                        <Button onClick={() => toggleModal()} >
-                            Cancel
-                        </Button>
+                            <Button type='submit'>
+                                Add Product
+                            </Button>
 
-                        
+                            <Button onClick={() => toggleModal()} >
+                                Cancel
+                            </Button>
+
+                        </div>
+
                     </form>
                 </div>
             </Modal>
 
-            <Modal {...configManageModal} >
+            <Modal {...configManageModal} className='modal'>
                 <h2>Manage Products</h2>
                 <div className='manage-products-container'>
-                {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
-                    const {
-                        productName,
-                        productThumbnail,
-                        productSize,
-                        fiveHundredPrice,
-                        oneThousandPrice,
-                        twoThousandPrice,
-                        documentID
-                    } = product;
+                    {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
+                        const {
+                            productName,
+                            productThumbnail,
+                            productSize,
+                            fiveHundredPrice,
+                            oneThousandPrice,
+                            twoThousandPrice,
+                            documentID
+                        } = product;
 
-                    return (
-                        
+                        return (
+
                             <div key={index}>
                                 <div>
                                     {productThumbnail}
@@ -221,33 +267,71 @@ const AdminPage = props => {
                                     {productSize}
                                 </div>
                                 {productSize === 'fiveHundredPrice' &&
-                                <div>
-                                    {fiveHundredPrice}
-                                </div>
+                                    <div>
+                                        {fiveHundredPrice}
+                                    </div>
                                 }
                                 {productSize === 'oneThousandPrice' &&
-                                <div>
-                                    {oneThousandPrice}
-                                </div>    
+                                    <div>
+                                        {oneThousandPrice}
+                                    </div>
                                 }
                                 {productSize === 'twoThousandPrice' &&
-                                <div>
-                                    {twoThousandPrice}
-                                </div>    
+                                    <div>
+                                        {twoThousandPrice}
+                                    </div>
                                 }
                                 <Button onClick={() => dispatch(deleteProductStart(documentID))}>
                                     Delete
                                 </Button>
 
                             </div>
-                        
-                    )
+
+                        )
                     })}
                     <Button onClick={() => toggleManageModal()}>
                         <h2>Exit</h2>
                     </Button>
                 </div>
-                                        
+
+            </Modal>
+
+            <Modal {...configBlogModal} className='modal'>
+                <div className='add-new-product-container'>
+                    <form onSubmit={handleBlogSubmit} className='add-new-product-form'>
+                        <h2>Add a Post</h2>
+                        <Input
+                            label='Post Title'
+                            type='text'
+                            value={blogTitle}
+                            handleChange={e => setBlogTitle(e.target.value)}
+                        />
+                        <Input
+                            label='Image Url'
+                            type='url'
+                            value={blogImage}
+                            handleChange={e => setBlogImage(e.target.value)}
+                        />
+                        <CKEditor
+                            onChange={evt => setBlogContent(evt.editor.getData())}
+                        />
+                        
+                        <div className='button-container'>
+                            <Button type='submit'>
+                                Add Post
+                            </Button>
+
+                            
+                        </div>
+                       
+                    </form>
+
+                    <Button onClick={() => toggleBlogModal()} >
+                                Cancel
+                            </Button>
+                    
+                </div>
+
             </Modal>
 
 

@@ -1,6 +1,6 @@
 .phone-header {
     width: 100%;
-    height: 10%;
+    height: 8%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -14,6 +14,11 @@
     height: 100%;
 }
 
+.title-container {
+    margin-right: 9%;
+}
+
 .title {
-    text-align: center;
+    font-size: 1.8rem;
+    white-space: nowrap;
 }

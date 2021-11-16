@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-const FormInput = ({ handleChange, label, ...otherProps }) => {
+const TextArea = ({ handleChange, label, ...otherProps }) => {
     return (
         <div className='formRow'>
             {label && (
@@ -10,10 +10,10 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
                 </label>
             )}
 
-            <input className='formInput' onChange={handleChange} {...otherProps} />
+            <textarea className='textArea' onChange={handleChange} {...otherProps} />
         </div>
 
     );
 }
 
-export default FormInput;
+export default TextArea;
