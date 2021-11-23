@@ -13,6 +13,12 @@ const Home = props => {
                     At Green Mountain Synergy our aim is to provide you with the highest quality products for the best price possible. We do this by being a direct to consumer company and offering our products directly from our farm to you. This allows us to sell our CBD at a much lower price and give you a better value than other companies. We never sacrifice quality in any step of our process and our top priority is producing the best product that we can. We look forward to serving you and being your source for all things wellness! <br/><br/>
                     Real Plants, Real People, Real Value.   
                 </h2>
+                <div className='blog-preview'>
+                    <h1>CBD Info and News</h1>
+                    <div className='blog-preview-content'>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     )

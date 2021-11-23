@@ -8,12 +8,16 @@
     
 }
 
+.formRow {
+    width: 50%;
+}
+
 .contact-container {
     width: 50%;
 }
 
 #cke_editor1 {
-    width: 60%;
+    width: 100%;
     margin: 0 20%;
 }
 

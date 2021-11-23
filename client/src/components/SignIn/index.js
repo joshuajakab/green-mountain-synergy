@@ -52,7 +52,7 @@ const SignIn = props => {
 
             <div className='formWrap'>
                 <form className='sign-in-form'onSubmit={handleSubmit}>
-
+                    <h1>Log In</h1>
                     <Input
                         type='email'
                         name='email'
@@ -69,13 +69,13 @@ const SignIn = props => {
                         handleChange={e => setPassword(e.target.value)}
                     />
 
-                    <Button type='submit'>
-                        <h2>Login</h2>
+                    <Button type='submit' >
+                        <h3 className='login-button'>Login</h3>
                     </Button>
 
 
                     <Button onClick={handleGoogleSignIn}>
-                        <h2>Sign in with Google</h2>
+                        <h3 className='login-button'>Sign in with Google</h3>
                     </Button>
                        
 
