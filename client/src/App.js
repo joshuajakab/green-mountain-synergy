@@ -32,7 +32,7 @@ function App() {
             <Home />
           </MainLayout>
         )} />
-        <Route path='/shop/' render={() => (
+        <Route path='/shop' render={() => (
           <MainLayout>
             <Shop />
           </MainLayout>
