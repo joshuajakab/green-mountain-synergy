@@ -1,8 +1,9 @@
-.products-container {
+.checkout-header {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-around;
-    margin-bottom: 10%;
 }
 
+.cart-titles {
+    width: 15%;
+}

@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './styles.css';
+import Cart from '../../media/cart.svg';
 import Logo from '../../media/logo.svg';
 import MenuIconCircle from '../../media/menu-icon.svg'
 import MenuIconMountain from '../../media/menu-icon-mountains.svg'
 import { useWindowWidthAndHeight } from '../../hooks';
 import { signOutUserStart } from '../../redux/Users/users.actions';
+import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { checkUserIsAdmin } from '../../Utils';
 
 const mapState = (state) => ({
-    currentUser: state.user.currentUser
-
+    currentUser: state.user.currentUser,
+    totalNumCartItems: selectCartItemsCount(state)
 
 });
 
@@ -19,7 +21,7 @@ const Header = props => {
 
     const dispatch = useDispatch();
 
-    const { currentUser } = useSelector(mapState);
+    const { currentUser, totalNumCartItems } = useSelector(mapState);
 
     const isAdmin = checkUserIsAdmin(currentUser);
 
@@ -56,6 +58,9 @@ const Header = props => {
                 <Link className='link' to='/blog'><h2>Blog</h2></Link>
                 <Link className='link' to='/faq'><h2>FAQ</h2></Link>
                 <Link className='link' to='/about'><h2>About Us</h2></Link>
+                <Link to='/cart'>
+                    <img src={Cart} alt='cart' />({totalNumCartItems})
+                </Link>
 
             </div>
             <div className='bottom-row'>

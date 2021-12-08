@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Button from '../../../components/forms/Button';
+import Button from '../../defaultComponents/Button';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/Cart/cart.actions'
+import './styles.css';
 
 
 const Product = (product) => {
@@ -62,31 +63,29 @@ return (
                 <li>
                     <span className='name'>
                         <Link to={`/product/${documentID}`}>
-                            {productName}
+                            <h3>{productName}</h3>
                         </Link>
                     </span>
                 </li>
-                <li>
-                    {productCategory}
-                </li>
-                {fiveHundredPrice &&
+                
+                {fiveHundredPrice > 0 &&
                     <li>
                         <span>
-                            ${fiveHundredPrice}
+                        <h3>${fiveHundredPrice}</h3>
                         </span>
                     </li>
                 }
-                {oneThousandPrice &&
+                {oneThousandPrice > 0 &&
                     <li>
                         <span>
-                            ${oneThousandPrice}
+                        <h3>${oneThousandPrice}</h3>
                         </span>
                     </li>
                 }
-                {twoThousandPrice &&
+                {twoThousandPrice > 0 &&
                     <li>
                         <span>
-                            ${twoThousandPrice}
+                        <h3>${twoThousandPrice}</h3>
                         </span>
                     </li>
                 }

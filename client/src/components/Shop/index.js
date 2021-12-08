@@ -1,73 +1,88 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { fetchProductsStart } from '../../redux/Products/products.actions';
+import Product from './Product';
+import FormSelect from '../defaultComponents/Select';
 import './styles.css';
 
 const mapState = ({ productsData }) => ({
-  products: productsData.products
+    products: productsData.products
 });
 
-const Shop = props => {
+const ProductResults = ({ }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { filterType } = useParams();
+    const { products } = useSelector(mapState);
 
-  const { products } = useSelector(mapState);
-  const dispatch = useDispatch();
-  const [productCategory, setProductCategory] = useState('tinctures');
-  const [productName, setProductName] = useState('');
-  const [productThumbnail, setProductThumbnail] = useState('');
-  const [productSize, setProductSize] = useState('fiveHundredPrice')
-  const [fiveHundredPrice, setFiveHundredPrice] = useState(0);
-  const [oneThousandPrice, setOneThousandPrice] = useState(0);
-  const [twoThousandPrice, setTwoThousandPrice] = useState(0);
-  const [productDesc, setProductDesc] = useState('');
-  const { data, queryDoc, isLastPage } = products;
+    const { data, queryDoc, isLastPage } = products;
 
-  return (
-    <div>
-      <div className='products-container'>
-        {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
-          const {
-            productName,
-            productThumbnail,
-            productSize,
-            fiveHundredPrice,
-            oneThousandPrice,
-            twoThousandPrice,
-            documentID
-          } = product;
+    useEffect(() => {
+        dispatch(
+            fetchProductsStart({ filterType })
+        )
+        console.log(filterType)
+    }, [filterType]);
 
-          return (
+    const handleFilter = (e) => {
+        const nextFilter = e.target.value;
+        history.push(`/shop/${nextFilter}`)
+    };
 
-            <div key={index} className='product'>
-              <div>
-                <img src={productThumbnail} alt='product' />
-              </div>
-              <div>
-                <h3>{productName}</h3>
-              </div>
-              {productSize === 'fiveHundredPrice' &&
-                <div>
-                  <h3>${fiveHundredPrice}</h3>
-                </div>
-              }
-              {productSize === 'oneThousandPrice' &&
-                <div>
-                  <h3>${oneThousandPrice}</h3>
-                </div>
-              }
-              {productSize === 'twoThousandPrice' &&
-                <div>
-                  <h3>${twoThousandPrice}</h3>
-                </div>
-              }
-              
+    if (!Array.isArray(data)) return null;
 
+    if (data.length < 1) {
+        return (
+            <div className='products'>
+                <p>No results found.</p>
             </div>
+        )
+    }
 
-          )
-        })}
-        
-      </div>
-    </div>
-  )
+    const configFilters = {
+        defaultValue: filterType,
+        options: [{
+            name: 'Show all',
+            value: ''
+        }, {
+            name: 'Tinctures',
+            value: 'tinctures'
+        }, {
+            name: 'Salves',
+            value: 'salves'
+        }],
+        handleChange: handleFilter
+    };
+
+
+    return (
+        <div className='products'>
+            <h1>
+                Browse Products
+            </h1>
+
+            <FormSelect {...configFilters} />
+
+            <div className='products-container'>
+                {data.map((product, pos) => {
+                    const { productThumbnail, productName, productPrice } = product;
+                    //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
+                    console.log(product)
+                    const configProduct = {
+                        ...product
+                    }
+
+                    return (
+                        <Product key={pos} {...configProduct} />
+                    )
+                })}
+            </div>
+          
+            
+               
+        </div>
+    );
 };
 
-export default Shop;
+export default ProductResults;

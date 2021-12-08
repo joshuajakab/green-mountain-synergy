@@ -8,11 +8,14 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import './default.css';
 import MainLayout from './layouts/MainLayout';
 import SignIn from './components/SignIn';
+import Cart from './components/Cart';
 import Home from './components/Home';
 import AdminPage from './components/AdminPage';
 import About from './components/About';
 import Register from './components/Register';
 import Shop from './components/Shop';
+import Blog from './components/Blog';
+import FAQ from './components/FAQ';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,12 +27,12 @@ function App() {
   return (
     <div className="App">
       <Switch>
-      <Route exact path='/' render={() => (
+        <Route exact path='/' render={() => (
           <MainLayout >
             <Home />
           </MainLayout>
         )} />
-        <Route path='/shop' render={() => (
+        <Route path='/shop/' render={() => (
           <MainLayout>
             <Shop />
           </MainLayout>
@@ -45,22 +48,37 @@ function App() {
           </MainLayout>
         )} />
         <Route path='/signin' render={() => (
-            <MainLayout >
-              <SignIn />
-            </MainLayout>
-          )} />
-          <Route path='/admin' render={() => (
-            <WithAdminAuth>
+          <MainLayout >
+            <SignIn />
+          </MainLayout>
+        )} />
+        <Route path='/admin' render={() => (
+          <WithAdminAuth>
             <MainLayout >
               <AdminPage />
             </MainLayout>
-            </WithAdminAuth>
-          )} />
-          <Route path='/register' render={() => (
-            <MainLayout >
-              <Register />
-            </MainLayout>
-          )} />
+          </WithAdminAuth>
+        )} />
+        <Route path='/register' render={() => (
+          <MainLayout >
+            <Register />
+          </MainLayout>
+        )} />
+        <Route path='/cart' render={() => (
+          <MainLayout >
+            <Cart />
+          </MainLayout>
+        )} />
+        <Route path='/blog/:filterType' render={() => (
+          <MainLayout>
+            <Blog />
+          </MainLayout>
+        )} />
+        <Route path='/faq' render={() => (
+          <MainLayout>
+            <FAQ />
+          </MainLayout>
+        )} />
       </Switch>
     </div>
   );

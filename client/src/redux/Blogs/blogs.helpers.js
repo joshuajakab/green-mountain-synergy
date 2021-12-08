@@ -19,7 +19,7 @@ export const handleFetchBlogs = ({ filterType, startAfterDoc, persistBlogs = [] 
     return new Promise((resolve, reject) => {
         let ref = firestore.collection('blogs').orderBy('createdDate');
 
-        if (filterType) ref = ref.where('blogCategory', '===', filterType);
+        if (filterType) ref = ref.where('blogCategory', '==', filterType);
         if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
         ref
@@ -39,8 +39,7 @@ export const handleFetchBlogs = ({ filterType, startAfterDoc, persistBlogs = [] 
 
                 resolve({
                     data,
-                    queryDoc: snapshot.docs[totalCount-1],
-                    isLastPage: totalCount < 1
+                    queryDoc: snapshot.docs[totalCount - 1]
                 });
             })
             .catch(err => {

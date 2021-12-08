@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '../defaultComponents/Button';
 import FormInput from '../defaultComponents/Input';
 import TextArea from '../defaultComponents/Textarea';
+import { apiInstance } from '../../Utils';
 import './styles.css';
 
 const Footer = props => {
@@ -11,22 +12,40 @@ const Footer = props => {
     const [contactEmail, setContactEmail] = useState('');
     const [contactSubject, setContactSubject] = useState('');
     const [contactMessage, setContactMessage] = useState('');
+    const [errorMessages, setErrorMessages] = useState([]);
+
+    const sendContactEmail = ( e, errors ) => {
+        e.preventDefault();
+
+        if (errors) {
+            setErrorMessages(errors.map(error => error.message))
+            return
+        }
+
+        apiInstance.post('/access', { contactEmail: contactEmail, contactName: contactName, contactSubject: contactSubject, contactMessage: contactMessage })
+    }
 
     return (
         <div className='footer'>
             <div className='contact-container'>
-                <form>
+                <form onSubmit={sendContactEmail}>
                     <FormInput
                         label='Your Name'
                         type='text'
+                        value={contactName}
+                        handleChange={e => setContactName(e.target.value)}
                     />
                     <FormInput
                         label='Your Email'
                         type='email'
+                        value={contactEmail}
+                        handleChange={e => setContactEmail(e.target.value)}
                     />
                     <FormInput
                         label='Subject'
                         type='text'
+                        value={contactSubject}
+                        handleChange={e => setContactSubject(e.target.value)}
                     />
                     {/*<CKEditor
                         className='editor'
@@ -34,7 +53,9 @@ const Footer = props => {
                     /> */}
                     <TextArea
                         label='Message'
-                        /*onChange={evt => setContactMessage(evt.editor.getData())}*/
+                        type='text'
+                        value={contactMessage}
+                        handleChange={e => setContactMessage(e.target.value)}
                      />
                     <Button>
                         Send

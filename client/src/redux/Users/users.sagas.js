@@ -15,7 +15,7 @@ export function* getSnapshotFromUserAuth(user, additionalData = {}) {
             })
         );
     } catch (err) {
-        //console.log(err)
+        console.log(err)
     }
 }
 

@@ -32,6 +32,7 @@ const AdminPage = props => {
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
     const [blogImage, setBlogImage] = useState('');
+    const [blogCategory, setBlogCategory] = useState('');
     const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
@@ -42,11 +43,9 @@ const AdminPage = props => {
 
     const toggleModal = () => setHideModal(!hideModal);
     const toggleManageModal = () => setHideManageModal(!hideManageModal);
-    const toggleBlogModal = () => {
-        
-        setHideBlogModal(!hideBlogModal);
-        console.log('right place');
-    };
+    const toggleBlogModal = () => setHideBlogModal(!hideBlogModal);
+      
+    
 
     const configBlogModal = {
         hideBlogModal,
@@ -75,7 +74,7 @@ const AdminPage = props => {
     };
 
     const resetBlogForm = () => {
-        
+        setBlogCategory('');
         setBlogTitle('');
         setBlogImage('');
         setBlogContent('');
@@ -106,7 +105,8 @@ const AdminPage = props => {
             addBlogStart({
                 blogTitle,
                 blogImage,
-                blogContent
+                blogContent,
+                blogCategory
             })
         );
         resetBlogForm();
@@ -126,9 +126,7 @@ const AdminPage = props => {
                 <Button onClick={() => toggleBlogModal()}>
                     <h2>Add Blog Post</h2>
                 </Button>
-                <Button onClick={() => toggleManageModal()}>
-                    <h2>Add Home Images</h2>
-                </Button>
+                
 
 
             </div>
@@ -240,7 +238,7 @@ const AdminPage = props => {
                 </div>
             </Modal>
 
-            <Modal {...configManageModal} className='modal'>
+          <Modal {...configManageModal} className='modal'>
                 <h2>Manage Products</h2>
                 <div className='manage-products-container'>
                     {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
@@ -294,12 +292,28 @@ const AdminPage = props => {
                     </Button>
                 </div>
 
-            </Modal>
+                </Modal> 
 
-            <Modal {...configBlogModal} className='modal'>
-                <div className='add-new-product-container'>
-                    <form onSubmit={handleBlogSubmit} className='add-new-product-form'>
+              <Modal {...configBlogModal} className='modal'>
+                <div className='add-new-post-container'>
+                    <form onSubmit={handleBlogSubmit} className='add-new-post-form'>
                         <h2>Add a Post</h2>
+                        <Select
+                            label='Category'
+                            options={[{
+                                value: 'news',
+                                name: 'News'
+                            },
+                            {
+                                value: 'education',
+                                name: 'Education'
+                            },
+                            {
+                                value: 'fun',
+                                name: 'Fun'
+                            }]}
+                            handleChange={e => setBlogCategory(e.target.value)}
+                        />
                         <Input
                             label='Post Title'
                             type='text'
@@ -320,19 +334,19 @@ const AdminPage = props => {
                             <Button type='submit'>
                                 Add Post
                             </Button>
-
+                            <Button type='button' onClick={() => toggleBlogModal()} >
+                                Exit
+                            </Button>
                             
                         </div>
                        
                     </form>
 
-                    <Button onClick={() => toggleBlogModal()} >
-                                Cancel
-                            </Button>
+                    
                     
                 </div>
 
-            </Modal>
+            </Modal> 
 
 
         </div>

@@ -1,0 +1,28 @@
+.cart-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cart-thumb {
+    width: 15%;
+}
+
+.product-name {
+    width: 15%;
+}
+
+.quantity-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 15%;
+}
+
+.price-container {
+    width: 15%;
+}
+
+.cart-button {
+    width: 15%;
+}
