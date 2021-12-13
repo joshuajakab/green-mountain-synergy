@@ -91,7 +91,7 @@ return (
                 }
 
                 <li>
-                    <div className='addToCart'>
+                    <div className='add-to-cart'>
                         <Button {...configAddToCartButton} onClick={() => handleAddToCart(product)}>
                             <h3>Add to Cart</h3>
                         </Button>
