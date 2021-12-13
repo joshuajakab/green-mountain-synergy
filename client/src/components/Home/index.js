@@ -10,11 +10,12 @@ const Home = props => {
             </div>
             <div className='home-content-container'>
                 <h2 className='home-content'>
-                    At Green Mountain Synergy our aim is to provide you with the highest quality products for the best price possible. We do this by being a direct to consumer company and offering our products directly from our farm to you. This allows us to sell our CBD at a much lower price and give you a better value than other companies. We never sacrifice quality in any step of our process and our top priority is producing the best product that we can. We look forward to serving you and being your source for all things wellness! <br/><br/>
-                    Real Plants, Real People, Real Value.   
+                Welcome to a company whose mission is to create the highest quality products for the best value we can. We believe that whatever we do or sell needs to be good for the planet, our employees, and our end consumer. We also think CBD should be affordable for everyone. We will always put people and our planet above profits. If it is not a win, win, win, for everyone you will not find it on this site. We hope you can feel our intent and nature's amazing power in each of our all natural products. <br /> <br />
                 </h2>
+                
+                <h2 className='home-tag'>Real plants, Real people, Real value</h2>
                 <div className='blog-preview'>
-                    <h1>CBD Info and News</h1>
+                    <div className='news-title'>CBD Info and News</div>
                     <div className='blog-preview-content'>
                         
                     </div>

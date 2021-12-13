@@ -32,7 +32,7 @@ const AdminPage = props => {
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
     const [blogImage, setBlogImage] = useState('');
-    const [blogCategory, setBlogCategory] = useState('');
+    const [blogCategory, setBlogCategory] = useState('news');
     const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
@@ -74,7 +74,7 @@ const AdminPage = props => {
     };
 
     const resetBlogForm = () => {
-        setBlogCategory('');
+        setBlogCategory('news');
         setBlogTitle('');
         setBlogImage('');
         setBlogContent('');

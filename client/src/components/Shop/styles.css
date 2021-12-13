@@ -1,8 +1,17 @@
+.products {
+    background-color: white;
+}
+
 .products-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 10%;
+}
+
+.shop-title {
+    margin-top: 0;
+    color: #043220;
 }
 

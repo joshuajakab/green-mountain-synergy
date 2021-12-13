@@ -6,3 +6,15 @@ li {
     list-style-type: none;
     text-align: center;
 }
+
+.product-info {
+    color:#043220;
+}
+
+.product {
+    width: 30%;
+}
+
+.thumb-img {
+    width: 100%;
+}

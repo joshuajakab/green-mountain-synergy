@@ -16,6 +16,7 @@ import Register from './components/Register';
 import Shop from './components/Shop';
 import Blog from './components/Blog';
 import FAQ from './components/FAQ';
+import ProductCard from './components/ProductCard';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +33,19 @@ function App() {
             <Home />
           </MainLayout>
         )} />
-        <Route path='/shop' render={() => (
+        <Route exact path='/shop' render={() => (
           <MainLayout>
             <Shop />
+          </MainLayout>
+        )} />
+        <Route path='/shop/:filterType' render={() => (
+          <MainLayout>
+            <Shop />
+          </MainLayout>
+        )} />
+        <Route path='/product/:productID' render={() => (
+          <MainLayout>
+            <ProductCard />
           </MainLayout>
         )} />
         <Route path='/about' render={() => (
@@ -67,6 +78,11 @@ function App() {
         <Route path='/cart' render={() => (
           <MainLayout >
             <Cart />
+          </MainLayout>
+        )} />
+        <Route exact path='/blog' render={() => (
+          <MainLayout>
+            <Blog />
           </MainLayout>
         )} />
         <Route path='/blog/:filterType' render={() => (

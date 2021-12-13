@@ -53,13 +53,11 @@ const Header = props => {
                     <img className='logo' src={MenuIconMountain} alt='logo'></img>
                 </Link>
                 <Link className='link' to='/shop'><h2>Shop</h2></Link>
-                <Link className='link' to='/'><h2>Testing</h2></Link>
-
                 <Link className='link' to='/blog'><h2>Blog</h2></Link>
                 <Link className='link' to='/faq'><h2>FAQ</h2></Link>
                 <Link className='link' to='/about'><h2>About Us</h2></Link>
                 <Link to='/cart'>
-                    <img src={Cart} alt='cart' />({totalNumCartItems})
+                    <img className='cart-img' src={Cart} alt='cart' />({totalNumCartItems})
                 </Link>
 
             </div>

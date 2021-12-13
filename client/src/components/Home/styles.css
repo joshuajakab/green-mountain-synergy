@@ -19,9 +19,24 @@
     padding-bottom: 5%;
     color: #043220;
 }
+
+.home-tag {
+    text-align: center;
+    color: #043220;
+}
+
 .image-container {
         min-height: 100%;
-    }
+}
+
+.news-title {
+    font-size: 3rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+    text-align: center;
+}
 
 @media screen and (max-width: 800px) {
 

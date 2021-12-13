@@ -58,8 +58,8 @@ const ProductResults = ({ }) => {
 
     return (
         <div className='products'>
-            <h1>
-                Browse Products
+            <h1 className='shop-title'>
+                Affordability, Quality and Care
             </h1>
 
             <FormSelect {...configFilters} />
@@ -68,7 +68,7 @@ const ProductResults = ({ }) => {
                 {data.map((product, pos) => {
                     const { productThumbnail, productName, productPrice } = product;
                     //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
-                    console.log(product)
+                    
                     const configProduct = {
                         ...product
                     }

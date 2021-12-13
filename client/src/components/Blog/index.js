@@ -18,27 +18,10 @@ const Blog = props => {
     const { data, queryDoc } = blogs;
 
     const { filterType } = useParams();
-
-    useEffect(() => {
-        dispatch(
-            fetchBlogsStart({ filterType })
-        )
-        console.log(blogs)
-    }, [filterType]);
-
+    
     const handleFilter = (e) => {
         const nextFilter = e.target.value;
         history.push(`/blog/${nextFilter}`)
-    };
-
-    if (!Array.isArray(data)) return null;
-
-    if (data.length < 1) {
-        return (
-            <div className='blogs-container'>
-                <p>No results found.</p>
-            </div>
-        )
     };
 
     const configFilters = {
@@ -58,6 +41,28 @@ const Blog = props => {
         }],
         handleChange: handleFilter
     };
+
+    useEffect(() => {
+        dispatch(
+            fetchBlogsStart({ filterType })
+        )
+        console.log(blogs)
+    }, [filterType]);
+
+    
+
+    if (!Array.isArray(data)) return null;
+
+    if (data.length < 1) {
+        return (
+            <div className='blogs-container'>
+                <FormSelect {...configFilters} />
+                <p>No results found.</p>
+            </div>
+        )
+    };
+
+    
     
 
     return(
@@ -70,8 +75,8 @@ const Blog = props => {
                         blogContent,
                         blogCategory
                     } = blog
-                    //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
-                    console.log(blog)
+                    if (!blogImage || !blogTitle) return null;
+                    
                     const configBlog = {
                         ...blog
                     }

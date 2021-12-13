@@ -54,7 +54,7 @@ return (
     <div className='product'>
         <div className='thumb'>
             <Link to={`/product/${documentID}`}>
-                <img src={productThumbnail} alt={productName} />
+                <img className='thumb-img' src={productThumbnail} alt={productName} />
             </Link>
         </div>
 
@@ -63,7 +63,7 @@ return (
                 <li>
                     <span className='name'>
                         <Link to={`/product/${documentID}`}>
-                            <h3>{productName}</h3>
+                            <h3 className='product-info'>{productName}</h3>
                         </Link>
                     </span>
                 </li>
@@ -71,21 +71,21 @@ return (
                 {fiveHundredPrice > 0 &&
                     <li>
                         <span>
-                        <h3>${fiveHundredPrice}</h3>
+                        <h3 className='product-info'>${fiveHundredPrice}</h3>
                         </span>
                     </li>
                 }
                 {oneThousandPrice > 0 &&
                     <li>
                         <span>
-                        <h3>${oneThousandPrice}</h3>
+                        <h3 className='product-info'>${oneThousandPrice}</h3>
                         </span>
                     </li>
                 }
                 {twoThousandPrice > 0 &&
                     <li>
                         <span>
-                        <h3>${twoThousandPrice}</h3>
+                        <h3 className='product-info'>${twoThousandPrice}</h3>
                         </span>
                     </li>
                 }
@@ -93,7 +93,7 @@ return (
                 <li>
                     <div className='addToCart'>
                         <Button {...configAddToCartButton} onClick={() => handleAddToCart(product)}>
-                            Add to Cart
+                            <h3>Add to Cart</h3>
                         </Button>
                     </div>
                 </li>
