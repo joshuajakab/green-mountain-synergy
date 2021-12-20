@@ -26,32 +26,32 @@ const Menu = props => {
 
     return (
         <div className='menu-container' onClick={props.click}>
-            <Link to='/shop'><h2>Shop</h2></Link>
-            <Link to='/blog'><h2>Blog</h2></Link>
-            <Link to='/faq'><h2>FAQ</h2></Link>
-            <Link to='/about'><h2>About Us</h2></Link>
+            <Link className='menu-links' to='/shop'>Shop</Link>
+            <Link className='menu-links' to='/blog'>Blog</Link>
+            <Link className='menu-links' to='/faq'>FAQ</Link>
+            <Link className='menu-links' to='/about'>About Us</Link>
            
 
                 {!currentUser &&
                     <div className='logged-out'>
                         <Link className='logged-out-link' to='/register'>
-                            <h3>Register</h3>
+                            Register
                         </Link>
                         <Link className='logged-out-link' to='/signin'>
-                            <h3>Log In</h3>
+                            Log In
                         </Link>
                     </div>}
                 {currentUser &&
                     <div className='logged-in'>
                         <Link className='logged-in-link' to='/'>
-                            <h3>My Account</h3>
+                            My Account
                         </Link>
                         <Link className='logged-in-link' onClick={() => signOut()} to='/'>
-                            <h3>LogOut</h3>
+                            LogOut
                         </Link>
                         {isAdmin &&
                             <Link className='logged-in-link' to='admin'>
-                                <h3>Admin</h3>
+                                Admin
                             </Link>}
 
                     </div>
