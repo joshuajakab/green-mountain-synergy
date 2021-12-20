@@ -1,9 +1,10 @@
 .phone-header {
     width: 100%;
     height: 8%;
+    padding-left: 15%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
     position:fixed;
     z-index: 10;
@@ -14,11 +15,22 @@
     height: 100%;
 }
 
-.title-container {
+/*.title-container {
     margin-right: 9%;
-}
+} */
 
 .title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     white-space: nowrap;
+}
+
+.phone-cart {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+}
+
+.cart-img {
+    height: 40%;
 }

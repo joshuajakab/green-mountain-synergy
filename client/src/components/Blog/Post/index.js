@@ -18,9 +18,9 @@ const Post = blog => {
             <div className='post-title'>
                 <h1>{blogTitle}</h1>
             </div>
-            <div className='post-img'>
+           {/*} <div className='post-img'>
                 <img className='blog-image' src={blogImage} alt='blog' />
-            </div>
+    </div> */}
             <div className='post-content' dangerouslySetInnerHTML={{ __html: blogContent }}>
                 
             </div>

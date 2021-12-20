@@ -1,8 +1,10 @@
 import { CKEditor } from 'ckeditor4-react';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../defaultComponents/Button';
 import FormInput from '../defaultComponents/Input';
 import TextArea from '../defaultComponents/Textarea';
+import FooterIdea from '../../media/footer-idea.svg';
 import { apiInstance } from '../../Utils';
 import './styles.css';
 
@@ -27,7 +29,11 @@ const Footer = props => {
 
     return (
         <div className='footer'>
-            <div className='contact-container'>
+            <img className='footer-img' src={FooterIdea} alt='footer' />
+            <div className='footer-link-container'>
+            <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
+            </div>
+            {/*<div className='contact-container'>
                 <form onSubmit={sendContactEmail}>
                     <FormInput
                         label='Your Name'
@@ -47,10 +53,7 @@ const Footer = props => {
                         value={contactSubject}
                         handleChange={e => setContactSubject(e.target.value)}
                     />
-                    {/*<CKEditor
-                        className='editor'
-                        onChange={evt => setContactMessage(evt.editor.getData())}
-                    /> */}
+                    
                     <TextArea
                         label='Message'
                         type='text'
@@ -63,6 +66,7 @@ const Footer = props => {
                 </form>
 
             </div>
+    */}
             <div className='social-media-container'>
 
             </div>

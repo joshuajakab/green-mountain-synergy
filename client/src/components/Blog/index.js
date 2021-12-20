@@ -67,7 +67,7 @@ const Blog = props => {
 
     return(
         <div className='blogs-container'>
-            <FormSelect {...configFilters} />
+           {/* <FormSelect {...configFilters} /> */}
             {data.map((blog, pos) => {
                     const {
                         blogTitle,

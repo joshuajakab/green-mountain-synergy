@@ -17,6 +17,7 @@ import Shop from './components/Shop';
 import Blog from './components/Blog';
 import FAQ from './components/FAQ';
 import ProductCard from './components/ProductCard';
+import Terms from './components/Terms';
 
 function App() {
   const dispatch = useDispatch();
@@ -93,6 +94,11 @@ function App() {
         <Route path='/faq' render={() => (
           <MainLayout>
             <FAQ />
+          </MainLayout>
+        )} />
+        <Route path='/terms-conditions' render={() => (
+          <MainLayout>
+            <Terms />
           </MainLayout>
         )} />
       </Switch>

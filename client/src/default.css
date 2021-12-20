@@ -2,7 +2,7 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background-color: #043220;
+    background-color: white;
 }
 
 html,
@@ -28,7 +28,7 @@ h1{
     font-family: din-condensed, sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: white;
+    color: #043220;
     text-align: center;
 }
 
@@ -37,7 +37,7 @@ h2{
     font-family: din-condensed, sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: white;
+    color: #043220;
 }
 
 h3{
@@ -45,7 +45,7 @@ h3{
     font-family: din-condensed, sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: white;
+    color: #043220;
     margin: 0;
     white-space: nowrap;
 }
@@ -55,7 +55,7 @@ p {
     font-family: din-condensed, sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: white;
+    color: #043220;
 }
 
 a {
@@ -80,5 +80,5 @@ a {
 .main {
     width: 100%;
     height: 100%;
-    margin-top: 9%;
+    margin-top: 12%;
 }

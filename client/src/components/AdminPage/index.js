@@ -256,7 +256,7 @@ const AdminPage = props => {
 
                             <div key={index}>
                                 <div>
-                                    {productThumbnail}
+                                    <img src={productThumbnail} alt='thumb' />
                                 </div>
                                 <div>
                                     {productName}
