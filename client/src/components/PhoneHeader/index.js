@@ -20,7 +20,7 @@ const PhoneHeader = props => {
     return (
         <div className='phone-header' >
             
-            <Link to='/' className='title-container'><h3 className='title' onClick={props.click}>Green Mountain Synergy</h3></Link> 
+            <Link to='/' className='title' onClick={props.click}>Green Mountain Synergy</Link> 
             <Link className='phone-cart' to='/cart'>
                 <img className='cart-img' src={Cart} alt='cart' />
             </Link>

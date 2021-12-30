@@ -5,7 +5,10 @@ import Button from '../defaultComponents/Button';
 import FormInput from '../defaultComponents/Input';
 import TextArea from '../defaultComponents/Textarea';
 import FooterIdea from '../../media/footer-idea.svg';
+import FBIcon from '../../media/facebook.svg';
+import InstaIcon from '../../media/instagram.svg';
 import { apiInstance } from '../../Utils';
+
 import './styles.css';
 
 const Footer = props => {
@@ -16,7 +19,7 @@ const Footer = props => {
     const [contactMessage, setContactMessage] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
 
-    const sendContactEmail = ( e, errors ) => {
+    const sendContactEmail = (e, errors) => {
         e.preventDefault();
 
         if (errors) {
@@ -31,7 +34,19 @@ const Footer = props => {
         <div className='footer'>
             <img className='footer-img' src={FooterIdea} alt='footer' />
             <div className='footer-link-container'>
-            <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
+                <div className='email-signup-container'>
+                    <p>Sign up for our newsletter for the latest news, information and DEALS!</p>
+                    <Button className='email-signup-button'>Sign Up</Button>
+                </div>
+                <p className='social-title'>Follow us on social media</p>
+                <div className='social-links'>
+                    <img className='social-icon' src={FBIcon} alt='facebook' />
+                    <img className='social-icon' src={InstaIcon} alt='instagram' />
+                </div>
+                <div className='location-container'>
+                    <p className='location'>Located in Brandon, VT</p>
+                </div>
+                <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
             </div>
             {/*<div className='contact-container'>
                 <form onSubmit={sendContactEmail}>

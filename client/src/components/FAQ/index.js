@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from '../defaultComponents/Button';
+import Modal from '../defaultComponents/Modal';
 import './styles.css';
 
 const FAQ = props => {
+
+    const [hideTestModal, setHideTestModal] = useState(true);
+
+    const toggleTestModal = () => setHideTestModal(!hideTestModal);
+
+    const configTestModal = {
+        hideTestModal,
+        toggleTestModal
+    };
+
+
+
     return (
         <div className='faq-container'>
             <div className='faq'>
@@ -18,7 +32,7 @@ const FAQ = props => {
                 <p className='faq-content'>This is another thing that makes our company unique. We choose to use alcohol extraction as we believe it produces the highest quality full spectrum product available. Many people use Co2 or other solvents in order to extract the hemp. These extraction techniques produce inferior products compared to alcohol extraction which captures the widest range of the medicinal qualities of the plant. </p>
                 <h2 className='faq-titles'>How much CBD should I try for the first time?</h2>
                 <p className='faq-content'>We are all very different, each person and each problem often requires a different dose or product. This is why we offer so many different choices of concentrations as well as topical and internal formulations. We suggest starting small and working your way up as needed. Many people start at 10mg and find that to be an effective dose. Others require a higher dose in order to be effective. This takes individual experimentation in order to figure out exactly what is best for you. A great thing about CBD is it is extremely safe even at high doses which are required for some people to treat certain issues. Topically CBD is very easy to dose and use, just apply it to areas topically and observe its wonders!</p>
-                
+
                 <h2 className='faq-titles'>Can our product make you fail a drug test?</h2>
                 <p className='faq-content'>Yes, although our products are always below .3% THC, they are full spectrum products and have the potential to lead to a failed drug test despite these low levels. We always want people to be aware of this fact. </p>
                 <h2 className='faq-titles'>CBD and Pets</h2>
@@ -27,7 +41,7 @@ const FAQ = props => {
                 <p className='faq-content'>Our products have a shelf life of at least one year and are stable at room temperatures. No need to refrigerate unless you prefer to. </p>
                 <h2 className='faq-titles'>Any other questions?</h2>
                 <p className='faq-content'>Feel free to email, call, or text us anytime with any question. We will do whatever we can to help and we appreciate hearing from you!</p>
-                
+
             </div>
             <div className='dosage'>
                 <h2 className='dosage-title'>Here is a dosing chart to help with dosing our tinctures:</h2>
@@ -35,8 +49,12 @@ const FAQ = props => {
             </div>
             <div className='testing'>
                 <h1>Testing</h1>
-                <img className='testing-chart' src='https://drive.google.com/uc?id=1EWD6-9QfwUPLak5bgcds1CkTYlz92HRY' alt='testing-chart' />
-                <img className='testing-chart' src='https://drive.google.com/uc?id=1vpa7EzF0QJ2txa_voD5UYdCwqwyPRdVP' alt='testing-chart' />
+                <p>At Green Mountain Synergy we are rigorously testing anything that we create to make sure it is accurately labeled, legally compliant and above our extremely strict standards. Here are our latest test result for our Tincture and Salve:</p>
+                <Button onClick={() => toggleTestModal()} ><h2>Test Results</h2></Button>
+                <Modal {...configTestModal} className='modal'>
+                    <img className='testing-chart' src='https://drive.google.com/uc?id=1EWD6-9QfwUPLak5bgcds1CkTYlz92HRY' alt='testing-chart' />
+                    <img className='testing-chart' src='https://drive.google.com/uc?id=1vpa7EzF0QJ2txa_voD5UYdCwqwyPRdVP' alt='testing-chart' />
+                </Modal>
             </div>
         </div>
     )

@@ -36,6 +36,11 @@
 }
 
 @media screen and (max-width: 800px) {
+    .faq {
+        width: 85%;
+        margin-left: 7.5%;
+        margin-right: 7.5%;
+    }
     .testing-chart {
         width: 96%;
         margin: 0 2%;

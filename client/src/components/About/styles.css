@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     position: relative;
+    margin-top: 5%;
 }
 
 .about-image-container {
@@ -23,5 +24,15 @@
 @media screen and (max-width: 800px) {
     .about-content {
         font-size: 1.5rem;
+    }
+
+    .about-content-container {
+        width: 85%;
+        margin: 3% 7.5% 3%;
+    }
+
+    .about-image {
+        width: 95%;
+        margin: 0 2.5%;
     }
 }

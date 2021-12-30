@@ -2,3 +2,45 @@
     width: 75%;
     margin: 5% 12.5%;
 }
+
+.blog-title {
+    font-size: 3rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+    text-align: center;
+}
+
+.blog-subtitle {
+    font-size: 2rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+    text-align: center;
+}
+
+.blog-content {
+    font-size: 1.3rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .blogs-container {
+        width: 85%;
+        margin: 7% 7.5%;
+    }
+
+    .blog-title {
+        font-size: 2rem;
+    }
+
+    .blog-subtitle {
+        font-size: 1.7rem;
+    }
+}
