@@ -52,6 +52,9 @@ const FAQ = props => {
                 <p>At Green Mountain Synergy we are rigorously testing anything that we create to make sure it is accurately labeled, legally compliant and above our extremely strict standards. Here are our latest test result for our Tincture and Salve:</p>
                 <Button onClick={() => toggleTestModal()} ><h2>Test Results</h2></Button>
                 <Modal {...configTestModal} className='modal'>
+                    <div className='test-exit' onClick={() => toggleTestModal()}>
+                        <h2 className='exit-button'>X</h2>
+                    </div>
                     <img className='testing-chart' src='https://drive.google.com/uc?id=1EWD6-9QfwUPLak5bgcds1CkTYlz92HRY' alt='testing-chart' />
                     <img className='testing-chart' src='https://drive.google.com/uc?id=1vpa7EzF0QJ2txa_voD5UYdCwqwyPRdVP' alt='testing-chart' />
                 </Modal>
