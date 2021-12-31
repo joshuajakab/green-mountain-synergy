@@ -35,15 +35,24 @@
     margin: 0 10%;
 }
 
+.testing-chart {
+    width: 100%;
+}
+
+.test-exit {
+    width: 10%;
+    margin-left: 90%;
+}
+
+.exit-button {
+    margin: 0;
+}
+
 @media screen and (max-width: 800px) {
     .faq {
         width: 85%;
         margin-left: 7.5%;
         margin-right: 7.5%;
-    }
-
-    .exit-button {
-        margin: 0;
     }
 
     .testing-chart {
@@ -54,12 +63,7 @@
     .testing {
         width: 96%;
         margin: 0 2% 4%;
-    }
-
-    .test-exit {
-        width: 10%;
-        margin-left: 90%;
-    }
+    }  
 
     .dosage-chart {
         width: 96%;

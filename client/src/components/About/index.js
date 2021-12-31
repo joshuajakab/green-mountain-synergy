@@ -65,7 +65,7 @@ const About = props => {
                         value={contactMessage}
                         handleChange={e => setContactMessage(e.target.value)}
                      />
-                    <Button>
+                    <Button className='contact-button'>
                         Send
                     </Button>
                 </form>

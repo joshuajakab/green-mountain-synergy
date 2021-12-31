@@ -33,18 +33,23 @@ const Footer = props => {
     return (
         <div className='footer'>
             <img className='footer-img' src={FooterIdea} alt='footer' />
-            <div className='footer-link-container'>
-                <div className='email-signup-container'>
-                    <p>Sign up for our newsletter for the latest news, information and DEALS!</p>
-                    <Button className='email-signup-button'>Sign Up</Button>
-                </div>
-                <p className='social-title'>Follow us on social media</p>
-                <div className='social-links'>
-                    <img className='social-icon' src={FBIcon} alt='facebook' />
-                    <img className='social-icon' src={InstaIcon} alt='instagram' />
-                </div>
-                <div className='location-container'>
-                    <p className='location'>Located in Brandon, VT</p>
+            <div className='background-color-container'>
+                <div className='footer-link-container'>
+                    <div className='email-signup-container'>
+                        <p>Sign up for our newsletter for the latest news, information and DEALS!</p>
+                        <Button className='email-signup-button'>Sign Up</Button>
+                    </div>
+                    <div className='social-container'>
+                        <p className='social-title'>Follow us on social media</p>
+                        <div className='social-links'>
+                            <a className='social-icon' href='https://www.facebook.com/greenmountainsynergy'><img  src={FBIcon} alt='facebook' /></a>
+                            <a className='social-icon' href='https://www.instagram.com/greenmountainsynergy'><img  src={InstaIcon} alt='instagram' /></a>
+                        </div>
+                    </div>
+                    <div className='location-container'>
+                        <p className='location'>Located in Brandon, VT</p>
+                    </div>
+
                 </div>
                 <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
             </div>

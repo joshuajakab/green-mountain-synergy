@@ -4,7 +4,7 @@
     z-index: 40;
     position: relative;
     bottom: 0;
-    margin-top: 25%;
+    margin-top: 5%;
 }
 
 .footer-img {
@@ -14,25 +14,31 @@
     
 }
 
-.footer-link-container {
+.background-color-container {
     background-color: #B7872D;
+}
+
+.footer-link-container {
+    
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-around;
 }
 
 .footer-link {
-    margin-bottom: 3%;
+    background-color: #B7872D;
     position: relative;
     z-index: 50;
     text-decoration: underline;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1%;
 }
 
 .formRow {
-    width: 50%;
-}
-
-.contact-container {
     width: 50%;
 }
 
@@ -42,7 +48,7 @@
 }
 
 .email-signup-container {
-    margin-bottom: 3%;
+    width: 30%;
 }
 
 .email-signup-button {
@@ -62,9 +68,38 @@
 
 }
 
+.location-container {
+    width: 30%;
+}
+
+.social-container {
+    width: 30%;
+}
+
+.social-icon {
+    width: 25%;
+   
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.social-links {
+    width: 50%;
+    margin: 0 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 @media screen and (max-width: 800px) {
-    .contact-container {
-        width: 100%;
+
+    .footer {
+        margin-top: 25%;
+    }
+
+    .email-signup-container {
+        width: 30%;
+        margin-bottom: 3%;
     }
 
     .location {
