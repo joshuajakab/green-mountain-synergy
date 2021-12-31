@@ -18,7 +18,9 @@ const Checkout = ({ }) => {
     const { cartItems, total } = useSelector(mapState);
     
 
-    const realTotal = total + 5
+    const realTotal = ((total * .06) + total) + 5
+    const freeShipTotal = ((total * .06) + total)
+    const tax = (total * .06)
 
     return (
         <div className='checkout'>
@@ -63,6 +65,7 @@ const Checkout = ({ }) => {
                                                     
                                                     Subtotal: ${total} <br />
                                                     Shipping: $5 <br/>
+                                                    6% Sales Tax: ${tax}<br/>
                                                     Total: ${realTotal}
 
                                                 </h3>
@@ -73,7 +76,8 @@ const Checkout = ({ }) => {
                                                     
                                             Subtotal: ${total} <br />
                                             Shipping: FREE <br/>
-                                            Total: ${total}
+                                            6% Sales Tax: ${tax} <br/>
+                                            Total: ${freeShipTotal}
 
                                         </h3>}
 
