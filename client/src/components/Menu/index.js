@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOutUserStart } from '../../redux/Users/users.actions';
 import { checkUserIsAdmin } from '../../Utils';
-import './styles.css';
+import './menu.css';
 
 const mapState = (state) => ({
     currentUser: state.user.currentUser
@@ -33,24 +33,24 @@ const Menu = props => {
            
 
                 {!currentUser &&
-                    <div className='logged-out'>
-                        <Link className='logged-out-link' to='/register'>
+                    <div className='menu-logged-out'>
+                        <Link className='menu-logged-out-link' to='/register'>
                             Register
                         </Link>
-                        <Link className='logged-out-link' to='/signin'>
+                        <Link className='menu-logged-out-link' to='/signin'>
                             Log In
                         </Link>
                     </div>}
                 {currentUser &&
-                    <div className='logged-in'>
-                        <Link className='logged-in-link' to='/'>
+                    <div className='menu-logged-in'>
+                        <Link className='menu-logged-in-link' to='/'>
                             My Account
                         </Link>
-                        <Link className='logged-in-link' onClick={() => signOut()} to='/'>
+                        <Link className='menu-logged-in-link' onClick={() => signOut()} to='/'>
                             LogOut
                         </Link>
                         {isAdmin &&
-                            <Link className='logged-in-link' to='admin'>
+                            <Link className='menu-logged-in-link' to='admin'>
                                 Admin
                             </Link>}
 

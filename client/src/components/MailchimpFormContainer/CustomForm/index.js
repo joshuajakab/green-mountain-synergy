@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../../defaultComponents/Input';
 import Button from '../../defaultComponents/Button';
 
@@ -7,6 +7,16 @@ const CustomForm = ({ status, message, onValidated }) => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
+    useEffect(() => {
+        if(status === "success") clearFields();
+      }, [status])
+    
+      const clearFields = () => {
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+      }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +32,7 @@ const CustomForm = ({ status, message, onValidated }) => {
     }
 
     return (
-        <form className="mc__form" onSubmit={(e) => handleSubmit(e)}>
+        <form className="mc__form" onSubmit={handleSubmit}>
             <h3 className="mc__title">
                 {status === "success"
                     ? "Success!"
@@ -45,41 +55,54 @@ const CustomForm = ({ status, message, onValidated }) => {
                     dangerouslySetInnerHTML={{ __html: message }}
                 />
             )}
-            <div className="mc__field-container">
-                <Input
-                    label="First Name"
-                    onChangeHandler={setFirstName}
-                    type="text"
-                    value={firstName}
-                    placeholder="Jane"
-                    isRequired
+
+            {status !== "success" ? (
+                <div className="mc__field-container">
+                    <div className="mc__field-container">
+                    <Input
+                            label="Email"
+                            onChange={e => setEmail(e.target.value)}
+                            type="email"
+                            value={email}
+                            placeholder="your@email.com"
+                            
+                        />
+                        <Input
+                            label="First Name"
+                            onChange={e => setFirstName(e.target.value)}
+                            type="text"
+                            value={firstName}
+                            placeholder="Jane"
+                           
+                        />
+
+                        <Input
+                            label="Last Name"
+                            onChange={e => setLastName(e.target.value)}
+                            type="text"
+                            value={lastName}
+                            placeholder="Doe"
+                            
+                        />
+
+                        
+
+                    </div>
+
+                    <Button type="submit">Submit</Button>
+                </div>
+            ) : null}
+
+            {
+                status === 'success' ? <button
+                    
+                    className="g__justify-self-center">Close</button> : <Button
+                    label="subscribe"
+                    type="submit"
+                    
                 />
+            }
 
-                <Input
-                    label="Last Name"
-                    onChangeHandler={setLastName}
-                    type="text"
-                    value={lastName}
-                    placeholder="Doe"
-                    isRequired
-                />
-
-                <Input
-                    label="Email"
-                    onChangeHandler={setEmail}
-                    type="email"
-                    value={email}
-                    placeholder="your@email.com"
-                    isRequired
-                />
-
-            </div>
-
-            <Button
-                label="subscribe"
-                type="submit"
-                formValues={[email, firstName, lastName]}
-            />
         </form>
     );
 };

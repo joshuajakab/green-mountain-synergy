@@ -26,3 +26,44 @@
 .cart-button {
     width: 15%;
 }
+
+@media screen and (max-width: 800px) {
+    .cart-items {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+    }
+
+    .cart-thumb {
+        width: 90%;
+        margin: 0 5%;
+        
+    }
+
+    .product-name {
+        width: 100%;
+        font-size: 1rem;
+        white-space: normal;
+    }
+
+    
+    .quantity-container {
+        width: 100%;
+    }
+
+    .price-container {
+        width: 100%;
+    }
+
+    .cart-button {
+        width: 100%;
+    }
+
+    
+
+    .remove-button {
+        font-size: 2rem;
+        color: #B7872D;
+    }
+}

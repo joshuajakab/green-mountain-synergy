@@ -26,12 +26,19 @@
     justify-content: space-around;
 }
 
+.lower-footer-link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .footer-link {
     background-color: #B7872D;
     position: relative;
     z-index: 50;
     text-decoration: underline;
-    width: 100%;
+    width: 25%;
+    margin-right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,6 +98,8 @@
     justify-content: space-around;
 }
 
+
+
 @media screen and (max-width: 800px) {
 
     .footer {
@@ -98,12 +107,31 @@
     }
 
     .email-signup-container {
-        width: 30%;
+        width: 100%;
         margin-bottom: 3%;
+    }
+
+    .footer-link-container {
+        flex-direction: column;
+        width: 90%;
+        margin: 0 5%;
+    }
+
+    .footer-link {
+        width: 40%;
+        font-size: .8rem;
+    }
+
+    .location-container {
+        width: 100%;
     }
 
     .location {
         margin: 2% 0;
+    }
+
+    .social-container {
+        width: 100%;
     }
 
     .social-links {

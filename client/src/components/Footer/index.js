@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import Button from '../defaultComponents/Button';
 import FormInput from '../defaultComponents/Input';
 import TextArea from '../defaultComponents/Textarea';
+import Modal from '../defaultComponents/Modal';
 import FooterIdea from '../../media/footer-idea.svg';
 import FBIcon from '../../media/facebook.svg';
 import InstaIcon from '../../media/instagram.svg';
 import { apiInstance } from '../../Utils';
 
 import './styles.css';
+import MailchimpFormContainer from '../MailchimpFormContainer';
 
 const Footer = props => {
 
@@ -18,6 +20,14 @@ const Footer = props => {
     const [contactSubject, setContactSubject] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
+    const [hideSubscribeModal, setHideSubscribeModal] = useState(true);
+
+    const toggleSubscribeModal = () => setHideSubscribeModal(!hideSubscribeModal);
+
+    const configSubscribeModal = {
+        hideSubscribeModal,
+        toggleSubscribeModal
+    };
 
     const sendContactEmail = (e, errors) => {
         e.preventDefault();
@@ -37,7 +47,7 @@ const Footer = props => {
                 <div className='footer-link-container'>
                     <div className='email-signup-container'>
                         <p>Sign up for our newsletter for the latest news, information and DEALS!</p>
-                        <Button className='email-signup-button'>Sign Up</Button>
+                        <Button className='email-signup-button' onClick={() => toggleSubscribeModal()}>Sign Up</Button>
                     </div>
                     <div className='social-container'>
                         <p className='social-title'>Follow us on social media</p>
@@ -51,8 +61,14 @@ const Footer = props => {
                     </div>
 
                 </div>
-                <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
+                <div className='lower-footer-link-container'>
+                    <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
+                    <Link className='footer-link' to='/privacy-policy'>Privacy Policy</Link>
+                </div>
             </div>
+            <Modal {...configSubscribeModal} className='modal'>
+                <MailchimpFormContainer />
+            </Modal>
             {/*<div className='contact-container'>
                 <form onSubmit={sendContactEmail}>
                     <FormInput

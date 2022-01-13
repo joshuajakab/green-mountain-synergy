@@ -1,18 +1,7 @@
 .productCard {
-    max-width: 80rem;
-    margin: 0 auto 10rem;
-    margin-bottom: 50%;
+    width: 90%;
+    margin: 10% 5% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-    .hero {
-        display: block;
-        width: 100%;
-        margin: 2rem auto;
-    }
-      
-    
-
-  
-
-    .addToCart {
-        max-width: 20rem;
-    }

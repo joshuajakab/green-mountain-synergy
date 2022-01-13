@@ -20,7 +20,7 @@ const About = props => {
             setErrorMessages(errors.map(error => error.message))
             return
         }
-
+        
         apiInstance.post('/access', { contactEmail: contactEmail, contactName: contactName, contactSubject: contactSubject, contactMessage: contactMessage })
     }
 

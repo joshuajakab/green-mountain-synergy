@@ -23,10 +23,12 @@ const ProductCard = ({ }) => {
     const {
         productThumbnail,
         productName,
-        productPrice,
+        fiveHundredPrice,
+        oneThousandPrice,
+        twoThousandPrice,
         productDesc,
         productCategory,
-        secondProductPrice
+        documentID
     } = product;
 
 
@@ -46,29 +48,21 @@ const ProductCard = ({ }) => {
 
 
     const handleAddToCart = (product) => {
-        if (!product) return null;
-        if (isChecked) {
-            dispatch(
-                addProduct({
-                    productThumbnail,
-                    productName,
-                    productDesc,
-                    productCategory,
-                    secondProductPrice
-                })
-            );
-        }
-        if (!isChecked) {
-            dispatch(
-                addProduct({
-                    productThumbnail,
-                    productName,
-                    productDesc,
-                    productCategory,
-                    productPrice
-                })
-            );
-        }
+        if (!product) return;
+
+
+        dispatch(
+            addProduct({
+                productThumbnail,
+                productName,
+                productDesc,
+                productCategory,
+                fiveHundredPrice,
+                oneThousandPrice,
+                twoThousandPrice,
+                documentID
+            })
+        );
         history.push('/cart');
     }
 
@@ -86,37 +80,27 @@ const ProductCard = ({ }) => {
             <div className='productDetails'>
                 <ul>
                     <li>
-                        <h1>
+                        <h2>
                             {productName}
-                        </h1>
+                        </h2>
                     </li>
-                    {productCategory === 'prints' && secondProductPrice !== 0 &&
-                        <li>
-                            8.5" x 11" <br />
-                            12" x 18": <input name='largePrint' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.checked)} />
-                        </li>
-                    }
-                    {productCategory === 'prints' && secondProductPrice === 0 &&
-                        <li>
-                            8.5" x 11"
-                            
-                            
-                        </li>
-                    }
-                    {isChecked &&
-                        <li>
-                            <span>
-                                ${secondProductPrice}
-                            </span>
-                        </li>
-                    }
-                    {!isChecked &&
-                        <li>
-                            <span>
-                                ${productPrice}
-                            </span>
-                        </li>
-                    }
+                    <li>
+                        {fiveHundredPrice > 0 &&
+                            <h3 className='price'>
+                                ${fiveHundredPrice}
+                            </h3>
+                        }
+                        {oneThousandPrice > 0 &&
+                            <h3 className='price'>
+                                ${oneThousandPrice}
+                            </h3>
+                        }
+                        {twoThousandPrice > 0 &&
+                            <h3 className='price'>
+                                ${twoThousandPrice}
+                            </h3>
+                        }
+                    </li>
                     <li>
                         <div className='addToCart'>
                             <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>

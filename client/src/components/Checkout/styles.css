@@ -7,3 +7,40 @@
 .cart-titles {
     width: 15%;
 }
+
+.cart-titles-spacer {
+    width: 15%;
+    color: white;
+}
+
+@media screen and (max-width: 800px) {
+    
+
+    .checkout-flex-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .item-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .list-item-container {
+        height: 100%;
+        margin: 10% 0;
+    }
+
+    .list-item {
+        height: 100%;
+        
+
+    }
+
+    .total-container {
+        width: 100%;
+    }
+}

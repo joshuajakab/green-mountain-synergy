@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCartItems, selectCartTotal, selectOtherCartTotal } from '../../redux/Cart/cart.selectors';
-import { useWindowWidthAndHeight } from '../../hooks';
 import { createStructuredSelector } from 'reselect';
-import './styles.css';
+import './phonecheckout.css';
 import Button from '../defaultComponents/Button';
-import Item from './Item';
+import Item from '../Checkout/Item';
 
 
 const mapState = createStructuredSelector({
@@ -14,11 +13,10 @@ const mapState = createStructuredSelector({
     total: selectCartTotal
 });
 
-const Checkout = ({ }) => {
+const PhoneCheckout = ({ }) => {
     const history = useHistory();
     
     const { cartItems, total } = useSelector(mapState);
-    const [width, height] = useWindowWidthAndHeight();
     
 
     const realTotal = ((total * .06) + total) + 5
@@ -33,29 +31,27 @@ const Checkout = ({ }) => {
             </h1>
             <div className='cart'>
                 {cartItems.length > 0 ? (
-                    <div className='checkout-flex-container'>
-                        {width > 1000 ?
+                    <div>
                                 <div className='checkout-header'>
                                     
-                                                <h2 className='cart-titles'>Product:</h2>
+                                                <h2 className='cart-titles'>Product</h2>
                                          
-                                                <h2 className='cart-titles'>Quantity:</h2>
+                                                <h2 className='cart-titles'>Description</h2>
+                                         
+                                                <h2 className='cart-titles'>Quantity</h2>
                                         
-                                                <h2 className='cart-titles'>Price:</h2>
+                                                <h2 className='cart-titles'>Price</h2>
                                          
-                                                <h2 className='cart-titles-spacer'>-</h2>
+                                                <h2 className='cart-titles'>Remove</h2>
                                          
                                 </div>
-                                :
-                                null
-                        }
                             
-                                <div className='item-container'>
+                                <div>
                                     
                                         {cartItems.map((item, pos) => {
                                             return (
-                                                <ul key={pos} className='list-item-container'>
-                                                    <li className='list-item'>
+                                                <ul key={pos}>
+                                                    <li>
                                                         <Item {...item} />
                                                     </li>
                                                 </ul>
@@ -64,7 +60,7 @@ const Checkout = ({ }) => {
                                     
                                 </div>
                             
-                                <div className='total-container'>
+                                <div>
                                     
                                             {total < 40 &&
                                                 <h3>
@@ -117,4 +113,4 @@ const Checkout = ({ }) => {
     );
 };
 
-export default Checkout;
+export default PhoneCheckout;

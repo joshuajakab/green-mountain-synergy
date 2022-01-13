@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../defaultComponents/Button';
 import Modal from '../defaultComponents/Modal';
 import './styles.css';
@@ -50,14 +51,8 @@ const FAQ = props => {
             <div className='testing'>
                 <h1>Testing</h1>
                 <p>At Green Mountain Synergy we are rigorously testing anything that we create to make sure it is accurately labeled, legally compliant and above our extremely strict standards. Here are our latest test result for our Tincture and Salve:</p>
-                <Button onClick={() => toggleTestModal()} ><h2>Test Results</h2></Button>
-                <Modal {...configTestModal} className='modal'>
-                    <div className='test-exit' onClick={() => toggleTestModal()}>
-                        <h2 className='exit-button'>X</h2>
-                    </div>
-                    <img className='testing-chart' src='https://drive.google.com/uc?id=1EWD6-9QfwUPLak5bgcds1CkTYlz92HRY' alt='testing-chart' />
-                    <img className='testing-chart' src='https://drive.google.com/uc?id=1vpa7EzF0QJ2txa_voD5UYdCwqwyPRdVP' alt='testing-chart' />
-                </Modal>
+                <Link to='/testing'><h2>Test Results</h2></Link>
+                
             </div>
         </div>
     )

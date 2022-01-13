@@ -18,6 +18,8 @@ import Blog from './components/Blog';
 import FAQ from './components/FAQ';
 import ProductCard from './components/ProductCard';
 import Terms from './components/Terms';
+import Privacy from './components/Privacy';
+import Testing from './components/Testing';
 
 function App() {
   const dispatch = useDispatch();
@@ -99,6 +101,16 @@ function App() {
         <Route path='/terms-conditions' render={() => (
           <MainLayout>
             <Terms />
+          </MainLayout>
+        )} />
+        <Route path='/privacy-policy' render={() => (
+          <MainLayout>
+            <Privacy />
+          </MainLayout>
+        )} />
+        <Route path='/testing' render={() => (
+          <MainLayout>
+            <Testing />
           </MainLayout>
         )} />
       </Switch>

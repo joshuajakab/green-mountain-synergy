@@ -62,7 +62,7 @@ const ProductResults = ({ }) => {
                 Affordability, Quality and Care
             </h1>
 
-            <FormSelect {...configFilters} />
+            {/*<FormSelect {...configFilters} /> */}
 
             <div className='products-container'>
                 {data.map((product, pos) => {
