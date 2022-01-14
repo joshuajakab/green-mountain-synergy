@@ -28,6 +28,7 @@ const AdminPage = props => {
     const [fiveHundredPrice, setFiveHundredPrice] = useState(0);
     const [oneThousandPrice, setOneThousandPrice] = useState(0);
     const [twoThousandPrice, setTwoThousandPrice] = useState(0);
+    const [price, setPrice] = useState(0);
     const [productDesc, setProductDesc] = useState('');
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
@@ -92,6 +93,7 @@ const AdminPage = props => {
                 fiveHundredPrice,
                 oneThousandPrice,
                 twoThousandPrice,
+                price,
                 productDesc
             })
         );
@@ -162,7 +164,7 @@ const AdminPage = props => {
                             handleChange={e => setProductThumbnail(e.target.value)}
                         />
 
-                        <Select
+                     {/*    <Select
                             label='Size'
                             options={[{
                                 value: 'fiveHundredPrice',
@@ -179,7 +181,7 @@ const AdminPage = props => {
                             handleChange={e => setProductSize(e.target.value)}
                         />
 
-                        {productSize === 'fiveHundredPrice' &&
+                       {productSize === 'fiveHundredPrice' &&
 
                             <Input
                                 label='500 mg Price'
@@ -216,7 +218,16 @@ const AdminPage = props => {
                                 value={twoThousandPrice}
                                 onChange={e => setTwoThousandPrice(e.target.value)}
                             />
-                        }
+                        } */}
+                        <Input 
+                            label='Price'
+                            type='number'
+                            min='0.00'
+                            max='10000'
+                            step='.01'
+                            value={price}
+                            onCHange={e => setPrice(e.target.value)}
+                        />
 
                         <CKEditor
                             onChange={evt => setProductDesc(evt.editor.getData())}
@@ -249,6 +260,7 @@ const AdminPage = props => {
                             fiveHundredPrice,
                             oneThousandPrice,
                             twoThousandPrice,
+                            price,
                             documentID
                         } = product;
 
@@ -264,7 +276,7 @@ const AdminPage = props => {
                                 <div>
                                     {productSize}
                                 </div>
-                                {productSize === 'fiveHundredPrice' &&
+                               {/*} {productSize === 'fiveHundredPrice' &&
                                     <div>
                                         {fiveHundredPrice}
                                     </div>
@@ -278,7 +290,10 @@ const AdminPage = props => {
                                     <div>
                                         {twoThousandPrice}
                                     </div>
-                                }
+                                } */}
+                                <div>
+                                    {price}
+                                </div>
                                 <Button onClick={() => dispatch(deleteProductStart(documentID))}>
                                     Delete
                                 </Button>

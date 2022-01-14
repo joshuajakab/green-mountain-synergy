@@ -16,6 +16,7 @@ const Product = (product) => {
         fiveHundredPrice,
         oneThousandPrice,
         twoThousandPrice,
+        price,
         productCategory,
         productDesc
     } = product;
@@ -40,6 +41,7 @@ const Product = (product) => {
                 fiveHundredPrice,
                 oneThousandPrice,
                 twoThousandPrice,
+                price,
                 documentID
             })
         );
@@ -68,7 +70,7 @@ return (
                     </span>
                 </li>
                 
-                {fiveHundredPrice > 0 &&
+               {/* {fiveHundredPrice > 0 &&
                     <li>
                         <span>
                         <h3 className='product-info'>${fiveHundredPrice}</h3>
@@ -88,7 +90,12 @@ return (
                         <h3 className='product-info'>${twoThousandPrice}</h3>
                         </span>
                     </li>
-                }
+                } */}
+                <li>
+                    <span>
+                        <h3 className='product-info'>${price}</h3>
+                    </span>
+                </li>
 
                 <li>
                     <div className='add-to-cart'>

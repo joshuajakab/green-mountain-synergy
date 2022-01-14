@@ -51,7 +51,7 @@ const FAQ = props => {
             <div className='testing'>
                 <h1>Testing</h1>
                 <p>At Green Mountain Synergy we are rigorously testing anything that we create to make sure it is accurately labeled, legally compliant and above our extremely strict standards. Here are our latest test result for our Tincture and Salve:</p>
-                <Link to='/testing'><h2>Test Results</h2></Link>
+                <Link className='test-button' to='/testing'><h2 className='test-button-text'>Test Results</h2></Link>
                 
             </div>
         </div>

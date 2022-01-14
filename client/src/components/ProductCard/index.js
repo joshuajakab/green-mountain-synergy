@@ -26,6 +26,7 @@ const ProductCard = ({ }) => {
         fiveHundredPrice,
         oneThousandPrice,
         twoThousandPrice,
+        price,
         productDesc,
         productCategory,
         documentID
@@ -73,11 +74,11 @@ const ProductCard = ({ }) => {
     }
 
     return (
-        <div className='productCard'>
+        <div className='product-card'>
             <div className='hero'>
-                <img src={productThumbnail} />
+                <img className='product-img' src={productThumbnail} />
             </div>
-            <div className='productDetails'>
+            <div className='product-details'>
                 <ul>
                     <li>
                         <h2>
@@ -85,7 +86,7 @@ const ProductCard = ({ }) => {
                         </h2>
                     </li>
                     <li>
-                        {fiveHundredPrice > 0 &&
+                       {/* {fiveHundredPrice > 0 &&
                             <h3 className='price'>
                                 ${fiveHundredPrice}
                             </h3>
@@ -99,7 +100,10 @@ const ProductCard = ({ }) => {
                             <h3 className='price'>
                                 ${twoThousandPrice}
                             </h3>
-                        }
+                        } */}
+                        <h3 className='price'>
+                            ${price}
+                        </h3>
                     </li>
                     <li>
                         <div className='addToCart'>

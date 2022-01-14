@@ -36,6 +36,8 @@ const Checkout = ({ }) => {
                     <div className='checkout-flex-container'>
                         {width > 1000 ?
                                 <div className='checkout-header'>
+
+                                                <h2 className='cart-titles-spacer'>-</h2>
                                     
                                                 <h2 className='cart-titles'>Product:</h2>
                                          
@@ -88,14 +90,14 @@ const Checkout = ({ }) => {
                                         </h3>}
 
                                            
-                                            <div>
+                                            <div className='checkout-button-container'>
                                                 
                                                             <Button onClick={() => history.goBack()}>
-                                                                Continue Shopping
+                                                                <h3>Continue Shopping</h3>
                                                         </Button>
                                                        
                                                             <Button onClick={() => history.push('/payment')}>
-                                                                Checkout
+                                                                <h3>Checkout</h3>
                                                             </Button>
 
                                                        

@@ -39,7 +39,11 @@ const About = props => {
                 </p>
             </div>
             <div className='contact-container'>
-                <form onSubmit={sendContactEmail}>
+                <p>
+                    We deeply value all feedback from our customers. If you have any questions or suggestions on how we can serve you better, please email us at <a className='email-link' href='mailto:greenmountainsynergy@gmail.com'>greenmountainsynergy@gmail.com</a> or call us at <a className='email-link' href='tel:802-282-3058'>802-282-3058</a>.<br /><br />
+                    Interested in white labeling our products? Email us at <a className='email-link' href='mailto:greenmountainsynergy@gmail.com'>greenmountainsynergy@gmail.com</a> for more information. 
+                </p>
+                {/*<form onSubmit={sendContactEmail}>
                     <FormInput
                         label='Your Name'
                         type='text'
@@ -67,8 +71,8 @@ const About = props => {
                      />
                     <Button className='contact-button'>
                         Send
-                    </Button>
-                </form>
+    </Button> 
+                </form>*/}
 
             </div>
     

@@ -26,7 +26,7 @@ export const selectCartTotal = createSelector(
         
         (quantity, cartItem) => 
         
-        ((quantity + cartItem.quantity * cartItem.fiveHundredPrice) || (quantity + cartItem.quantity * cartItem.oneThousandPrice) || (quantity + cartItem.quantity * cartItem.twoTHousandPrice)) ,
+        (quantity + cartItem.quantity * cartItem.price) ,
         0
         
         

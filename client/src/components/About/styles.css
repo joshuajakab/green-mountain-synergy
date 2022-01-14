@@ -38,6 +38,11 @@
     border-radius: 5%/20%;
 }
 
+.email-link {
+    color: #B7872D;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 800px) {
     .about-content {
         font-size: 1.5rem;

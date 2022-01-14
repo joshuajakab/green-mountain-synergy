@@ -4,19 +4,30 @@
     justify-content: space-around;
 }
 
+.full-width-checkout {
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+}
+
 .cart-thumb {
     width: 15%;
 }
 
 .product-name {
-    width: 15%;
+    width: 50%;
+    white-space: normal;
 }
 
 .quantity-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 15%;
+    width: 50%;
+}
+
+.quantity-buttons {
+    cursor: pointer;
 }
 
 .price-container {
@@ -25,6 +36,13 @@
 
 .cart-button {
     width: 15%;
+}
+
+.remove-button {
+    font-size: 1rem;
+    color: #B7872D;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 800px) {
@@ -65,5 +83,7 @@
     .remove-button {
         font-size: 2rem;
         color: #B7872D;
+        text-decoration: underline;
+        cursor: pointer;
     }
 }

@@ -16,6 +16,7 @@ const Item = (product) => {
         oneThousandPrice,
         twoThousandPrice,
         quantity,
+        price,
         productDesc,
         documentID
     } = product;
@@ -48,7 +49,7 @@ const Item = (product) => {
             <img className='cart-thumb' src={productThumbnail} alt={productName} />
 
             {width > 1000 ?
-            <div>
+            <div className='full-width-checkout'>
             <h3 className='product-name'>{productName}</h3>
 
             <div className='quantity-container'>
@@ -89,7 +90,7 @@ const Item = (product) => {
 }
             <div className='price-container'>
             
-            {fiveHundredPrice > 0 &&
+          {/*  {fiveHundredPrice > 0 &&
                 <h3 className='price'>
                     ${fiveHundredPrice}
                 </h3>
@@ -103,7 +104,8 @@ const Item = (product) => {
                 <h3 className='price'>
                     ${twoThousandPrice}
                 </h3>
-            }
+            } */}
+            <h3 className='price'>${price}</h3>
             </div>
 
             <div className='cart-button' onClick={() => handleRemoveCartItem(product)}>

@@ -39,6 +39,11 @@
     width: 100%;
 }
 
+.test-button-text {
+    text-decoration: underline;
+    color: #B7872D;
+}
+
 .test-exit {
     width: 10%;
     margin-left: 90%;

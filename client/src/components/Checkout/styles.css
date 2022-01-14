@@ -13,6 +13,11 @@
     color: white;
 }
 
+.checkout-button-container {
+    width: 60%;
+    margin: 0 20%;
+}
+
 @media screen and (max-width: 800px) {
     
 
@@ -42,5 +47,10 @@
 
     .total-container {
         width: 100%;
+    }
+
+    .checkout-button-container {
+        width: 100%;
+        margin: 0;
     }
 }

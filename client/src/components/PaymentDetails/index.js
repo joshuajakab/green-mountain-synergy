@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import FormInput from '../forms/FormInput';
-import Button from '../forms/Button';
+import Input from '../defaultComponents/Input';
+import Button from '../defaultComponents/Button';
 import { CountryDropdown } from 'react-country-region-selector';
 import { apiInstance } from '../../Utils';
 import { selectCartTotal, selectCartItemsCount, selectCartItems } from '../../redux/Cart/cart.selectors';
@@ -9,7 +9,7 @@ import { saveOrderHistory } from '../../redux/Orders/orders.actions';
 import { clearCart } from '../../redux/Cart/cart.actions';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import CKEditor from 'ckeditor4-react';
+import { CKEditor } from 'ckeditor4-react';
 import {
     SquarePaymentForm,
     CreditCardNumberInput,
@@ -19,7 +19,7 @@ import {
     CreditCardSubmitButton
 } from 'react-square-payment-form'
 import 'react-square-payment-form/lib/default.css'
-import './styles.scss'
+import './payment.css'
 
 
 
@@ -55,8 +55,9 @@ const PaymentDetails = () => {
     const [lastNameOnCard, setLastNameOnCard] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
-
-    const realTotal = total + 7;
+    const realTotal = ((total * .06) + total)
+    const shipTotal = ((total * .06) + total + 5)
+    
 
 
     useEffect(() => {
@@ -64,8 +65,21 @@ const PaymentDetails = () => {
         if (itemCount < 1) {
             history.push('/dashboard')
         }
+        
 
     }, [itemCount])
+
+    const handleTotal = (total) => {
+        if (total < 40) {
+            const realTotal = ((total * .06) + total + 5)
+            return realTotal
+        }
+        else {
+            const realTotal = ((total * .06) + total)
+            return realTotal
+        }
+        
+    }
 
     const handleShipping = evt => {
         const { name, value } = evt.target;
@@ -115,8 +129,15 @@ const PaymentDetails = () => {
             const configOrder = {
                 orderTotal: realTotal,
                 orderItems: cartItems.map(item => {
-                    const { documentID, productThumbnail, productName, productPrice, secondProductPrice, quantity } = item;
-                    if (fiveHundredPrice) {
+                    const { documentID, productThumbnail, productName, price, quantity } = item;
+                    return {
+                        documentID,
+                        productThumbnail,
+                        productName,
+                        price,
+                        quantity
+                    }
+                    /*if (fiveHundredPrice) {
                         return {
                             documentID,
                             productThumbnail,
@@ -138,7 +159,7 @@ const PaymentDetails = () => {
 
                     
 
-                    else {
+                    else { 
                         return {
                             documentID,
                             productThumbnail,
@@ -146,7 +167,7 @@ const PaymentDetails = () => {
                             twoThousandPrice,
                             quantity
                         }
-                    }
+                    } */
 
                 })
 
@@ -196,7 +217,7 @@ const PaymentDetails = () => {
                         Shipping Address
                     </h2>
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='recipientName'
@@ -205,7 +226,7 @@ const PaymentDetails = () => {
                         value={recipientName}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='line1'
@@ -214,7 +235,7 @@ const PaymentDetails = () => {
                         value={shippingAddress.line1}
                     />
 
-                    <FormInput
+                    <Input
                         type='text'
                         name='line2'
                         handleChange={evt => handleShipping(evt)}
@@ -222,7 +243,7 @@ const PaymentDetails = () => {
                         value={shippingAddress.line2}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='city'
@@ -231,7 +252,7 @@ const PaymentDetails = () => {
                         value={shippingAddress.city}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='state'
@@ -240,7 +261,7 @@ const PaymentDetails = () => {
                         value={shippingAddress.state}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='zip_code'
@@ -272,7 +293,7 @@ const PaymentDetails = () => {
                         Billing Address
                     </h2>
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='firstNameOnCard'
@@ -281,7 +302,7 @@ const PaymentDetails = () => {
                         value={firstNameOnCard}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='lastNameOnCard'
@@ -290,7 +311,7 @@ const PaymentDetails = () => {
                         value={lastNameOnCard}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='line1'
@@ -299,7 +320,7 @@ const PaymentDetails = () => {
                         value={billingAddress.line1}
                     />
 
-                    <FormInput
+                    <Input
                         type='text'
                         name='line2'
                         handleChange={evt => handleBilling(evt)}
@@ -307,7 +328,7 @@ const PaymentDetails = () => {
                         value={billingAddress.line2}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='city'
@@ -316,7 +337,7 @@ const PaymentDetails = () => {
                         value={billingAddress.city}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='state'
@@ -325,7 +346,7 @@ const PaymentDetails = () => {
                         value={billingAddress.state}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='text'
                         name='zip_code'
@@ -350,7 +371,7 @@ const PaymentDetails = () => {
 
                     </div>
 
-                    <FormInput
+                    <Input
                         required
                         type='tel'
                         name='phone'
@@ -359,7 +380,7 @@ const PaymentDetails = () => {
                         value={billingAddress.phone}
                     />
 
-                    <FormInput
+                    <Input
                         required
                         type='email'
                         name='email'
@@ -369,7 +390,7 @@ const PaymentDetails = () => {
                     />
 
                     <h2>
-                    Shipping Notes and Name of Print(s) for Masks and Cards
+                    Shipping Notes
                     </h2>
 
                     <CKEditor
@@ -406,10 +427,18 @@ const PaymentDetails = () => {
                             <CreditCardCVVInput />
                         </div>
                     </fieldset>
-
+                    {realTotal < 40 &&
+                    
                     <CreditCardSubmitButton>
-                        Pay ${realTotal}
+                        Pay ${shipTotal}
                     </CreditCardSubmitButton>
+                    }
+                    {realTotal >= 40 &&
+                    
+                    <CreditCardSubmitButton>
+                        Pay ${realTotal}    
+                    </CreditCardSubmitButton>
+                    }
                     <div className="sq-error-message">
                         {errorMessages.map(errorMessage => (
                             <ul>

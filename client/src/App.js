@@ -20,6 +20,7 @@ import ProductCard from './components/ProductCard';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 import Testing from './components/Testing';
+import PaymentDetails from './components/PaymentDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -111,6 +112,11 @@ function App() {
         <Route path='/testing' render={() => (
           <MainLayout>
             <Testing />
+          </MainLayout>
+        )} />
+        <Route path='/payment' render={() => (
+          <MainLayout>
+            <PaymentDetails />
           </MainLayout>
         )} />
       </Switch>
