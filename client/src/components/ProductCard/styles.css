@@ -23,4 +23,8 @@
     .product-card {
         flex-direction: column;
     }
+
+    .hero {
+        width: 80%;
+    }
 }
