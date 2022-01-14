@@ -20,7 +20,7 @@
 }
 
 @media screen and (max-width: 800px) {
-    .productCard {
+    .product-card {
         flex-direction: column;
     }
 }
