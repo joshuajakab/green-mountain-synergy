@@ -6,6 +6,8 @@
 
 .cart-titles {
     width: 15%;
+    text-decoration: underline;
+    text-align: center;
 }
 
 .cart-titles-spacer {

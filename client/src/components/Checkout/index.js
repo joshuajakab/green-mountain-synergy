@@ -39,11 +39,11 @@ const Checkout = ({ }) => {
 
                                                 <h2 className='cart-titles-spacer'>-</h2>
                                     
-                                                <h2 className='cart-titles'>Product:</h2>
+                                                <h2 className='cart-titles'>Product</h2>
                                          
-                                                <h2 className='cart-titles'>Quantity:</h2>
+                                                <h2 className='cart-titles'>Quantity</h2>
                                         
-                                                <h2 className='cart-titles'>Price:</h2>
+                                                <h2 className='cart-titles'>Price</h2>
                                          
                                                 <h2 className='cart-titles-spacer'>-</h2>
                                          
