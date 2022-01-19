@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../defaultComponents/Input';
 import Button from '../../defaultComponents/Button';
+import './customForm.css';
 
 const CustomForm = ({ status, message, onValidated }) => {
 
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
 
     useEffect(() => {
         if(status === "success") clearFields();
@@ -89,19 +91,12 @@ const CustomForm = ({ status, message, onValidated }) => {
 
                     </div>
 
-                    <Button type="submit">Submit</Button>
+                    <Button className='email-submit-button' type="submit">Submit</Button>
+                    
                 </div>
             ) : null}
 
-            {
-                status === 'success' ? <button
-                    
-                    className="g__justify-self-center">Close</button> : <Button
-                    label="subscribe"
-                    type="submit"
-                    
-                />
-            }
+            
 
         </form>
     );

@@ -1,0 +1,12 @@
+
+.mc__form-container {
+    width: 50%;
+    margin: 0 25%;
+}
+
+@media screen and (max-width: 800px) {
+    .mc__form-container {
+        width: 90%;
+        margin: 0 5%;
+    }
+}

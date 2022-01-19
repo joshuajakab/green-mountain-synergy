@@ -273,9 +273,9 @@ const AdminPage = props => {
                                 <div>
                                     {productName}
                                 </div>
-                                <div>
+                                {/*<div>
                                     {productSize}
-                                </div>
+                                </div>*/}
                                {/*} {productSize === 'fiveHundredPrice' &&
                                     <div>
                                         {fiveHundredPrice}
@@ -295,7 +295,7 @@ const AdminPage = props => {
                                     {price}
                                 </div>
                                 <Button onClick={() => dispatch(deleteProductStart(documentID))}>
-                                    Delete
+                                    <h3>Delete</h3>
                                 </Button>
 
                             </div>

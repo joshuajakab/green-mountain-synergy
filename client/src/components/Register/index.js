@@ -70,7 +70,7 @@ const Register = props => {
         return (
             <AuthWrapper {...configAuthWrapper}>
 
-                <div className="formWrap" >
+                <div className='register-form' >
 
                     {errors.length > 0 && (
                         <ul>
@@ -83,7 +83,7 @@ const Register = props => {
                             })}
                         </ul>
                     )}
-                    <form onSubmit={handleFormSubmit} >
+                    <form  onSubmit={handleFormSubmit} >
 
                         <Input
                             type='text'

@@ -47,7 +47,7 @@ const Footer = props => {
                 <div className='footer-link-container'>
                     <div className='email-signup-container'>
                         <p>Sign up for our newsletter for the latest news, information and DEALS!</p>
-                        <Button className='email-signup-button' onClick={() => toggleSubscribeModal()}>Sign Up</Button>
+                        <Link to='/subscribe'><Button className='email-signup-button'>Sign Up</Button></Link>
                     </div>
                     <div className='social-container'>
                         <p className='social-title'>Follow us on social media</p>
@@ -65,10 +65,11 @@ const Footer = props => {
                     <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
                     <Link className='footer-link' to='/privacy-policy'>Privacy Policy</Link>
                 </div>
+                <div className='disclaimer-container'>
+                    These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.
+                </div>
             </div>
-            <Modal {...configSubscribeModal} className='modal'>
-                <MailchimpFormContainer />
-            </Modal>
+            
             {/*<div className='contact-container'>
                 <form onSubmit={sendContactEmail}>
                     <FormInput

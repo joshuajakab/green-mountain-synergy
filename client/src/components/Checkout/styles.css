@@ -20,6 +20,10 @@
     margin: 0 20%;
 }
 
+.discount-code {
+    margin-bottom: 8%;
+}
+
 @media screen and (max-width: 800px) {
     
 

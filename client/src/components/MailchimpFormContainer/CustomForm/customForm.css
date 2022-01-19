@@ -1,0 +1,26 @@
+.mc__title {
+    text-align: center;
+}
+
+.email-submit-button {
+    background-color: #B7872D;
+    width: 30%;
+    height: 10%;
+    border: none;
+    border-radius: 5%/20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.7rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+}
+
+@media screen and (max-width: 800px) {
+    .email-submit-button {
+        width: 100%;
+    }
+}

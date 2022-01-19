@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import './styles.css';
 import Button from '../defaultComponents/Button';
 import Item from './Item';
+import FormInput from '../defaultComponents/Input';
 
 
 const mapState = createStructuredSelector({
@@ -19,6 +20,11 @@ const Checkout = ({ }) => {
     
     const { cartItems, total } = useSelector(mapState);
     const [width, height] = useWindowWidthAndHeight();
+    const [discountCode, setDiscountCode] = useState('');
+
+    const currencyFormatter = () => {
+
+    }
     
 
     const realTotal = ((total * .06) + total) + 5
@@ -67,14 +73,19 @@ const Checkout = ({ }) => {
                                 </div>
                             
                                 <div className='total-container'>
-                                    
+                                            <FormInput 
+                                                className='discount-code' 
+                                                label='Discount Code'
+                                                type='text'
+                                                value={discountCode}
+                                                handleChange={e => setDiscountCode(e.target.value)} />
                                             {total < 40 &&
                                                 <h3>
                                                     
-                                                    Subtotal: ${total} <br />
+                                                    Subtotal: ${total.toFixed(2)} <br />
                                                     Shipping: $5 <br/>
-                                                    6% Sales Tax: ${tax}<br/>
-                                                    Total: ${realTotal}
+                                                    6% Sales Tax: ${tax.toFixed(2)}<br/>
+                                                    Total: ${realTotal.toFixed(2)}
 
                                                 </h3>
                                             }
@@ -82,22 +93,22 @@ const Checkout = ({ }) => {
                                             {total >= 40 &&
                                             <h3>
                                                     
-                                            Subtotal: ${total} <br />
+                                            Subtotal: ${total.toFixed(2)} <br />
                                             Shipping: FREE <br/>
-                                            6% Sales Tax: ${tax} <br/>
-                                            Total: ${freeShipTotal}
+                                            6% Sales Tax: ${tax.toFixed(2)} <br/>
+                                            Total: ${freeShipTotal.toFixed(2)}
 
                                         </h3>}
 
                                            
                                             <div className='checkout-button-container'>
                                                 
-                                                            <Button onClick={() => history.goBack()}>
-                                                                <h3>Continue Shopping</h3>
+                                                            <Button onClick={() => history.push('/shop')}>
+                                                                <h2>Continue Shopping</h2>
                                                         </Button>
                                                        
                                                             <Button onClick={() => history.push('/payment')}>
-                                                                <h3>Checkout</h3>
+                                                                <h2>Checkout</h2>
                                                             </Button>
 
                                                        

@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomForm from './CustomForm';
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import './mailchimpFormContainer.css';
 
 const MailchimpFormContainer = props => {
 
@@ -12,6 +13,7 @@ const MailchimpFormContainer = props => {
                 url={postUrl}
                 render={({ subscribe, status, message }) => (
                     <CustomForm
+                        
                         status={status} 
                         message={message}
                         onValidated={formData => subscribe(formData)}
