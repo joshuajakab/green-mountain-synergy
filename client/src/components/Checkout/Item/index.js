@@ -68,7 +68,7 @@ const Item = (product) => {
             </div>
             </div>
             :
-            <div>
+            <div className='cart-product-container'>
             <h2>Product</h2>
             <h3 className='product-name'>{productName}</h3>
             <h2>Quantity</h2>

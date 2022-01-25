@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Button from '../../defaultComponents/Button';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../redux/Cart/cart.actions'
+import { addProduct } from '../../../redux/Cart/cart.actions';
+
 import './styles.css';
 
 
@@ -100,7 +101,7 @@ return (
                 <li>
                     <div className='add-to-cart'>
                         <Button {...configAddToCartButton} onClick={() => handleAddToCart(product)}>
-                            <h3>Add to Cart</h3>
+                            <h2>Add to Cart</h2>
                         </Button>
                     </div>
                 </li>

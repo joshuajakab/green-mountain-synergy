@@ -55,6 +55,12 @@
         width: 100%;
     }
 
+    .total {
+        width: 70%;
+        margin: 0 15%;
+        
+    }
+
     .checkout-button-container {
         width: 100%;
         margin: 0;

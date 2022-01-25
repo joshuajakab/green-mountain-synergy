@@ -10,16 +10,8 @@ import { clearCart } from '../../redux/Cart/cart.actions';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { CKEditor } from 'ckeditor4-react';
-import {
-    SquarePaymentForm,
-    CreditCardNumberInput,
-    CreditCardExpirationDateInput,
-    CreditCardPostalCodeInput,
-    CreditCardCVVInput,
-    CreditCardSubmitButton
-} from 'react-square-payment-form'
-import 'react-square-payment-form/lib/default.css'
 import './payment.css'
+import MyPaymentForm from '../PaymentForm';
 
 
 
@@ -401,52 +393,21 @@ const PaymentDetails = () => {
                 </div>
 
                 <div className='group'>
+                    {realTotal < 40 &&
+                    <h2>
+                        Pay ${realTotal.toFixed(2)}
+                    </h2>
+                    }
+                    {realTotal >= 40 &&
+                    <h2>
+                        Pay ${shipTotal.toFixed(2)}
+                    </h2>
+                    }
                     <h2>
                         Card Details
                     </h2>
                 </div>
-                <SquarePaymentForm
-                    className='square-form'
-                    
-                    applicationId={process.env.REACT_APP_APPLICATION_ID}
-                    locationId={process.env.REACT_APP_LOCATION_ID}
-                    cardNonceResponseReceived={cardNonceResponseReceived}
-                    createVerificationDetails={createVerificationDetails}
-                >
-                    <fieldset className="sq-fieldset">
-                        <CreditCardNumberInput />
-                        <div className="sq-form-third">
-                            <CreditCardExpirationDateInput />
-                        </div>
-
-                        <div className="sq-form-third">
-                            <CreditCardPostalCodeInput />
-                        </div>
-
-                        <div className="sq-form-third">
-                            <CreditCardCVVInput />
-                        </div>
-                    </fieldset>
-                    {realTotal < 40 &&
-                    
-                    <CreditCardSubmitButton>
-                        Pay ${shipTotal}
-                    </CreditCardSubmitButton>
-                    }
-                    {realTotal >= 40 &&
-                    
-                    <CreditCardSubmitButton>
-                        Pay ${realTotal}    
-                    </CreditCardSubmitButton>
-                    }
-                    <div className="sq-error-message">
-                        {errorMessages.map(errorMessage => (
-                            <ul>
-                                <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
-                            </ul>
-                        ))}
-                    </div>
-                </SquarePaymentForm>
+                <MyPaymentForm />
 
 
 

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions'
 import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../defaultComponents/Button';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './styles.css';
 
 const mapState = state => ({
@@ -22,6 +24,8 @@ const ProductCard = ({ }) => {
 
     const {
         productThumbnail,
+        productThumbnailTwo,
+        productThumbnailThree,
         productName,
         fiveHundredPrice,
         oneThousandPrice,
@@ -61,6 +65,7 @@ const ProductCard = ({ }) => {
                 fiveHundredPrice,
                 oneThousandPrice,
                 twoThousandPrice,
+                price,
                 documentID
             })
         );
@@ -75,8 +80,18 @@ const ProductCard = ({ }) => {
 
     return (
         <div className='product-card'>
-            <div className='hero'>
-                <img className='product-img' src={productThumbnail} />
+            <div className='carousel-container'>
+            <Carousel>
+                <div>
+                    <img className='product-img' src={productThumbnail} />
+                </div>
+                <div>
+                    <img className='product-img' src={productThumbnailTwo} />
+                </div>
+                <div>
+                    <img className='product-img' src={productThumbnailThree} />
+                </div>
+            </Carousel>
             </div>
             <div className='product-details'>
                 <ul>
@@ -108,7 +123,7 @@ const ProductCard = ({ }) => {
                     <li>
                         <div className='addToCart'>
                             <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
-                                Add to cart
+                                <h2>Add to cart</h2>
                             </Button>
                         </div>
                     </li>

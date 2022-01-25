@@ -7,7 +7,7 @@
     justify-content: space-around;
 }
 
-.hero {
+.carousel-container {
     width: 40%;
 }
 
@@ -24,8 +24,8 @@
         flex-direction: column;
     }
 
-    .hero {
-        width: 80%;
+    .carousel-container {
+        width: 100%;
     }
 
     .product-details {

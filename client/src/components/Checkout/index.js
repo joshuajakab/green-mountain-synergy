@@ -80,14 +80,16 @@ const Checkout = ({ }) => {
                                                 value={discountCode}
                                                 handleChange={e => setDiscountCode(e.target.value)} />
                                             {total < 40 &&
-                                                <h3>
+                                            <div className='total'>
+                                                <h2>
                                                     
                                                     Subtotal: ${total.toFixed(2)} <br />
                                                     Shipping: $5 <br/>
                                                     6% Sales Tax: ${tax.toFixed(2)}<br/>
                                                     Total: ${realTotal.toFixed(2)}
 
-                                                </h3>
+                                                </h2>
+                                            </div>
                                             }
 
                                             {total >= 40 &&

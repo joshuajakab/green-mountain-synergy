@@ -38,10 +38,11 @@ h2{
     font-weight: 400;
     font-style: normal;
     color: #043220;
+    margin: 1% 0;
 }
 
 h3{
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-family: din-condensed, sans-serif;
     font-weight: 400;
     font-style: normal;

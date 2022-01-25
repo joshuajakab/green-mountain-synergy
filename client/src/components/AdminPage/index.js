@@ -24,6 +24,8 @@ const AdminPage = props => {
     const [productCategory, setProductCategory] = useState('tinctures');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
+    const [productThumbnailTwo, setProductThumbnailTwo] = useState('');
+    const [productThumbnailThree, setProductThumbnailThree] = useState('');
     const [productSize, setProductSize] = useState('fiveHundredPrice')
     const [fiveHundredPrice, setFiveHundredPrice] = useState(0);
     const [oneThousandPrice, setOneThousandPrice] = useState(0);
@@ -158,10 +160,24 @@ const AdminPage = props => {
                         />
 
                         <Input
-                            label='Image URL'
+                            label='Image URL 1'
                             type='url'
                             value={productThumbnail}
                             handleChange={e => setProductThumbnail(e.target.value)}
+                        />
+
+                        <Input
+                            label='Image URL 2'
+                            type='url'
+                            value={productThumbnailTwo}
+                            handleChange={e => setProductThumbnailTwo(e.target.value)}
+                        />
+
+                        <Input
+                            label='Image URL 3'
+                            type='url'
+                            value={productThumbnailThree}
+                            handleChange={e => setProductThumbnailThree(e.target.value)}
                         />
 
                      {/*    <Select
