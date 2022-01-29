@@ -16,12 +16,16 @@
 }
 
 .checkout-button-container {
-    width: 60%;
-    margin: 0 20%;
+    width: 30%;
+    margin: 0 35%;
 }
 
 .discount-code {
     margin-bottom: 8%;
+}
+
+.cart-actions {
+    width: 60%;
 }
 
 @media screen and (max-width: 800px) {

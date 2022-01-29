@@ -17,7 +17,7 @@ const mapState = createStructuredSelector({
 
 const Checkout = ({ }) => {
     const history = useHistory();
-    
+
     const { cartItems, total } = useSelector(mapState);
     const [width, height] = useWindowWidthAndHeight();
     const [discountCode, setDiscountCode] = useState('');
@@ -25,7 +25,7 @@ const Checkout = ({ }) => {
     const currencyFormatter = () => {
 
     }
-    
+
 
     const realTotal = ((total * .06) + total) + 5
     const freeShipTotal = ((total * .06) + total)
@@ -33,7 +33,7 @@ const Checkout = ({ }) => {
 
     return (
         <div className='checkout'>
-            
+
             <h1>
                 Checkout
             </h1>
@@ -41,93 +41,95 @@ const Checkout = ({ }) => {
                 {cartItems.length > 0 ? (
                     <div className='checkout-flex-container'>
                         {width > 1000 ?
-                                <div className='checkout-header'>
+                            <div className='checkout-header'>
 
-                                                <h2 className='cart-titles-spacer'>-</h2>
-                                    
-                                                <h2 className='cart-titles'>Product</h2>
-                                         
-                                                <h2 className='cart-titles'>Quantity</h2>
-                                        
-                                                <h2 className='cart-titles'>Price</h2>
-                                         
-                                                <h2 className='cart-titles-spacer'>-</h2>
-                                         
-                                </div>
-                                :
-                                null
+                                <h2 className='cart-titles-spacer'>-</h2>
+
+                                <h2 className='cart-titles'>Product</h2>
+
+                                <h2 className='cart-titles'>Quantity</h2>
+
+                                <h2 className='cart-titles'>Price</h2>
+
+                                <h2 className='cart-titles-spacer'>-</h2>
+
+                            </div>
+                            :
+                            null
                         }
-                            
-                                <div className='item-container'>
-                                    
-                                        {cartItems.map((item, pos) => {
-                                            return (
-                                                <ul key={pos} className='list-item-container'>
-                                                    <li className='list-item'>
-                                                        <Item {...item} />
-                                                    </li>
-                                                </ul>
-                                            );
-                                        })}
-                                    
+
+                        <div className='item-container'>
+
+                            {cartItems.map((item, pos) => {
+                                return (
+                                    <ul key={pos} className='list-item-container'>
+                                        <li className='list-item'>
+                                            <Item {...item} />
+                                        </li>
+                                    </ul>
+                                );
+                            })}
+
+                        </div>
+
+                        <div className='total-container'>
+                            <FormInput
+                                className='discount-code'
+                                label='Discount Code'
+                                type='text'
+                                value={discountCode}
+                                handleChange={e => setDiscountCode(e.target.value)} />
+                            {total < 40 &&
+                                <div className='total'>
+                                    <h2>
+
+                                        Subtotal: ${total.toFixed(2)} <br />
+                                        Shipping: $5 <br />
+                                        6% Sales Tax: ${tax.toFixed(2)}<br />
+                                        Total: ${realTotal.toFixed(2)}
+
+                                    </h2>
                                 </div>
-                            
-                                <div className='total-container'>
-                                            <FormInput 
-                                                className='discount-code' 
-                                                label='Discount Code'
-                                                type='text'
-                                                value={discountCode}
-                                                handleChange={e => setDiscountCode(e.target.value)} />
-                                            {total < 40 &&
-                                            <div className='total'>
-                                                <h2>
-                                                    
-                                                    Subtotal: ${total.toFixed(2)} <br />
-                                                    Shipping: $5 <br/>
-                                                    6% Sales Tax: ${tax.toFixed(2)}<br/>
-                                                    Total: ${realTotal.toFixed(2)}
+                            }
 
-                                                </h2>
-                                            </div>
-                                            }
+                            {total >= 40 &&
+                                <div className='total'>
+                                    <h2>
 
-                                            {total >= 40 &&
-                                            <h3>
-                                                    
-                                            Subtotal: ${total.toFixed(2)} <br />
-                                            Shipping: FREE <br/>
-                                            6% Sales Tax: ${tax.toFixed(2)} <br/>
-                                            Total: ${freeShipTotal.toFixed(2)}
+                                        Subtotal: ${total.toFixed(2)} <br />
+                                        Shipping: FREE <br />
+                                        6% Sales Tax: ${tax.toFixed(2)} <br />
+                                        Total: ${freeShipTotal.toFixed(2)}
 
-                                        </h3>}
+                                    </h2>
+                                </div>}
 
-                                           
-                                            <div className='checkout-button-container'>
-                                                
-                                                            <Button onClick={() => history.push('/shop')}>
-                                                                <h2>Continue Shopping</h2>
-                                                        </Button>
-                                                       
-                                                            <Button onClick={() => history.push('/payment')}>
-                                                                <h2>Checkout</h2>
-                                                            </Button>
 
-                                                       
-                                            </div>
-                                        
-                                </div>
-                           
+                            <div className='checkout-button-container'>
+
+                                <Button onClick={() => history.push('/shop')}>
+                                    <h2>Continue Shopping</h2>
+                                </Button>
+
+                                <Button onClick={() => history.push('/payment')}>
+                                    <h2>Checkout</h2>
+                                </Button>
+
+
+                            </div>
+
+                        </div>
+
 
                     </div>
                 ) : (
-                        <p>
-                            Your cart is empty.
-                        </p>
-                    )}
+                    <p>
+                        Your cart is empty.
+                    </p>
+                )}
 
             </div>
-            
+
         </div>
     );
 };

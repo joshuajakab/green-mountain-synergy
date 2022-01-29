@@ -88,6 +88,7 @@ const Blog = props => {
             */}
 
             <div className='blog-title'>Affordability, Quality, Care</div>
+            
             <br />
             <div className='blog-subtitle'>Affordability</div> 
             <div className='blog-content'>As I look around in America I see a society that is overly stressed. Even the healthiest among us are dealing with stress on a daily basis. We stress for many different reasons but money is a common problem for many people. Even if it isn’t an issue, I think we all appreciate saving a dollar and not over paying for goods or services.

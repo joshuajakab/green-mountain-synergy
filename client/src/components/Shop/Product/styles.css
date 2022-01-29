@@ -19,14 +19,15 @@ li {
     width: 100%;
 }
 
+.add-to-cart {
+    width: 60%;
+    margin: 0 20%;
+}
+
 @media screen and (max-width: 800px) {
     .product {
         width: 96%;
         margin: 0 2%;
     }
 
-    .add-to-cart {
-        width: 60%;
-        margin: 0 20%;
-    }
 }

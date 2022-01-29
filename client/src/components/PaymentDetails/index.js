@@ -10,8 +10,11 @@ import { clearCart } from '../../redux/Cart/cart.actions';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { CKEditor } from 'ckeditor4-react';
+import { SquarePaymentsForm, 
+    CreditCardInput,
+  } from 'react-square-web-payments-sdk';
 import './payment.css'
-import MyPaymentForm from '../PaymentForm';
+
 
 
 
@@ -107,16 +110,20 @@ const PaymentDetails = () => {
 
     };
 
-    const cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
+    const cardTokenizeResponseReceived = (errors, token, buyer, cardData, buyerVerificationToken) => {
+        
+            console.info({ token, buyer });
+          
 
         if (errors) {
-            setErrorMessages(errors.map(error => error.message))
+            //setErrorMessages(errors.map(error => error.message))
+            alert({errors})
             return
         }
 
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
-        apiInstance.post('/process-payment', { nonce: nonce, token: buyerVerificationToken, amount: total }).then(() => {
+        apiInstance.post('/process-payment', { token: buyerVerificationToken, amount: total }).then(() => {
 
             const configOrder = {
                 orderTotal: realTotal,
@@ -174,7 +181,7 @@ const PaymentDetails = () => {
         }).then(() => {
 
             alert("Payment Successful");
-            apiInstance.post('/access', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            //apiInstance.post('/access', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
         })
     }
 
@@ -201,11 +208,11 @@ const PaymentDetails = () => {
 
 
     return (
-        <div className='paymentDetails'>
+        <div className='payment-details'>
             <form onSubmit={handleFormSubmit}>
 
                 <div className='group'>
-                    <h2>
+                    <h2 className='payment-form-title'>
                         Shipping Address
                     </h2>
 
@@ -281,7 +288,7 @@ const PaymentDetails = () => {
                 </div>
 
                 <div className='group'>
-                    <h2>
+                    <h2 className='payment-form-title'>
                         Billing Address
                     </h2>
 
@@ -381,7 +388,7 @@ const PaymentDetails = () => {
                         value={billingAddress.email}
                     />
 
-                    <h2>
+                    <h2 className='payment-form-title'>
                     Shipping Notes
                     </h2>
 
@@ -403,11 +410,36 @@ const PaymentDetails = () => {
                         Pay ${shipTotal.toFixed(2)}
                     </h2>
                     }
-                    <h2>
+                    <h2 className='payment-form-title'>
                         Card Details
                     </h2>
                 </div>
-                <MyPaymentForm />
+                <SquarePaymentsForm
+      /**
+       * Identifies the calling form with a verified application ID
+       * generated from the Square Application Dashboard.
+       */
+      applicationId={process.env.REACT_APP_APPLICATION_ID}
+      /**
+       * Invoked when payment form receives the result of a tokenize generation request.
+       * The result will be a valid credit card or wallet token, or an error.
+       */
+      cardTokenizeResponseReceived={cardTokenizeResponseReceived}
+      /**
+       * This function enable the Strong Customer Authentication (SCA) flow
+       *
+       * We strongly recommend use this function to verify the buyer and
+       * reduce the chance of fraudulent transactions.
+       */
+      createVerificationDetails={createVerificationDetails}
+      /**
+       * Identifies the location of the merchant that is taking the payment.
+       * Obtained from the Square Application Dashboard - Locations tab.
+       */
+      locationId={process.env.REACT_APP_LOCATION_ID}
+    >
+      <CreditCardInput />
+    </SquarePaymentsForm>
 
 
 
