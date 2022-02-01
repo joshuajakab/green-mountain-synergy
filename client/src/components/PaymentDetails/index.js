@@ -10,9 +10,10 @@ import { clearCart } from '../../redux/Cart/cart.actions';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { CKEditor } from 'ckeditor4-react';
-import { SquarePaymentsForm, 
+import {
+    SquarePaymentsForm,
     CreditCardInput,
-  } from 'react-square-web-payments-sdk';
+} from 'react-square-web-payments-sdk';
 import './payment.css'
 
 
@@ -52,7 +53,7 @@ const PaymentDetails = () => {
     const [notes, setNotes] = useState('');
     const realTotal = ((total * .06) + total)
     const shipTotal = ((total * .06) + total + 5)
-    
+
 
 
     useEffect(() => {
@@ -60,7 +61,7 @@ const PaymentDetails = () => {
         if (itemCount < 1) {
             history.push('/dashboard')
         }
-        
+
 
     }, [itemCount])
 
@@ -73,7 +74,7 @@ const PaymentDetails = () => {
             const realTotal = ((total * .06) + total)
             return realTotal
         }
-        
+
     }
 
     const handleShipping = evt => {
@@ -110,14 +111,14 @@ const PaymentDetails = () => {
 
     };
 
-    const cardTokenizeResponseReceived = (errors, token, buyer, cardData, buyerVerificationToken) => {
-        
-            console.info({ token, buyer });
-          
+    const createPayment = (errors, token, buyer, cardData, buyerVerificationToken) => {
+
+        console.info('made it here');
+
 
         if (errors) {
             //setErrorMessages(errors.map(error => error.message))
-            alert({errors})
+            alert({ errors })
             return
         }
 
@@ -389,58 +390,74 @@ const PaymentDetails = () => {
                     />
 
                     <h2 className='payment-form-title'>
-                    Shipping Notes
+                        Shipping Notes
                     </h2>
 
                     <CKEditor
                         onChange={evt => setNotes(evt.editor.getData())}
-                        
+
                     />
 
                 </div>
 
                 <div className='group'>
                     {realTotal < 40 &&
-                    <h2>
-                        Pay ${realTotal.toFixed(2)}
-                    </h2>
+                        <h2>
+                            Pay ${shipTotal.toFixed(2)}
+                        </h2>
                     }
                     {realTotal >= 40 &&
-                    <h2>
-                        Pay ${shipTotal.toFixed(2)}
-                    </h2>
+                        <h2>
+                            Pay ${realTotal.toFixed(2)}
+                        </h2>
                     }
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>
                 </div>
-                <SquarePaymentsForm
-      /**
-       * Identifies the calling form with a verified application ID
-       * generated from the Square Application Dashboard.
-       */
-      applicationId={process.env.REACT_APP_APPLICATION_ID}
-      /**
-       * Invoked when payment form receives the result of a tokenize generation request.
-       * The result will be a valid credit card or wallet token, or an error.
-       */
-      cardTokenizeResponseReceived={cardTokenizeResponseReceived}
-      /**
-       * This function enable the Strong Customer Authentication (SCA) flow
-       *
-       * We strongly recommend use this function to verify the buyer and
-       * reduce the chance of fraudulent transactions.
-       */
-      createVerificationDetails={createVerificationDetails}
-      /**
-       * Identifies the location of the merchant that is taking the payment.
-       * Obtained from the Square Application Dashboard - Locations tab.
-       */
-      locationId={process.env.REACT_APP_LOCATION_ID}
-    >
-      <CreditCardInput />
-    </SquarePaymentsForm>
-
+                
+                    <SquarePaymentsForm
+                        /**
+                         * Identifies the calling form with a verified application ID
+                         * generated from the Square Application Dashboard.
+                         */
+                        applicationId={process.env.REACT_APP_APPLICATION_ID}
+                        /**
+                         * Invoked when payment form receives the result of a tokenize generation request.
+                         * The result will be a valid credit card or wallet token, or an error.
+                         */
+                        cardTokenizeResponseReceived={async (token, buyer) => {
+                            createPayment()
+                        }}
+                        /*cardTokenizeResponseReceived={async (token, buyer) => {
+                            console.info({ token, buyer });
+                            const response = await fetch('/process-payment', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    sourceId: token.token
+                                })
+                            })
+                            alert(JSON.stringify(await response.json(), null, 2))
+                        }} 
+                        
+                         * This function enable the Strong Customer Authentication (SCA) flow
+                         *
+                         * We strongly recommend use this function to verify the buyer and
+                         * reduce the chance of fraudulent transactions.
+                         
+                        createVerificationDetails={createVerificationDetails}
+                        
+                         * Identifies the location of the merchant that is taking the payment.
+                         * Obtained from the Square Application Dashboard - Locations tab.
+                    */
+                        locationId={process.env.REACT_APP_LOCATION_ID}
+                    >
+                        <CreditCardInput />
+                    </SquarePaymentsForm>
+                
 
 
             </form>

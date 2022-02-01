@@ -66,7 +66,7 @@ const Footer = props => {
                     <Link className='footer-link' to='/privacy-policy'>Privacy Policy</Link>
                 </div>
                 <div className='disclaimer-container'>
-                    These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.
+                    *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.
                 </div>
             </div>
             

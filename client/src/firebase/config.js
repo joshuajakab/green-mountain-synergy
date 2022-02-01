@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-    apiKey: 'AIzaSyAkf-PfBY5KRpOef9O8GahXcg8x5RQHXIw',
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "green-mountain-synergy.firebaseapp.com",
     projectId: "green-mountain-synergy",
     storageBucket: "green-mountain-synergy.appspot.com",
