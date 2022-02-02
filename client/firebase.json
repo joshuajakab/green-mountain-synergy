@@ -1,8 +1,10 @@
 {
-  "functions": {
-    "predeploy": [],
-    "source": "functions"
-  },
+  
+    "functions": {
+      "source": "functions",
+      "predeploy": []
+    }
+  ,
   "hosting": {
     "public": "build",
     "rewrites": [ {
