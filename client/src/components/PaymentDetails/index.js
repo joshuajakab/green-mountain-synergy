@@ -112,24 +112,18 @@ const PaymentDetails = () => {
 
     };
 
-    const createPayment = (errors, buyer, cardData, sourceId, token ) => {
-
+    const createPaymentPost = (errors, buyer, cardData, sourceId, token ) => {
         console.log(tokenTwo);
-        
-        const id = sourceId
-
-        
-
-
-        if (errors) {
+        /*if (errors) {
             setErrorMessages(errors.map(error => error.message))
             console.log('payment failed')
             return
-        }
+        }*/
 
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
-        apiInstance.post('/process-payment', { token: tokenTwo, amount: total, sourceId: tokenTwo }).then(() => {
+        
+        apiInstance.post('/process-payment', { token: tokenTwo, amount: total, sourceId: tokenTwo });
             
             const configOrder = {
                 orderTotal: realTotal,
@@ -176,15 +170,15 @@ const PaymentDetails = () => {
 
                 })
 
+                
             }
-
-            console.log('why isnt it sending email')
+            
             dispatch(
 
                 saveOrderHistory(configOrder)
 
-            )
-        }).then(() => {
+            ).then(() => {
+        
 
             alert("Payment Successful");
             apiInstance.post('/confirmation', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
@@ -435,7 +429,7 @@ const PaymentDetails = () => {
                             console.info({ token, buyer });
                             setTokenTwo(token.token)
                             //console.log(token.token)
-                            createPayment()
+                            createPaymentPost()
                         }}
                         /*cardTokenizeResponseReceived={async (token, buyer) => {
                             console.info({ token, buyer });
