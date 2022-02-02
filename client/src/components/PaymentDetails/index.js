@@ -51,6 +51,7 @@ const PaymentDetails = () => {
     const [lastNameOnCard, setLastNameOnCard] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
+    const [tokenTwo, setTokenTwo] = useState('') ;
     const realTotal = ((total * .06) + total)
     const shipTotal = ((total * .06) + total + 5)
 
@@ -111,21 +112,25 @@ const PaymentDetails = () => {
 
     };
 
-    const createPayment = (errors, token, buyer, cardData, buyerVerificationToken) => {
+    const createPayment = (errors, buyer, cardData, sourceId, token ) => {
 
-        console.info('made it here');
+        console.log(tokenTwo);
+        
+        const id = sourceId
+
+        
 
 
         if (errors) {
-            //setErrorMessages(errors.map(error => error.message))
-            alert({ errors })
+            setErrorMessages(errors.map(error => error.message))
+            console.log('payment failed')
             return
         }
 
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
-        apiInstance.post('/process-payment', { token: buyerVerificationToken, amount: total }).then(() => {
-
+        apiInstance.post('/process-payment', { token: tokenTwo, amount: total, sourceId: tokenTwo }).then(() => {
+            
             const configOrder = {
                 orderTotal: realTotal,
                 orderItems: cartItems.map(item => {
@@ -173,7 +178,7 @@ const PaymentDetails = () => {
 
             }
 
-
+            console.log('why isnt it sending email')
             dispatch(
 
                 saveOrderHistory(configOrder)
@@ -182,7 +187,7 @@ const PaymentDetails = () => {
         }).then(() => {
 
             alert("Payment Successful");
-            //apiInstance.post('/access', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            apiInstance.post('/confirmation', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
         })
     }
 
@@ -427,6 +432,9 @@ const PaymentDetails = () => {
                          * The result will be a valid credit card or wallet token, or an error.
                          */
                         cardTokenizeResponseReceived={async (token, buyer) => {
+                            console.info({ token, buyer });
+                            setTokenTwo(token.token)
+                            //console.log(token.token)
                             createPayment()
                         }}
                         /*cardTokenizeResponseReceived={async (token, buyer) => {
@@ -454,6 +462,7 @@ const PaymentDetails = () => {
                          * Obtained from the Square Application Dashboard - Locations tab.
                     */
                         locationId={process.env.REACT_APP_LOCATION_ID}
+                        createVerificationDetails={createVerificationDetails}
                     >
                         <CreditCardInput />
                     </SquarePaymentsForm>

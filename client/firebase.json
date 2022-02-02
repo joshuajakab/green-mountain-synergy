@@ -1,4 +1,8 @@
 {
+  "functions": {
+    "predeploy": [],
+    "source": "functions"
+  },
   "hosting": {
     "public": "build",
     "rewrites": [ {

@@ -81,6 +81,10 @@
         margin: 0 2.5%;
     }
 
+    .bio-title {
+        font-size: 3rem;
+    }
+
     .bio-pic {
         width: 100%;
         margin: 0;
