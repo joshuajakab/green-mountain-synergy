@@ -31,6 +31,7 @@ const Product = (product) => {
 
     const handleAddToCart = (product) => {
         if (!product) return;
+        const productQuantity = 1
 
 
         dispatch(
@@ -43,7 +44,8 @@ const Product = (product) => {
                 oneThousandPrice,
                 twoThousandPrice,
                 price,
-                documentID
+                documentID,
+                productQuantity
             })
         );
         history.push('/cart');

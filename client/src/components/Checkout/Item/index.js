@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeCartItem, addProduct, reduceCartItem } from '../../../redux/Cart/cart.actions';
+import { removeCartItem, addOneProduct, reduceCartItem } from '../../../redux/Cart/cart.actions';
 import { useWindowWidthAndHeight } from '../../../hooks';
 import './styles.css';
 
@@ -29,9 +29,9 @@ const Item = (product) => {
         );
     }
 
-    const handleAddProduct = (product) => {
+    const handleAddOneProduct = (product) => {
         dispatch(
-            addProduct(product)
+            addOneProduct(product)
         );
     }
 
@@ -60,7 +60,7 @@ const Item = (product) => {
                 <div>
                     <h3 className='quantity-buttons'>{quantity}</h3>
                 </div>
-                <div className='cartBtn' onClick={() => handleAddProduct(product)}>
+                <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
                     <h3 className='quantity-buttons'>{` >`}</h3>
                 </div>
                 
@@ -80,7 +80,7 @@ const Item = (product) => {
                 <div>
                     <h3 className='quantity-buttons'>{quantity}</h3>
                 </div>
-                <div className='cartBtn' onClick={() => handleAddProduct(product)}>
+                <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
                     <h3 className='quantity-buttons'>{` >`}</h3>
                 </div>
             </div>

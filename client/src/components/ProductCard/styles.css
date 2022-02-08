@@ -23,6 +23,11 @@
     font-size: 2rem;
 }
 
+.quantity {
+    width: 3rem;
+    height: 3rem;
+}
+
 @media screen and (max-width: 800px) {
     .product-card {
         flex-direction: column;

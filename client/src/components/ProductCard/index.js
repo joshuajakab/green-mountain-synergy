@@ -23,9 +23,34 @@ const ProductCard = ({ }) => {
     const { productID } = useParams();
     const { product } = useSelector(mapState);
     const [isChecked, setIsChecked] = useState(false);
-    const [productQuantity, setProductQuantity] = useState(0);
+    const [productQuantity, setProductQuantity] = useState(1);
     const totalNumCartItems = useSelector(mapState);
+    
     // const [productPrice, setProductPrice] = useState(product)
+
+    
+
+    
+
+    
+
+    useEffect(() => {
+        dispatch(
+            fetchProductStart(productID)
+        )
+
+        return () => {
+            dispatch(
+                setProduct({})
+            )
+        }
+    }, []);
+
+    const handleQuantity = e => {
+       
+        setProductQuantity(parseInt(e.target.value, 10));
+        
+    }
 
     
 
@@ -41,43 +66,26 @@ const ProductCard = ({ }) => {
         quantity
     } = product;
 
-
-
-    useEffect(() => {
-        dispatch(
-            fetchProductStart(productID)
-        )
-
-        return () => {
-            dispatch(
-                setProduct({})
-            )
-        }
-    }, []);
-
-    const handleQuantity = (e) => {
-        setProductQuantity(e.target.value)
-        console.log(`${productQuantity}`)
-       
-    }
-
-    
+   
 
     const handleAddToCart = (product) => {
-        
-        
+        if (!productQuantity) setProductQuantity(1);
+        console.log(productQuantity)
         if (!product) return;
-
+        
         
         dispatch(
             addProduct({
                 productThumbnail,
+                productThumbnailTwo,
+                productThumbnailThree,
                 productName,
+                price,
                 productDesc,
                 productCategory,
-                price,
                 documentID,
-                quantity
+                quantity,
+                productQuantity
             })
         );
         history.push('/cart');
@@ -149,6 +157,14 @@ const ProductCard = ({ }) => {
                     </li>
                     <li>
                         <div className='addToCart'>
+                            {/*<form>
+                            <select className='quantity' name='productQuantity' value={productQuantity} onChnage={e => setProductQuantity(parseInt(e.target.value, 10))}>
+                                <option selected value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                            </select>
+                            </form>*/}
                             <FormSelect {...configQuantitySelect} />
                             <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                                 <h2>Add to cart</h2>

@@ -58,7 +58,7 @@ const Header = props => {
                 <Link className='link' to='/about'>About Us/Contact</Link>
                 <Link className='cart-container' to='/cart'>
                     <img className='cart-img' src={Cart} alt='cart' />
-                    <h3 className='num-cart-items'>({totalNumCartItems})</h3>
+                    <h3 className='num-cart-items'>({parseInt(totalNumCartItems, 10)})</h3>
                 </Link>
 
             </div>

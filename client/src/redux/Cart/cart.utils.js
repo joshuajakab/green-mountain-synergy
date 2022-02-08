@@ -8,14 +8,31 @@ export const existingCartItem = ({
     )
 };
 
+export const handleAddOneToCart = ({
+    prevCartItems,
+    nextCartItem
+}) => {
+    const increment = 1;
+    return prevCartItems.map(cartItem =>
+            
+        ((cartItem.documentID) === (nextCartItem.documentID)) || ((cartItem.documentID) === (nextCartItem.documentID))
+        ? {
+            ...cartItem,
+            quantity: cartItem.quantity + increment
+        } : cartItem
+)
+}
+
 export const handleAddToCart = ({
     prevCartItems,
     nextCartItem
 }) => {
-    const quantityIncrement = 1;
+    
+    const quantityIncrement = nextCartItem.productQuantity;
     const cartItemExists = existingCartItem({ prevCartItems, nextCartItem })
-
+    
     if (cartItemExists) {
+        
         return prevCartItems.map(cartItem =>
             
                 ((cartItem.documentID) === (nextCartItem.documentID)) || ((cartItem.documentID) === (nextCartItem.documentID))
@@ -33,6 +50,7 @@ export const handleAddToCart = ({
             quantity: quantityIncrement
         }
     ]
+    
 };
 
 export const handleRemoveCartItem = ({
