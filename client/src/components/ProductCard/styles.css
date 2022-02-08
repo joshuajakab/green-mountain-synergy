@@ -19,6 +19,10 @@
     width: 40%;
 }
 
+.price {
+    font-size: 2rem;
+}
+
 @media screen and (max-width: 800px) {
     .product-card {
         flex-direction: column;

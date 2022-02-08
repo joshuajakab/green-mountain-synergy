@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductStart, setProduct } from '../../redux/Products/products.actions'
+import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
+import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../defaultComponents/Button';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './styles.css';
+import FormSelect from '../defaultComponents/Select';
 
 const mapState = state => ({
-    product: state.productsData.product
+    product: state.productsData.product,
+    totalNumCartItems: selectCartItemsCount(state)
 })
 
 
@@ -19,21 +22,23 @@ const ProductCard = ({ }) => {
     const history = useHistory();
     const { productID } = useParams();
     const { product } = useSelector(mapState);
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+    const [productQuantity, setProductQuantity] = useState(0);
+    const totalNumCartItems = useSelector(mapState);
     // const [productPrice, setProductPrice] = useState(product)
+
+    
 
     const {
         productThumbnail,
         productThumbnailTwo,
         productThumbnailThree,
         productName,
-        fiveHundredPrice,
-        oneThousandPrice,
-        twoThousandPrice,
         price,
         productDesc,
         productCategory,
-        documentID
+        documentID,
+        quantity
     } = product;
 
 
@@ -50,29 +55,51 @@ const ProductCard = ({ }) => {
         }
     }, []);
 
+    const handleQuantity = (e) => {
+        setProductQuantity(e.target.value)
+        console.log(`${productQuantity}`)
+       
+    }
 
+    
 
     const handleAddToCart = (product) => {
+        
+        
         if (!product) return;
 
-
+        
         dispatch(
             addProduct({
                 productThumbnail,
                 productName,
                 productDesc,
                 productCategory,
-                fiveHundredPrice,
-                oneThousandPrice,
-                twoThousandPrice,
                 price,
-                documentID
+                documentID,
+                quantity
             })
         );
         history.push('/cart');
     }
 
-
+    const configQuantitySelect = {
+        defaultValue: productQuantity,
+        options: [{
+            name: '1',
+            value: 1
+        }, {
+            name: '2',
+            value: 2
+        }, {
+            name: '3',
+            value: 3
+        }, {
+            name: '4',
+            value: 4
+        }],
+        handleChange: handleQuantity
+    };
 
     const configAddToCartBtn = {
         type: 'button'
@@ -122,7 +149,8 @@ const ProductCard = ({ }) => {
                     </li>
                     <li>
                         <div className='addToCart'>
-                            <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
+                            <FormSelect {...configQuantitySelect} />
+                            <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                                 <h2>Add to cart</h2>
                             </Button>
                         </div>

@@ -22,6 +22,8 @@ import Privacy from './components/Privacy';
 import Testing from './components/Testing';
 import PaymentDetails from './components/PaymentDetails';
 import MailchimpFormContainer from './components/MailchimpFormContainer';
+import Return from './components/Return';
+import Shipping from './components/Shipping';
 
 function App() {
   const dispatch = useDispatch();
@@ -123,6 +125,16 @@ function App() {
         <Route path='/subscribe' render={() => (
           <MainLayout>
             <MailchimpFormContainer />
+          </MainLayout>
+        )} />
+        <Route path='/return-policy' render={() => (
+          <MainLayout>
+            <Return />
+          </MainLayout>
+        )} />
+        <Route path='/shipping-policy' render={() => (
+          <MainLayout>
+            <Shipping />
           </MainLayout>
         )} />
       </Switch>

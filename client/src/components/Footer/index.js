@@ -64,6 +64,8 @@ const Footer = props => {
                 <div className='lower-footer-link-container'>
                     <Link className='footer-link' to='/terms-conditions'>Terms and Conditions </Link>
                     <Link className='footer-link' to='/privacy-policy'>Privacy Policy</Link>
+                    <Link className='footer-link' to='/return-policy'>Return Policy</Link>
+                    <Link className='footer-link' to='/shipping-policy'>Shipping Policy</Link>
                 </div>
                 <div className='disclaimer-container'>
                     *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.

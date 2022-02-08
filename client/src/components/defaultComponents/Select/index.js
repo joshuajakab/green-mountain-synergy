@@ -12,7 +12,7 @@ const FormSelect = ({ options, defaultValue, handleChange, label, ...otherProps}
                 </label>
             )}
 
-            <select className='formSelect' value={defaultValue} onChange={handleChange} {...otherProps}>
+            <select className='form-select' value={defaultValue} onChange={handleChange} {...otherProps}>
                 {options.map((option, index) => {
                     const { value, name } = option;
 

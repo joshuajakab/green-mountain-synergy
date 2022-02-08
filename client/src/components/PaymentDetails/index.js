@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Input from '../defaultComponents/Input';
 import Button from '../defaultComponents/Button';
+import TextArea from '../defaultComponents/Textarea';
 import { CountryDropdown } from 'react-country-region-selector';
 import { apiInstance } from '../../Utils';
 import { selectCartTotal, selectCartItemsCount, selectCartItems } from '../../redux/Cart/cart.selectors';
@@ -15,6 +16,7 @@ import {
     CreditCardInput,
 } from 'react-square-web-payments-sdk';
 import './payment.css'
+import FormInput from '../defaultComponents/Input';
 
 
 
@@ -46,14 +48,19 @@ const PaymentDetails = () => {
     const { total, itemCount, cartItems } = useSelector(mapState);
     const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
     const [shippingAddress, setShippingAddress] = useState({ ...initialAddressState });
-    const [recipientName, setRecipientName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [firstNameOnCard, setFirstNameOnCard] = useState('');
     const [lastNameOnCard, setLastNameOnCard] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
-    const [tokenTwo, setTokenTwo] = useState('') ;
-    const realTotal = ((total * .06) + total)
-    const shipTotal = ((total * .06) + total + 5)
+    const [tokenTwo, setTokenTwo] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
+    const freeShipTotal = ((total * .06) + total);
+    const shipTotal = ((total * .06) + total + 5);
+    const tax = (total * .06);
+    const [discountCode, setDiscountCode] = useState('');
+
 
 
 
@@ -88,10 +95,18 @@ const PaymentDetails = () => {
 
     const handleBilling = evt => {
         const { name, value } = evt.target;
-        setBillingAddress({
-            ...billingAddress,
-            [name]: value
-        });
+        if (isChecked) {
+            setBillingAddress({
+                ...billingAddress,
+                [name]: value
+            });
+        }
+        else {
+            setBillingAddress({
+                ...shippingAddress,
+                [name]: value
+            });
+        }
     };
 
     const handleFormSubmit = async evt => {
@@ -103,7 +118,8 @@ const PaymentDetails = () => {
             !shippingAddress.country || billingAddress.line1 ||
             !billingAddress.city || !billingAddress.state ||
             !billingAddress.zip_code || !billingAddress.country ||
-            !recipientName || !firstNameOnCard ||
+            !firstName || !lastName ||
+            !firstNameOnCard ||
             !lastNameOnCard || !billingAddress.email ||
             !billingAddress.phone
         ) {
@@ -112,7 +128,14 @@ const PaymentDetails = () => {
 
     };
 
-    const createPaymentPost = (errors, buyer, cardData, sourceId, token ) => {
+    const cardTokenizeResponseReceived = async (token, buyer) => {
+        console.info({ token, buyer });
+        setTokenTwo(token.token)
+        //console.log(token.token)
+        createPaymentPost()
+    }
+
+    const createPaymentPost = (errors, buyer, cardData, sourceId, token) => {
         console.log(tokenTwo);
         /*if (errors) {
             setErrorMessages(errors.map(error => error.message))
@@ -120,72 +143,77 @@ const PaymentDetails = () => {
             return
         }*/
 
+        const realTotal = shipTotal || freeShipTotal
+
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
-        
+
         apiInstance.post('/process-payment', { token: tokenTwo, amount: total, sourceId: tokenTwo });
-            
-            const configOrder = {
-                orderTotal: realTotal,
-                orderItems: cartItems.map(item => {
-                    const { documentID, productThumbnail, productName, price, quantity } = item;
+
+        const configOrder = {
+            orderTotal: realTotal,
+            orderItems: cartItems.map(item => {
+                const { documentID, productThumbnail, productName, price, quantity } = item;
+                return {
+                    documentID,
+                    productThumbnail,
+                    productName,
+                    price,
+                    quantity
+                }
+                /*if (fiveHundredPrice) {
                     return {
                         documentID,
                         productThumbnail,
                         productName,
-                        price,
+                        fiveHundredPrice,
                         quantity
                     }
-                    /*if (fiveHundredPrice) {
-                        return {
-                            documentID,
-                            productThumbnail,
-                            productName,
-                            fiveHundredPrice,
-                            quantity
-                        }
+                }
+
+                if (oneThousandPrice) {
+                    return {
+                        documentID,
+                        productThumbnail,
+                        productName,
+                        oneThousandPrice,
+                        quantity
                     }
-
-                    if (oneThousandPrice) {
-                        return {
-                            documentID,
-                            productThumbnail,
-                            productName,
-                            oneThousandPrice,
-                            quantity
-                        }
-                    }
-
-                    
-
-                    else { 
-                        return {
-                            documentID,
-                            productThumbnail,
-                            productName,
-                            twoThousandPrice,
-                            quantity
-                        }
-                    } */
-
-                })
+                }
 
                 
-            }
-            
-            dispatch(
 
-                saveOrderHistory(configOrder)
+                else { 
+                    return {
+                        documentID,
+                        productThumbnail,
+                        productName,
+                        twoThousandPrice,
+                        quantity
+                    }
+                } */
 
-            ).then(() => {
-        
+            })
 
-            alert("Payment Successful");
-            apiInstance.post('/confirmation', { email: billingAddress.email, total: realTotal, recipientName: recipientName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-        })
+
+        }
+
+        alert("Payment Successful");
+
+        apiInstance.post('/confirmation', { email: billingAddress.email, total: [freeShipTotal, shipTotal], firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+
+        dispatch(
+
+            saveOrderHistory(configOrder)
+
+        )
+
+
+
+
     }
 
-    const createVerificationDetails = () => {
+    const createVerificationDetails = (realTotal) => {
         const finalTotal = realTotal * 100
 
         return {
@@ -209,9 +237,36 @@ const PaymentDetails = () => {
 
     return (
         <div className='payment-details'>
-            <form onSubmit={handleFormSubmit}>
+            <form className='form-container' onSubmit={handleFormSubmit}>
+
+
 
                 <div className='group'>
+
+                    <div className='shipping-container'>
+
+                    <h2 className='payment-form-top-title'>
+                        Payment Details
+                    </h2>
+
+                    <Input
+                        required
+                        type='email'
+                        name='email'
+                        handleChange={evt => handleBilling(evt)}
+                        placeholder='Email Address'
+                        value={billingAddress.email}
+                    />
+
+                    <Input
+                        required
+                        type='tel'
+                        name='phone'
+                        handleChange={evt => handleBilling(evt)}
+                        placeholder='Phone Number'
+                        value={billingAddress.phone}
+                    />
+
                     <h2 className='payment-form-title'>
                         Shipping Address
                     </h2>
@@ -219,10 +274,19 @@ const PaymentDetails = () => {
                     <Input
                         required
                         type='text'
-                        name='recipientName'
-                        handleChange={evt => setRecipientName(evt.target.value)}
-                        placeholder='Recipient Name'
-                        value={recipientName}
+                        name='firstName'
+                        handleChange={evt => setFirstName(evt.target.value)}
+                        placeholder='First Name'
+                        value={firstName}
+                    />
+
+                    <Input
+                        required
+                        type='text'
+                        name='lastName'
+                        handleChange={evt => setLastName(evt.target.value)}
+                        placeholder='Last Name'
+                        value={lastName}
                     />
 
                     <Input
@@ -230,7 +294,7 @@ const PaymentDetails = () => {
                         type='text'
                         name='line1'
                         handleChange={evt => handleShipping(evt)}
-                        placeholder='Line 1'
+                        placeholder='Address Line 1'
                         value={shippingAddress.line1}
                     />
 
@@ -238,7 +302,7 @@ const PaymentDetails = () => {
                         type='text'
                         name='line2'
                         handleChange={evt => handleShipping(evt)}
-                        placeholder='Line 2'
+                        placeholder='Address Line 2'
                         value={shippingAddress.line2}
                     />
 
@@ -269,10 +333,11 @@ const PaymentDetails = () => {
                         value={shippingAddress.zip_code}
                     />
 
-                    <div className='formRow checkoutInput'>
+                    <div className='country'>
 
                         <CountryDropdown
                             required
+                            priorityOptions={['US']}
                             onChange={val => handleShipping({
                                 target: {
                                     name: 'country',
@@ -281,140 +346,166 @@ const PaymentDetails = () => {
                             })}
                             valueType='short'
                             value={shippingAddress.country}
+                            className='country-dropdown'
                         />
+
+                    </div>
 
                     </div>
 
                 </div>
 
+
+                <div className='checkbox-container'>
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.checked)} />
+                    <label className='checkbox-label' >Billing address is same as shipping</label>
+                </div>
+
+
+
                 <div className='group'>
-                    <h2 className='payment-form-title'>
-                        Billing Address
-                    </h2>
+                    {!isChecked &&
+                        <div className='billing-container'>
+                            <h2 className='payment-form-title'>
+                                Billing Address
+                            </h2>
 
-                    <Input
-                        required
-                        type='text'
-                        name='firstNameOnCard'
-                        handleChange={evt => setFirstNameOnCard(evt.target.value)}
-                        placeholder='First Name'
-                        value={firstNameOnCard}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='firstNameOnCard'
+                                handleChange={evt => setFirstNameOnCard(evt.target.value)}
+                                placeholder='First Name'
+                                value={firstNameOnCard}
+                            />
 
-                    <Input
-                        required
-                        type='text'
-                        name='lastNameOnCard'
-                        handleChange={evt => setLastNameOnCard(evt.target.value)}
-                        placeholder='Last Name'
-                        value={lastNameOnCard}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='lastNameOnCard'
+                                handleChange={evt => setLastNameOnCard(evt.target.value)}
+                                placeholder='Last Name'
+                                value={lastNameOnCard}
+                            />
 
-                    <Input
-                        required
-                        type='text'
-                        name='line1'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Line 1'
-                        value={billingAddress.line1}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='line1'
+                                handleChange={evt => handleBilling(evt)}
+                                placeholder='Address Line 1'
+                                value={billingAddress.line1}
+                            />
 
-                    <Input
-                        type='text'
-                        name='line2'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Line 2'
-                        value={billingAddress.line2}
-                    />
+                            <Input
+                                type='text'
+                                name='line2'
+                                handleChange={evt => handleBilling(evt)}
+                                placeholder='Adress Line 2'
+                                value={billingAddress.line2}
+                            />
 
-                    <Input
-                        required
-                        type='text'
-                        name='city'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='City'
-                        value={billingAddress.city}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='city'
+                                handleChange={evt => handleBilling(evt)}
+                                placeholder='City'
+                                value={billingAddress.city}
+                            />
 
-                    <Input
-                        required
-                        type='text'
-                        name='state'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='State'
-                        value={billingAddress.state}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='state'
+                                handleChange={evt => handleBilling(evt)}
+                                placeholder='State'
+                                value={billingAddress.state}
+                            />
 
-                    <Input
-                        required
-                        type='text'
-                        name='zip_code'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Zip Code'
-                        value={billingAddress.zip_code}
-                    />
+                            <Input
+                                required
+                                type='text'
+                                name='zip_code'
+                                handleChange={evt => handleBilling(evt)}
+                                placeholder='Zip Code'
+                                value={billingAddress.zip_code}
+                            />
 
-                    <div className='formRow checkoutInput'>
+                            <div className='formRow checkoutInput'>
 
-                        <CountryDropdown
-                            required
-                            onChange={val => handleBilling({
-                                target: {
-                                    name: 'country',
-                                    value: val
-                                }
-                            })}
-                            value={billingAddress.country}
-                            valueType='short'
-                        />
+                                <CountryDropdown
+                                    required
+                                    onChange={val => handleBilling({
+                                        target: {
+                                            name: 'country',
+                                            value: val
+                                        }
+                                    })}
+                                    value={billingAddress.country}
+                                    valueType='short'
+                                    className='country-dropdown'
+                                />
 
-                    </div>
+                            </div>
+                        </div>
+                    }
 
-                    <Input
-                        required
-                        type='tel'
-                        name='phone'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Phone Number'
-                        value={billingAddress.phone}
-                    />
-
-                    <Input
-                        required
-                        type='email'
-                        name='email'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Email Address'
-                        value={billingAddress.email}
-                    />
 
                     <h2 className='payment-form-title'>
                         Shipping Notes
                     </h2>
 
-                    <CKEditor
-                        onChange={evt => setNotes(evt.editor.getData())}
-
+                    <TextArea
+                        className='shipping-notes'
+                        type='text'
+                        value={notes}
+                        handleChange={e => setNotes(e.target.value)}
                     />
+
 
                 </div>
 
                 <div className='group'>
-                    {realTotal < 40 &&
-                        <h2>
-                            Pay ${shipTotal.toFixed(2)}
-                        </h2>
+
+                <h2 className='discount-code-title'>Discount Code</h2>
+
+                <FormInput
+                                className='discount-code'
+                                
+                                type='text'
+                                value={discountCode}
+                                handleChange={e => setDiscountCode(e.target.value)} />
+
+                    {total < 40 &&
+                        <div >
+                            <h3 className='payment-total'>
+
+                                Subtotal: ${total.toFixed(2)} <br />
+                                Shipping: $5.00 <br />
+                                6% Sales Tax: ${tax.toFixed(2)}<br />
+                                Total: ${shipTotal.toFixed(2)}
+
+                            </h3>
+                        </div>
                     }
-                    {realTotal >= 40 &&
-                        <h2>
-                            Pay ${realTotal.toFixed(2)}
-                        </h2>
-                    }
+
+                    {total >= 40 &&
+                        <div >
+                            <h3 className='payment-total'>
+
+                                Subtotal: ${total.toFixed(2)} <br />
+                                Shipping: FREE <br />
+                                6% Sales Tax: ${tax.toFixed(2)} <br />
+                                Total: ${freeShipTotal.toFixed(2)}
+
+                            </h3>
+                        </div>}
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>
-                </div>
                 
+                <div className='card-payment-container'>
                     <SquarePaymentsForm
                         /**
                          * Identifies the calling form with a verified application ID
@@ -425,12 +516,7 @@ const PaymentDetails = () => {
                          * Invoked when payment form receives the result of a tokenize generation request.
                          * The result will be a valid credit card or wallet token, or an error.
                          */
-                        cardTokenizeResponseReceived={async (token, buyer) => {
-                            console.info({ token, buyer });
-                            setTokenTwo(token.token)
-                            //console.log(token.token)
-                            createPaymentPost()
-                        }}
+                        cardTokenizeResponseReceived={cardTokenizeResponseReceived}
                         /*cardTokenizeResponseReceived={async (token, buyer) => {
                             console.info({ token, buyer });
                             const response = await fetch('/process-payment', {
@@ -457,10 +543,12 @@ const PaymentDetails = () => {
                     */
                         locationId={process.env.REACT_APP_LOCATION_ID}
                         createVerificationDetails={createVerificationDetails}
+
                     >
                         <CreditCardInput />
                     </SquarePaymentsForm>
-                
+                </div>
+                </div>
 
 
             </form>

@@ -73,18 +73,13 @@ const Checkout = ({ }) => {
                         </div>
 
                         <div className='total-container'>
-                            <FormInput
-                                className='discount-code'
-                                label='Discount Code'
-                                type='text'
-                                value={discountCode}
-                                handleChange={e => setDiscountCode(e.target.value)} />
+                            
                             {total < 40 &&
                                 <div className='total'>
                                     <h2>
 
                                         Subtotal: ${total.toFixed(2)} <br />
-                                        Shipping: $5 <br />
+                                        Shipping: $5.00 <br />
                                         6% Sales Tax: ${tax.toFixed(2)}<br />
                                         Total: ${realTotal.toFixed(2)}
 

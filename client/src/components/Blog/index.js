@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { fetchBlogsStart } from '../../redux/Blogs/blogs.actions';
 import Post from './Post';
 import FormSelect from '../defaultComponents/Select';
+import Logo from '../../media/logo.svg';
 import './styles.css';
 
 const mapState = ({ blogsData }) => ({
@@ -87,7 +88,9 @@ const Blog = props => {
                 })}
             */}
 
-            <div className='blog-title'>Affordability, Quality, Care</div>
+            <img className='blo-logo' src={Logo} alt='bio-logo' /> 
+
+            <div className='blog-title'>Affordability, Quality and Care</div>
             
             <br />
             <div className='blog-subtitle'>Affordability</div> 

@@ -1,8 +1,9 @@
 {
   
     "functions": {
-      "source": "functions",
-      "predeploy": []
+      "predeploy": [],
+      "source": "functions"
+      
     }
   ,
   "hosting": {
