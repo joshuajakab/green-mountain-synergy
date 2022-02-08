@@ -102,11 +102,11 @@ const Checkout = ({ }) => {
 
                             <div className='checkout-button-container'>
 
-                                <Button onClick={() => history.push('/shop')}>
+                                <Button className='checkout-button' onClick={() => history.push('/shop')}>
                                     <h2>Continue Shopping</h2>
                                 </Button>
 
-                                <Button onClick={() => history.push('/payment')}>
+                                <Button className='checkout-button' onClick={() => history.push('/payment')}>
                                     <h2>Checkout</h2>
                                 </Button>
 
