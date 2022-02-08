@@ -4,7 +4,7 @@ export const existingCartItem = ({
     
 }) => {
     return prevCartItems.find(
-        cartItem => ((cartItem.documentID) === (nextCartItem.documentID)) || ((cartItem.documentID) === (nextCartItem.documentID))
+        cartItem => ((cartItem.productName) === (nextCartItem.productName))
     )
 };
 
@@ -13,14 +13,26 @@ export const handleAddOneToCart = ({
     nextCartItem
 }) => {
     const increment = 1;
-    return prevCartItems.map(cartItem =>
+    const cartItemExists = existingCartItem({ prevCartItems, nextCartItem })
+    if (cartItemExists) {
+        
+        return prevCartItems.map(cartItem =>
             
-        ((cartItem.documentID) === (nextCartItem.documentID)) || ((cartItem.documentID) === (nextCartItem.documentID))
-        ? {
-            ...cartItem,
-            quantity: cartItem.quantity + increment
-        } : cartItem
-)
+                ((cartItem.documentID) === (nextCartItem.documentID)) 
+                ? {
+                    ...cartItem,
+                    quantity: cartItem.quantity + increment
+                } : cartItem
+        )
+    }
+
+    return [
+        ...prevCartItems,
+        {
+            ...nextCartItem,
+            quantity: increment
+        }
+    ]
 }
 
 export const handleAddToCart = ({
@@ -35,7 +47,7 @@ export const handleAddToCart = ({
         
         return prevCartItems.map(cartItem =>
             
-                ((cartItem.documentID) === (nextCartItem.documentID)) || ((cartItem.documentID) === (nextCartItem.documentID))
+                ((cartItem.productName) === (nextCartItem.productName))
                 ? {
                     ...cartItem,
                     quantity: cartItem.quantity + quantityIncrement
