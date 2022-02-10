@@ -69,15 +69,24 @@ const SignIn = props => {
                         handleChange={e => setPassword(e.target.value)}
                     />
 
-                    <Button type='submit' >
-                        <h3 className='login-button'>Login</h3>
+                    <Link to='/recovery'>Reset Password</Link>
+
+                    <Button className='login-button' type='submit' >
+                        <h3 >Login</h3>
                     </Button>
 
 
-                    <Button onClick={handleGoogleSignIn}>
-                        <h3 className='login-button'>Sign in with Google</h3>
+                    <Button className='login-button' onClick={handleGoogleSignIn}>
+                        <h3 >Sign in with Google</h3>
                     </Button>
                        
+                    <Button className='login-button' onClick={() => history.push('/register')}>
+                        <h3> Register</h3>
+                    </Button>
+
+                    <Button className='login-button' onClick={() => history.push('./payment')}>
+                        <h3>Pay as Guest</h3>
+                    </Button>
 
                     <div className='links'>
                         <Link to='/recovery'>

@@ -46,7 +46,7 @@ app.post('/process-payment', async (req, res) => {
   const request_body = {
     sourceId: request_params_pay.sourceId,
     idempotencyKey: idempotency_key,
-    
+
     amountMoney: {
       amount: (request_params_pay.amount) * 100,
       currency: 'USD'
@@ -54,17 +54,17 @@ app.post('/process-payment', async (req, res) => {
   }
 
 
-try {
-  const response = await client.paymentsApi.createPayment(request_body);
+  try {
+    const response = await client.paymentsApi.createPayment(request_body);
 
-  console.log(response.result);
-} catch (error) {
-  console.log(error);
-  res.status(500).json({
-    'title': 'Payment Failure',
-    'result': 'fail'
-  });
-}
+    console.log(response.result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      'title': 'Payment Failure',
+      'result': 'fail'
+    });
+  }
 })
 
 
@@ -177,67 +177,178 @@ app.post('/process-payment', async (req, res) => {
 
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-           user: process.env.MY_EMAIL,
-           pass: process.env.MY_PASSWORD
-       }
-   });
-
-   app.post('/confirmation', (req, res, next) => {
-    const request_params = req.body
-   
-    
-    const mail = {
-      from: 'greenmountainsynergy@gmail.com',
-      to: `${request_params.email}, greenmountainsynergy@gmail.com`,
-      subject: 'Order Confirmation',
-      html: `<p>Thank you ${request_params.recipientName} for your order of $${request_params.total}! <br> <br> Notes for order: <br> ${request_params.notes} <br> <br> It will be shipped to: <br> ${request_params.recipientName} <br> ${request_params.line1} <br> ${request_params.line2} <br> ${request_params.city},  ${request_params.state} ${request_params.zip_code} <br> Feel free to reply to this email with any questions, comments or changes to shipping address. <br> <br> Thanks, <br> Caitlin </p>`
+  service: 'gmail',
+  auth: {
+    user: process.env.MY_EMAIL,
+    pass: process.env.MY_PASSWORD
   }
-  
-    transporter.sendMail(mail, (err, data) => {
-      if (err) {
-        res.json({
-          status: 'fail'
-        })
-      } else {
-        res.json({
-         status: 'success'
-        })
-      }
-    })
-  })
+});
 
-   app.post('/access', (req, res, next) => {
-    const request_params = req.body
-    console.log(request_params)
-    
-    const mail = {
-      from: `${request_params.contactEmail}`,
-      to: `greenmountainsynergy@gmail.com`,
-      subject: `${request_params.contactSubject} from ${request_params.contactName}`,
-      html: `${request_params.contactMessage} Sent from website by ${request_params.contactName}`
+app.post('/confirmation', (req, res, next) => {
+  const request_params = req.body
+
+
+  const mail = {
+    from: 'greenmountainsynergy@gmail.com',
+    to: `${request_params.email}, greenmountainsynergy@gmail.com`,
+    subject: 'Order Confirmation',
+    html: `<p>Thank you ${request_params.firstName} for your order of $${request_params.total}! <br> <br> Notes for order: <br> ${request_params.notes} <br> <br> It will be shipped to: <br> ${request_params.recipientName} <br> ${request_params.line1} <br> ${request_params.line2} <br> ${request_params.city},  ${request_params.state} ${request_params.zip_code} <br> Feel free to reply to this email with any questions, comments or changes to shipping address. <br> <br> Thanks, <br> Caitlin </p>`
   }
-  
-    transporter.sendMail(mail, (err, data) => {
-      
-      if (err) {
-        console.log(`${err}`)
-        res.json({
-          status: 'fail'
-        })
-      } else {
-        res.json({
-         status: 'success'
-        })
-      }
-    })
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+        status: 'success'
+      })
+    }
   })
+})
+
+app.post('/access', (req, res, next) => {
+  const request_params = req.body
+  console.log(request_params)
+
+  const mail = {
+    from: `${request_params.contactEmail}`,
+    to: `greenmountainsynergy@gmail.com`,
+    subject: `${request_params.contactSubject} from ${request_params.contactName}`,
+    html: `${request_params.contactMessage} Sent from website by ${request_params.contactName}`
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+
+    if (err) {
+      console.log(`${err}`)
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+        status: 'success'
+      })
+    }
+  })
+})
+
+app.post('/customer', async (req, res) => {
+  const request_params_customer = req.body;
+  try {
+    const response = await client.customersApi.createCustomer({
+      givenName: request_params_customer.givenName,
+      familyName: request_params_customer.familyName,
+      emailAddress: request_params_customer.emailAddress
+
+    });
+
+    console.log(response.result);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.post('/order', async (req, res) => {
+  const request_params_order = req.body;
+  try {
+    const response = await client.ordersApi.createOrder({
+      order: {
+        locationId: '057P5VYJ4A5X1',
+        referenceId: 'my-order-001',
+        lineItems: [
+          {
+            name: 'New York Strip Steak',
+            quantity: '1',
+            basePriceMoney: {
+              amount: 1599,
+              currency: 'USD'
+            }
+          },
+          {
+            quantity: '2',
+            catalogObjectId: 'BEMYCSMIJL46OCDV4KYIKXIB',
+            modifiers: [
+              {
+                catalogObjectId: 'CHQX7Y4KY6N5KINJKZCFURPZ'
+              }
+            ],
+            appliedDiscounts: [
+              {
+                discountUid: 'one-dollar-off'
+              }
+            ]
+          }
+        ],
+        taxes: [
+          {
+            uid: 'state-sales-tax',
+            name: 'State Sales Tax',
+            percentage: '9',
+            scope: 'ORDER'
+          }
+        ],
+        discounts: [
+          {
+            uid: 'labor-day-sale',
+            name: 'Labor Day Sale',
+            percentage: '5',
+            scope: 'ORDER'
+          },
+          {
+            uid: 'membership-discount',
+            catalogObjectId: 'DB7L55ZH2BGWI4H23ULIWOQ7',
+            scope: 'ORDER'
+          },
+          {
+            uid: 'one-dollar-off',
+            name: 'Sale - $1.00 off',
+            amountMoney: {
+              amount: 100,
+              currency: 'USD'
+            },
+            scope: 'LINE_ITEM'
+          }
+        ]
+      },
+      idempotencyKey: '8193148c-9586-11e6-99f9-28cfe92138cf'
+    });
+  
+    console.log(response.result);
+  } catch(error) {
+    console.log(error);
+  }
+})
+
+app.post('/item', async (req, res) => {
+  const request_params_item = req.body;
+  const idempotency_key = uuidv4();
+
+  try {
+    const response = await client.catalogApi.upsertCatalogObject({
+      idempotencyKey: idempotency_key,
+      object: {
+        type: 'ITEM',
+        id: '#Cocoa',
+        itemData: {
+          name: 'Cocoa',
+          description: 'Hot Chocolate',
+          abbreviation: 'Ch'
+        }
+      }
+    });
+  
+    console.log(response.result);
+  } catch(error) {
+    console.log(error);
+  }
+})
 
 app.get('*', (req, res) => {
-    res
-        .status(404)
-        .send('404, not found.');
+  res
+    .status(404)
+    .send('404, not found.');
 });
 
 exports.api = functions.https.onRequest(app);

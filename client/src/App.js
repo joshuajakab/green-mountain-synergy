@@ -24,6 +24,7 @@ import PaymentDetails from './components/PaymentDetails';
 import MailchimpFormContainer from './components/MailchimpFormContainer';
 import Return from './components/Return';
 import Shipping from './components/Shipping';
+import EmailPassword from './components/EmailPassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -118,9 +119,11 @@ function App() {
           </MainLayout>
         )} />
         <Route path='/payment' render={() => (
-          <MainLayout>
-            <PaymentDetails />
-          </MainLayout>
+          <WithAuth>
+            <MainLayout>
+              <PaymentDetails />
+            </MainLayout>
+          </WithAuth>
         )} />
         <Route path='/subscribe' render={() => (
           <MainLayout>
@@ -135,6 +138,11 @@ function App() {
         <Route path='/shipping-policy' render={() => (
           <MainLayout>
             <Shipping />
+          </MainLayout>
+        )} />
+        <Route path='/recovery' render={() => (
+          <MainLayout>
+            <EmailPassword />
           </MainLayout>
         )} />
       </Switch>

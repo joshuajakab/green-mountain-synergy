@@ -33,16 +33,16 @@ const About = props => {
             <div className='about-content-container'>
                 <div className='bio-container'>
                     <div className='bio-title'>Grant Jakubowski-Owner</div> 
-                    <img src='https://drive.google.com/uc?id=1ailjc915EARgCp-YI4sQLgLX-GIqN6IA' alt='Grant' className='bio-pic' />
-                    <p>Hi, I am Grant Jakubowski! I was born and raised in the amazing state of Vermont. After leaving the state briefly to attend college at the University of Rhode Island for horticulture, I returned back to Vermont to plant my roots. I have a deep passion for this state, farming, dogs, music, philosophy, business, homesteading, sustainable living, and so much more. I feel blessed to have found what I consider my calling in this life. Through ethical businesses that are good for the planet, the people producing it, and the end consumer, I believe we can help to create a positive impact on this planet. This is my way of tending to the part of the garden that I can touch. I hope to inspire and help others find their own!</p>
+                    <img src='https://drive.google.com/uc?id=14WPvdVCnFRj8HiT5f9dMlTExe5xK84UT' alt='Grant' className='bio-pic' />
+                    <p>I was born and raised in the amazing state of Vermont. After leaving the state briefly to attend college at the University of Rhode Island for horticulture, I returned back to Vermont to plant my roots. I have a deep passion for this state, sustainable farming, holistic practices and so much more. I feel blessed to have found what I consider my calling in this life. Through ethical businesses that are good for the planet, the people producing it, and the end consumer, I believe we can help to create a positive impact on this planet. This is my way of tending to the part of the garden that I can touch. I hope to inspire and help others find their own!</p>
                 </div>
                 <div className='bio-container'>
-                    <div className='bio-title'>Koa-Big Brother</div> 
+                    <div className='bio-title'>Koa aka Koabunga</div> 
                     <img src='https://drive.google.com/uc?id=1PrJ1QXwP7acowx4AWM_Niqzqf6BSxQV0' alt='Koa' className='bio-pic' />
                     <p>Meet Koa! He is the sweetest most sensitive boy ever! He absolutely loves working on the farm and greeting everyone who comes to visit(very enthusiastically I might add). He loves walks in the woods, going for rides, and playing with friends! As an homage to the Teenage Mutant Ninja Turtles he has earned the nickname “koabunga” and when he gets excited we refer to it as “Koabunga time”!</p>
                 </div>
                 <div className='bio-container'>
-                    <div className='bio-title'>Otto-Monsterman!</div> 
+                    <div className='bio-title'>Otto aka Monsterman</div> 
                     <img src='https://drive.google.com/uc?id=11fbo5JfN8V-g6gXfiSfGYJE1olYSfR0g' alt='Otto' className='bio-pic' />
                     <p>Meet Otto! He is the newest addition to the farm. He loves his big brother koa more then anything! He is full of excitement, love, and a touch of mischief which makes him all the more fun! He loves cuddling next to the fire after a long day of playing with his friends. He is also a big time food enthusiast who has found deep love for foraging on the farm. He knows that if he sniffs around there's always something delicious he can find. His favorites are blueberries, strawberries, kale, corn, daikon radish, apples, carrots, cucumbers and when it gets harder to scavenge in the winter he settles for deer and rabbit droppings(tough being a scavenger in Vermont winters). His veracious appetite and spunky attitude has earned himself the nickname “ottoman” aka “monster man”!!!</p>
                 </div>

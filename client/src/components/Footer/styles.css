@@ -30,6 +30,9 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 0 5%;
 }
 
 .footer-link {
@@ -126,7 +129,8 @@
 
     .footer-link {
         width: 40%;
-        font-size: .8rem;
+        font-size: .7rem;
+        text-align: center;
     }
 
     .location-container {

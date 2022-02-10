@@ -33,6 +33,11 @@
     text-align: center;
 }
 
+.blog-logo {
+    width: 50%;
+    margin: 0 25%;
+}
+
 @media screen and (max-width: 800px) {
     .blogs-container {
         width: 85%;
@@ -45,5 +50,10 @@
 
     .blog-subtitle {
         font-size: 1.7rem;
+    }
+
+    .blog-logo {
+        width: 75%;
+        margin: 0 12.5%;
     }
 }

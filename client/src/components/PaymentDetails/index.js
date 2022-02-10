@@ -54,7 +54,7 @@ const PaymentDetails = () => {
     const [lastNameOnCard, setLastNameOnCard] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
-    const [tokenTwo, setTokenTwo] = useState('');
+    //const [tokenTwo, setTokenTwo] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
@@ -67,7 +67,7 @@ const PaymentDetails = () => {
     useEffect(() => {
 
         if (itemCount < 1) {
-            history.push('/dashboard')
+            history.push('/')
         }
 
 
@@ -130,13 +130,11 @@ const PaymentDetails = () => {
 
     const cardTokenizeResponseReceived = async (token, buyer) => {
         console.info({ token, buyer });
-        setTokenTwo(token.token)
-        //console.log(token.token)
-        createPaymentPost()
-    }
-
-    const createPaymentPost = (errors, buyer, cardData, sourceId, token) => {
-        console.log(tokenTwo);
+        //setTokenTwo(token.token)
+        
+        console.log(token)
+       
+        const tokenTwo = token.token
         /*if (errors) {
             setErrorMessages(errors.map(error => error.message))
             console.log('payment failed')
@@ -148,14 +146,14 @@ const PaymentDetails = () => {
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
 
-        apiInstance.post('/process-payment', { token: tokenTwo, amount: total, sourceId: tokenTwo });
+        apiInstance.post('/process-payment', { amount: total, sourceId: tokenTwo });
 
         const configOrder = {
             orderTotal: realTotal,
             orderItems: cartItems.map(item => {
-                const { documentID, productThumbnail, productName, price, quantity } = item;
+                const {  productThumbnail, productName, price, quantity } = item;
                 return {
-                    documentID,
+                    
                     productThumbnail,
                     productName,
                     price,

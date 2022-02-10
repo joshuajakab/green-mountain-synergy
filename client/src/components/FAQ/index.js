@@ -37,7 +37,7 @@ const FAQ = props => {
                 <h2 className='faq-titles'>Can our product make you fail a drug test?</h2>
                 <p className='faq-content'>Yes, although our products are always below .3% THC, they are full spectrum products and have the potential to lead to a failed drug test despite these low levels. We always want people to be aware of this fact. </p>
                 <h2 className='faq-titles'>CBD and Pets</h2>
-                <p className='faq-content'>All mammals contain an endocannabinoid system and can benefit from CBD products. Many people report amazing transformations in their pets after adding CBD to their diet. Many animals are much more sensitive than humans and don’t require nearly as much CBD. Always start with a small amount(around 5mg) and work your way up as needed. Bigger dogs or animals may require a larger dose than smaller animals. </p>
+                <p className='faq-content'>All mammals contain an endocannabinoid system and can benefit from CBD products. Many people report amazing transformations in their pets after adding CBD to their diet. Many animals are much more sensitive than humans and don’t require nearly as much CBD. Always start with a small amount(around 2-5mg) and work your way up as needed. Bigger dogs or animals may require a larger dose than smaller animals. </p>
                 <h2 className='faq-titles'>How should I store products?</h2>
                 <p className='faq-content'>Our products have a shelf life of at least one year and are stable at room temperatures. No need to refrigerate unless you prefer to. </p>
                 <h2 className='faq-titles'>Any other questions?</h2>
