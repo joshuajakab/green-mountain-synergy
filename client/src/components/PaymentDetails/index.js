@@ -128,18 +128,18 @@ const PaymentDetails = () => {
 
     };
 
-    const cardTokenizeResponseReceived = async (token, buyer) => {
+    const cardTokenizeResponseReceived = async (token, buyer, errors) => {
         console.info({ token, buyer });
         //setTokenTwo(token.token)
 
         console.log(token)
         
         const tokenTwo = token.token
-        /*if (errors) {
+        if (errors) {
             setErrorMessages(errors.map(error => error.message))
             console.log('payment failed')
             return
-        }*/
+        }
 
 
         setErrorMessages([])
