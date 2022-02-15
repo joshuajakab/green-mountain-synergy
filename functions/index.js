@@ -49,7 +49,7 @@ app.post('/process-payment', async (req, res) => {
     idempotencyKey: idempotency_key,
 
     amountMoney: {
-      amount: (request_params_pay.amount) * 100,
+      amount: request_params_pay.amount * 100,
       currency: 'USD'
     }
   }
