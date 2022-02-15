@@ -22,8 +22,8 @@ const client = new Client({
 //client.basePath = 'https://connect.squareupsandbox.com';
 client.basePath = 'https://connect.squareup.com'
 
-//const oauth2 = client.authentications['oauth2'];
-//oauth2.accessToken = accessToken;
+const oauth2 = client.authentications['oauth2'];
+oauth2.accessToken = accessToken;
 
 app.post('/process-payment', async (req, res) => {
   const request_params_pay = req.body;
