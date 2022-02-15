@@ -128,21 +128,17 @@ const PaymentDetails = () => {
 
     };
 
-    const cardTokenizeResponseReceived = async (token, buyer, errors) => {
+    const cardTokenizeResponseReceived = async (token, buyer) => {
         console.info({ token, buyer });
         //setTokenTwo(token.token)
 
         console.log(token)
         
         const tokenTwo = token.token
-        if (errors) {
-            setErrorMessages(errors.map(error => error.message))
-            console.log('payment failed')
-            return
-        }
+        
 
 
-        setErrorMessages([])
+        
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
 
         const configOrder = {
@@ -171,7 +167,7 @@ const PaymentDetails = () => {
         }
         else {
             //setOrderTotal(shipTotal)
-            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo });
+            apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo });
             apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
             alert("Payment Successful");
         }

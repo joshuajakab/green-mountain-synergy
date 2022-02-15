@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const { ApiError, client: square } = require('square');
+
 const { Client, Environment } = require('square');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
@@ -305,7 +305,7 @@ app.post('/item', async (req, res) => {
 app.get('*', (req, res) => {
   res
     .status(404)
-    .send('404, not found.');
+    .send('Its working.');
 });
 
 exports.api = functions.https.onRequest(app);
