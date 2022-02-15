@@ -19,7 +19,7 @@
     "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "firebase-admin": "^9.8.0",
-    "firebase-functions": "^3.14.1",
+    "firebase-functions": "^3.18.0",
     "nodemailer": "^6.7.2",
     "square": "^17.1.0"
   },
