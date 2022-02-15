@@ -15,7 +15,7 @@ app.use(express.json());
 const accessToken = process.env.ACCESS_TOKEN
 
 const client = new Client({
-  environment: Environment.Sandbox,
+  environment: Environment.Production,
   accessToken: accessToken,
 })
 
