@@ -19,7 +19,8 @@ const client = new Client({
   accessToken: accessToken,
 })
 
-client.basePath = 'https://connect.squareupsandbox.com';
+//client.basePath = 'https://connect.squareupsandbox.com';
+client.basePath = 'https://connect.squareup.com'
 
 //const oauth2 = client.authentications['oauth2'];
 //oauth2.accessToken = accessToken;
@@ -192,7 +193,7 @@ app.post('/confirmation', (req, res, next) => {
     from: 'greenmountainsynergy@gmail.com',
     to: `${request_params.email}, greenmountainsynergy@gmail.com`,
     subject: 'Order Confirmation',
-    html: `<p>Thank you ${request_params.firstName} for your order of $${request_params.total}! <br> <br> Notes for order: <br> ${request_params.notes} <br> <br> It will be shipped to: <br> ${request_params.recipientName} <br> ${request_params.line1} <br> ${request_params.line2} <br> ${request_params.city},  ${request_params.state} ${request_params.zip_code} <br> Feel free to reply to this email with any questions, comments or changes to shipping address. <br> <br> Thanks, <br> Caitlin </p>`
+    html: `<p>Thank you ${request_params.firstName} ${request_params.lastName} for your order of $${request_params.total}! <br> <br> Notes for order: <br> ${request_params.notes} <br> <br> It will be shipped to: <br> ${request_params.firstName} ${request_params.lastName} <br> ${request_params.line1} <br> ${request_params.line2} <br> ${request_params.city},  ${request_params.state} ${request_params.zip_code} <br> Feel free to reply to this email with any questions, comments or changes to shipping address. <br> <br> Thanks, <br> The Team at Green Mountain Synergy </p>`
   }
 
   transporter.sendMail(mail, (err, data) => {
@@ -255,64 +256,20 @@ app.post('/order', async (req, res) => {
   try {
     const response = await client.ordersApi.createOrder({
       order: {
-        locationId: '057P5VYJ4A5X1',
+        locationId: process.env.LOCATION_ID,
         referenceId: 'my-order-001',
         lineItems: [
           {
-            name: 'New York Strip Steak',
-            quantity: '1',
+            name: request_params_order.productName,
+            quantity: request_params_order.quantity,
             basePriceMoney: {
-              amount: 1599,
+              amount: request_params_order.price,
               currency: 'USD'
             }
-          },
-          {
-            quantity: '2',
-            catalogObjectId: 'BEMYCSMIJL46OCDV4KYIKXIB',
-            modifiers: [
-              {
-                catalogObjectId: 'CHQX7Y4KY6N5KINJKZCFURPZ'
-              }
-            ],
-            appliedDiscounts: [
-              {
-                discountUid: 'one-dollar-off'
-              }
-            ]
-          }
-        ],
-        taxes: [
-          {
-            uid: 'state-sales-tax',
-            name: 'State Sales Tax',
-            percentage: '9',
-            scope: 'ORDER'
-          }
-        ],
-        discounts: [
-          {
-            uid: 'labor-day-sale',
-            name: 'Labor Day Sale',
-            percentage: '5',
-            scope: 'ORDER'
-          },
-          {
-            uid: 'membership-discount',
-            catalogObjectId: 'DB7L55ZH2BGWI4H23ULIWOQ7',
-            scope: 'ORDER'
-          },
-          {
-            uid: 'one-dollar-off',
-            name: 'Sale - $1.00 off',
-            amountMoney: {
-              amount: 100,
-              currency: 'USD'
-            },
-            scope: 'LINE_ITEM'
           }
         ]
       },
-      idempotencyKey: '8193148c-9586-11e6-99f9-28cfe92138cf'
+      idempotencyKey: uuidv4()
     });
   
     console.log(response.result);

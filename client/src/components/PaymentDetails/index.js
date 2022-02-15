@@ -165,15 +165,15 @@ const PaymentDetails = () => {
 
         if (shipTotal) {
             //setOrderTotal(freeShipTotal)
-            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo });
-            apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo });
+            apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
             alert("Payment Successful");
             
         }
         else {
             //setOrderTotal(shipTotal)
-            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo });
-            apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo });
+            apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
             alert("Payment Successful");
         }
 
