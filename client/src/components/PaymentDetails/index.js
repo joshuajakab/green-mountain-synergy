@@ -60,6 +60,7 @@ const PaymentDetails = () => {
     const shipTotal = ((total * .06) + total + 5);
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
+    
 
 
 
@@ -131,9 +132,9 @@ const PaymentDetails = () => {
     const cardTokenizeResponseReceived = async (token, buyer) => {
         console.info({ token, buyer });
         //setTokenTwo(token.token)
-        
+
         console.log(token)
-       
+        
         const tokenTwo = token.token
         /*if (errors) {
             setErrorMessages(errors.map(error => error.message))
@@ -141,65 +142,43 @@ const PaymentDetails = () => {
             return
         }*/
 
-        const realTotal = shipTotal || freeShipTotal
 
         setErrorMessages([])
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
 
-        apiInstance.post('/process-payment', { amount: total, sourceId: tokenTwo });
-
         const configOrder = {
-            orderTotal: realTotal,
+            orderTotal: freeShipTotal,
             orderItems: cartItems.map(item => {
-                const {  productThumbnail, productName, price, quantity } = item;
+                const { productThumbnail, productName, price, quantity } = item;
                 return {
-                    
                     productThumbnail,
                     productName,
                     price,
                     quantity
                 }
-                /*if (fiveHundredPrice) {
-                    return {
-                        documentID,
-                        productThumbnail,
-                        productName,
-                        fiveHundredPrice,
-                        quantity
-                    }
-                }
-
-                if (oneThousandPrice) {
-                    return {
-                        documentID,
-                        productThumbnail,
-                        productName,
-                        oneThousandPrice,
-                        quantity
-                    }
-                }
-
-                
-
-                else { 
-                    return {
-                        documentID,
-                        productThumbnail,
-                        productName,
-                        twoThousandPrice,
-                        quantity
-                    }
-                } */
-
             })
+            }
+    
+        
+        
 
 
+        if (shipTotal) {
+            //setOrderTotal(freeShipTotal)
+            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo });
+            apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            alert("Payment Successful");
+            
+        }
+        else {
+            //setOrderTotal(shipTotal)
+            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo });
+            apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            alert("Payment Successful");
         }
 
-        alert("Payment Successful");
-
-        apiInstance.post('/confirmation', { email: billingAddress.email, total: [freeShipTotal, shipTotal], firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-
+        
+        
         dispatch(
 
             saveOrderHistory(configOrder)
@@ -211,8 +190,8 @@ const PaymentDetails = () => {
 
     }
 
-    const createVerificationDetails = (realTotal) => {
-        const finalTotal = realTotal * 100
+    const createVerificationDetails = () => {
+        const finalTotal = total * 100
 
         return {
             amount: `${finalTotal}`,
@@ -243,111 +222,111 @@ const PaymentDetails = () => {
 
                     <div className='shipping-container'>
 
-                    <h2 className='payment-form-top-title'>
-                        Payment Details
-                    </h2>
+                        <h2 className='payment-form-top-title'>
+                            Payment Details
+                        </h2>
 
-                    <Input
-                        required
-                        type='email'
-                        name='email'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Email Address'
-                        value={billingAddress.email}
-                    />
-
-                    <Input
-                        required
-                        type='tel'
-                        name='phone'
-                        handleChange={evt => handleBilling(evt)}
-                        placeholder='Phone Number'
-                        value={billingAddress.phone}
-                    />
-
-                    <h2 className='payment-form-title'>
-                        Shipping Address
-                    </h2>
-
-                    <Input
-                        required
-                        type='text'
-                        name='firstName'
-                        handleChange={evt => setFirstName(evt.target.value)}
-                        placeholder='First Name'
-                        value={firstName}
-                    />
-
-                    <Input
-                        required
-                        type='text'
-                        name='lastName'
-                        handleChange={evt => setLastName(evt.target.value)}
-                        placeholder='Last Name'
-                        value={lastName}
-                    />
-
-                    <Input
-                        required
-                        type='text'
-                        name='line1'
-                        handleChange={evt => handleShipping(evt)}
-                        placeholder='Address Line 1'
-                        value={shippingAddress.line1}
-                    />
-
-                    <Input
-                        type='text'
-                        name='line2'
-                        handleChange={evt => handleShipping(evt)}
-                        placeholder='Address Line 2'
-                        value={shippingAddress.line2}
-                    />
-
-                    <Input
-                        required
-                        type='text'
-                        name='city'
-                        handleChange={evt => handleShipping(evt)}
-                        placeholder='City'
-                        value={shippingAddress.city}
-                    />
-
-                    <Input
-                        required
-                        type='text'
-                        name='state'
-                        handleChange={evt => handleShipping(evt)}
-                        placeholder='State'
-                        value={shippingAddress.state}
-                    />
-
-                    <Input
-                        required
-                        type='text'
-                        name='zip_code'
-                        handleChange={evt => handleShipping(evt)}
-                        placeholder='Zip Code'
-                        value={shippingAddress.zip_code}
-                    />
-
-                    <div className='country'>
-
-                        <CountryDropdown
+                        <Input
                             required
-                            priorityOptions={['US']}
-                            onChange={val => handleShipping({
-                                target: {
-                                    name: 'country',
-                                    value: val
-                                }
-                            })}
-                            valueType='short'
-                            value={shippingAddress.country}
-                            className='country-dropdown'
+                            type='email'
+                            name='email'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='Email Address'
+                            value={shippingAddress.email}
                         />
 
-                    </div>
+                        <Input
+                            required
+                            type='tel'
+                            name='phone'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='Phone Number'
+                            value={shippingAddress.phone}
+                        />
+
+                        <h2 className='payment-form-title'>
+                            Shipping Address
+                        </h2>
+
+                        <Input
+                            required
+                            type='text'
+                            name='firstName'
+                            handleChange={evt => setFirstName(evt.target.value)}
+                            placeholder='First Name'
+                            value={firstName}
+                        />
+
+                        <Input
+                            required
+                            type='text'
+                            name='lastName'
+                            handleChange={evt => setLastName(evt.target.value)}
+                            placeholder='Last Name'
+                            value={lastName}
+                        />
+
+                        <Input
+                            required
+                            type='text'
+                            name='line1'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='Address Line 1'
+                            value={shippingAddress.line1}
+                        />
+
+                        <Input
+                            type='text'
+                            name='line2'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='Address Line 2'
+                            value={shippingAddress.line2}
+                        />
+
+                        <Input
+                            required
+                            type='text'
+                            name='city'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='City'
+                            value={shippingAddress.city}
+                        />
+
+                        <Input
+                            required
+                            type='text'
+                            name='state'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='State'
+                            value={shippingAddress.state}
+                        />
+
+                        <Input
+                            required
+                            type='text'
+                            name='zip_code'
+                            handleChange={evt => handleShipping(evt)}
+                            placeholder='Zip Code'
+                            value={shippingAddress.zip_code}
+                        />
+
+                        <div className='country'>
+
+                            <CountryDropdown
+                                required
+                                priorityOptions={['US']}
+                                onChange={val => handleShipping({
+                                    target: {
+                                        name: 'country',
+                                        value: val
+                                    }
+                                })}
+                                valueType='short'
+                                value={shippingAddress.country}
+                                className='country-dropdown'
+                            />
+
+                        </div>
 
                     </div>
 
@@ -466,14 +445,17 @@ const PaymentDetails = () => {
 
                 <div className='group'>
 
-                <h2 className='discount-code-title'>Discount Code</h2>
+                    <input type='checkbox' name="mc4wp-subscribe" value="1" />
+                    <label className='checkbox-label'>Subscribe to our Newsletter</label>
 
-                <FormInput
-                                className='discount-code'
-                                
-                                type='text'
-                                value={discountCode}
-                                handleChange={e => setDiscountCode(e.target.value)} />
+                    <h2 className='discount-code-title'>Discount Code</h2>
+
+                    <FormInput
+                        className='discount-code'
+
+                        type='text'
+                        value={discountCode}
+                        handleChange={e => setDiscountCode(e.target.value)} />
 
                     {total < 40 &&
                         <div >
@@ -502,50 +484,50 @@ const PaymentDetails = () => {
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>
-                
-                <div className='card-payment-container'>
-                    <SquarePaymentsForm
-                        /**
-                         * Identifies the calling form with a verified application ID
-                         * generated from the Square Application Dashboard.
-                         */
-                        applicationId={process.env.REACT_APP_APPLICATION_ID}
-                        /**
-                         * Invoked when payment form receives the result of a tokenize generation request.
-                         * The result will be a valid credit card or wallet token, or an error.
-                         */
-                        cardTokenizeResponseReceived={cardTokenizeResponseReceived}
-                        /*cardTokenizeResponseReceived={async (token, buyer) => {
-                            console.info({ token, buyer });
-                            const response = await fetch('/process-payment', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    sourceId: token.token
-                                })
-                            })
-                            alert(JSON.stringify(await response.json(), null, 2))
-                        }} 
-                        
-                         * This function enable the Strong Customer Authentication (SCA) flow
-                         *
-                         * We strongly recommend use this function to verify the buyer and
-                         * reduce the chance of fraudulent transactions.
-                         
-                        createVerificationDetails={createVerificationDetails}
-                        
-                         * Identifies the location of the merchant that is taking the payment.
-                         * Obtained from the Square Application Dashboard - Locations tab.
-                    */
-                        locationId={process.env.REACT_APP_LOCATION_ID}
-                        createVerificationDetails={createVerificationDetails}
 
-                    >
-                        <CreditCardInput />
-                    </SquarePaymentsForm>
-                </div>
+                    <div className='card-payment-container'>
+                        <SquarePaymentsForm
+                            /**
+                             * Identifies the calling form with a verified application ID
+                             * generated from the Square Application Dashboard.
+                             */
+                            applicationId={process.env.REACT_APP_APPLICATION_ID}
+                            /**
+                             * Invoked when payment form receives the result of a tokenize generation request.
+                             * The result will be a valid credit card or wallet token, or an error.
+                             */
+                            cardTokenizeResponseReceived={cardTokenizeResponseReceived}
+                            /*cardTokenizeResponseReceived={async (token, buyer) => {
+                                console.info({ token, buyer });
+                                const response = await fetch('/process-payment', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        sourceId: token.token
+                                    })
+                                })
+                                alert(JSON.stringify(await response.json(), null, 2))
+                            }} 
+                            
+                             * This function enable the Strong Customer Authentication (SCA) flow
+                             *
+                             * We strongly recommend use this function to verify the buyer and
+                             * reduce the chance of fraudulent transactions.
+                             
+                            createVerificationDetails={createVerificationDetails}
+                            
+                             * Identifies the location of the merchant that is taking the payment.
+                             * Obtained from the Square Application Dashboard - Locations tab.
+                        */
+                            locationId={process.env.REACT_APP_LOCATION_ID}
+                            createVerificationDetails={createVerificationDetails}
+
+                        >
+                            <CreditCardInput />
+                        </SquarePaymentsForm>
+                    </div>
                 </div>
 
 

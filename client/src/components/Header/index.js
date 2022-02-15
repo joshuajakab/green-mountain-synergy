@@ -53,7 +53,7 @@ const Header = props => {
                     <img className='logo' src={MenuIconMountain} alt='logo'></img>
                 </Link>
                 <Link className='link' to='/shop'>Shop</Link>
-                <Link className='link' to='/blog'>Blog</Link>
+                <Link className='link' to='/blog'>Our Story</Link>
                 <Link className='link' to='/faq'>FAQ</Link>
                 <Link className='link' to='/about'>About Us/Contact</Link>
                 <Link className='cart-container' to='/cart'>

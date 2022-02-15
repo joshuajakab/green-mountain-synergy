@@ -27,7 +27,7 @@ const Checkout = ({ }) => {
     }
 
 
-    const realTotal = ((total * .06) + total) + 5
+    const shipTotal = ((total * .06) + total) + 5
     const freeShipTotal = ((total * .06) + total)
     const tax = (total * .06)
 
@@ -81,7 +81,7 @@ const Checkout = ({ }) => {
                                         Subtotal: ${total.toFixed(2)} <br />
                                         Shipping: $5.00 <br />
                                         6% Sales Tax: ${tax.toFixed(2)}<br />
-                                        Total: ${realTotal.toFixed(2)}
+                                        Total: ${shipTotal.toFixed(2)}
 
                                     </h2>
                                 </div>

@@ -119,11 +119,11 @@ function App() {
           </MainLayout>
         )} />
         <Route path='/payment' render={() => (
-          <WithAuth>
+          
             <MainLayout>
               <PaymentDetails />
             </MainLayout>
-          </WithAuth>
+          
         )} />
         <Route path='/subscribe' render={() => (
           <MainLayout>

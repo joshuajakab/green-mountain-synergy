@@ -38,6 +38,13 @@
     margin: 0 25%;
 }
 
+.blog-list {
+    width: 25%;
+    margin: 0 37.5%;
+    
+}
+
+
 @media screen and (max-width: 800px) {
     .blogs-container {
         width: 85%;
@@ -55,5 +62,11 @@
     .blog-logo {
         width: 75%;
         margin: 0 12.5%;
+    }
+
+    .blog-list {
+        width: 75%;
+        margin: 0 12.5%;
+        
     }
 }
