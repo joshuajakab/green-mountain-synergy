@@ -109,8 +109,16 @@ const PaymentDetails = () => {
         const { name, value } = evt.target;
         if (isChecked) {
             setBillingAddress({
-                ...shippingAddress,
-                [name]: value
+                email: shippingAddress.email,
+                lastNameOnCard: shippingAddress.lastName,
+                firstNameOnCard: shippingAddress.firstName,
+                country: shippingAddress.country,
+                line1: shippingAddress.line1,
+                line2: shippingAddress.line2,
+                city: shippingAddress.city,
+                state: shippingAddress.state,
+                postalCode: shippingAddress.zip_code,
+                
             });
             
         }
