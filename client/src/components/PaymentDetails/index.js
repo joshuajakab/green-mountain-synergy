@@ -424,11 +424,7 @@ const PaymentDetails = () => {
 
 
                 <div className='group'>
-                    {isChecked && 
-                         <div className='billing-container'>
-                         
-                    </div>
-                    }
+                    
                     {!isChecked &&
                         <div className='billing-container'>
                             <h2 className='payment-form-title'>
