@@ -56,17 +56,20 @@ const PaymentDetails = () => {
     const [notes, setNotes] = useState('');
     //const [tokenTwo, setTokenTwo] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+    const [codeDiscount, setCodeDiscount] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
+    const codeTotal = ((total * .06) + (total * .8));
+    const shipCodeTotal = ((total * .06) + (total * .8) + 5)
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
-    
+
 
 
 
 
     useEffect(() => {
-        console.log(freeShipTotal)
+        //console.log(freeShipTotal)
         if (itemCount < 1) {
             history.push('/')
         }
@@ -84,6 +87,12 @@ const PaymentDetails = () => {
             return realTotal
         }
 
+    }
+
+    const handleDiscount = evt => {
+        if (discountCode === 'FACEBOOK') {
+
+        }
     }
 
     const handleShipping = evt => {
@@ -132,13 +141,13 @@ const PaymentDetails = () => {
         console.info({ token, buyer });
         //setTokenTwo(token.token)
 
-        console.log(token)
-        
+        //console.log(token)
+
         const tokenTwo = token.token
-        
 
 
-        
+
+
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
 
         const configOrder = {
@@ -152,30 +161,30 @@ const PaymentDetails = () => {
                     quantity
                 }
             })
-            }
-    
-        
-        
+        }
+
+
+
 
 
         if (!shipTotal) {
             //setOrderTotal(freeShipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
-            apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-            alert("Payment Successful");
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                alert("Payment Successful");
             })
-            
+
         }
         else {
             //setOrderTotal(shipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
-            apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-            alert("Payment Successful");
-        })
-    }
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                alert("Payment Successful");
+            })
+        }
 
-        
-        
+
+
         dispatch(
 
             saveOrderHistory(configOrder)
@@ -467,7 +476,33 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {total >= 40 &&
+                    {total < 40 && discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' &&
+                        <div >
+                            <h3 className='payment-total'>
+
+                                Subtotal: ${total.toFixed(2)} <br />
+                                Shipping: $5.00 <br />
+                                6% Sales Tax: ${tax.toFixed(2)}<br />
+                                Total: ${freeShipTotal.toFixed(2)}
+                                Discounted Total: ${shipCodeTotal.toFixed(2)}
+
+                            </h3>
+                        </div>
+                    }
+
+                    {total >= 40 && discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' &&
+                        <div >
+                            <h3 className='payment-total'>
+
+                                Subtotal: ${total.toFixed(2)} <br />
+                                Shipping: FREE <br />
+                                6% Sales Tax: ${tax.toFixed(2)} <br />
+                                Total: ${freeShipTotal.toFixed(2)}
+                                Discounted Total: ${codeTotal.toFixed(2)}
+
+                            </h3>
+                        </div>}
+                        {total >= 40 &&
                         <div >
                             <h3 className='payment-total'>
 

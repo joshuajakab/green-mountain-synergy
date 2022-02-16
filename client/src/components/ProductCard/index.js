@@ -70,7 +70,7 @@ const ProductCard = ({ }) => {
 
     const handleAddToCart = (product) => {
         if (!productQuantity) setProductQuantity(1);
-        console.log(productQuantity)
+        //console.log(productQuantity)
         if (!product) return;
         
         

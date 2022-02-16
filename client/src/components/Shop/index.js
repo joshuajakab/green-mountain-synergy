@@ -22,7 +22,7 @@ const ProductResults = ({ }) => {
         dispatch(
             fetchProductsStart({ filterType })
         )
-        console.log(filterType)
+        //console.log(filterType)
     }, [filterType]);
 
     const handleFilter = (e) => {

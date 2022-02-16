@@ -104,7 +104,7 @@ const AdminPage = props => {
 
     const handleBlogSubmit = e => {
         e.preventDefault();
-        console.log('WRONG PLACE!')
+        //console.log('WRONG PLACE!')
         dispatch(
             addBlogStart({
                 blogTitle,

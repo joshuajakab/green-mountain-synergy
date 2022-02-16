@@ -47,7 +47,7 @@ const Blog = props => {
         dispatch(
             fetchBlogsStart({ filterType })
         )
-        console.log(blogs)
+        //console.log(blogs)
     }, [filterType]);
 
 

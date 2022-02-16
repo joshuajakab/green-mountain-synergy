@@ -71,7 +71,7 @@ export const handleRemoveCartItem = ({
 }) => {
     const existingCartItems = prevCartItems.find(cartItem => 
         ((cartItem.productName) === (cartItemToRemove.productName)));
-        console.log(existingCartItems)
+        //console.log(existingCartItems)
         return prevCartItems.filter(item => (item.productName) !== (existingCartItems.productName));
     
 };
