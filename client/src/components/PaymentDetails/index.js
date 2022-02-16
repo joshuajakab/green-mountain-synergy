@@ -128,6 +128,11 @@ const PaymentDetails = () => {
     }
     };
 
+    const handleCheckboxChange = evt => {
+        setSubscribed(evt.currentTarget.subscribed);  
+        handleShipping(evt);
+    }
+
     const handleBilling = evt => {
         const { name, value } = evt.target;
         if (isChecked) {
@@ -413,7 +418,7 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => {setSubscribed(event.currentTarget.subscribed); handleShipping(event);}} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={handleCheckboxChange} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
