@@ -160,17 +160,19 @@ const PaymentDetails = () => {
 
         if (!shipTotal) {
             //setOrderTotal(freeShipTotal)
-            apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo });
+            apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
             apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
             alert("Payment Successful");
+            })
             
         }
         else {
             //setOrderTotal(shipTotal)
-            apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo });
+            apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
             apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
             alert("Payment Successful");
-        }
+        })
+    }
 
         
         
@@ -459,7 +461,7 @@ const PaymentDetails = () => {
                                 Subtotal: ${total.toFixed(2)} <br />
                                 Shipping: $5.00 <br />
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
-                                Total: ${freeShipTotal.toFixed(2)}
+                                Total: ${shipTotal.toFixed(2)}
 
                             </h3>
                         </div>
