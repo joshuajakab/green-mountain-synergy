@@ -73,6 +73,7 @@ const PaymentDetails = () => {
 
     useEffect(() => {
         //console.log(freeShipTotal)
+        console.log(shipTotal)
         if (itemCount < 1) {
             history.push('/')
         }
@@ -211,6 +212,7 @@ const PaymentDetails = () => {
         }
         else {
             //setOrderTotal(shipTotal)
+            
             apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo }).then(() => {
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
