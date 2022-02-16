@@ -501,7 +501,7 @@ const PaymentDetails = () => {
 
                         type='text'
                         value={discountCode}
-                        handleChange={e => setDiscountCode(e.target.value)} />
+                        handleChange={e => setDiscountCode(e.target.value.toUppercase())} />
 
 
 
