@@ -462,7 +462,7 @@ const PaymentDetails = () => {
                             value={discountCode}
                             handleChange={e => setDiscountCode(e.target.value)} />
 
-                        <Button type='submit'>Apply</Button>
+                        
                     
 
                     {total < 40 &&
@@ -472,25 +472,16 @@ const PaymentDetails = () => {
                                 Subtotal: ${total.toFixed(2)} <br />
                                 Shipping: $5.00 <br />
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
-                                Total: ${freeShipTotal.toFixed(2)}
-
-                            </h3>
-                        </div>
-                    }
-
-                    {discountCode === 'FACEBOOK' && total < 40 &&
-                        <div >
-                            <h3 className='payment-total'>
-
-                                Subtotal: ${total.toFixed(2)} <br />
-                                Shipping: $5.00 <br />
-                                6% Sales Tax: ${tax.toFixed(2)}<br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
-                                Discounted Total: ${shipCodeTotal.toFixed(2)}
-
+                                {discountCode === 'FACEBOOK' || discountCode === 'PHISH' || discountCode === 'INSTAGRAM' || discountCode === 'TIKTOK' &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
                             </h3>
                         </div>
                     }
+
 
                     {total >= 40 &&
                         <div >
@@ -500,25 +491,15 @@ const PaymentDetails = () => {
                                 Shipping: FREE <br />
                                 6% Sales Tax: ${tax.toFixed(2)} <br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
-                                {discountCode === 'FACEBOOK'&&
-                                <h3>
+                                {discountCode === 'FACEBOOK' || discountCode === 'PHISH' || discountCode === 'INSTAGRAM' || discountCode === 'TIKTOK' &&
+                                <h3 className='payment-total'>
                                 Discounted Total: ${codeTotal.toFixed(2)}
                                 </h3>
-                    }
+                                }
 
                             </h3>
                         </div>}
-                    {!discountCode && total >= 40 &&
-                        <div >
-                            <h3 className='payment-total'>
-
-                                Subtotal: ${total.toFixed(2)} <br />
-                                Shipping: FREE <br />
-                                6% Sales Tax: ${tax.toFixed(2)} <br />
-                                Total: ${freeShipTotal.toFixed(2)}
-
-                            </h3>
-                        </div>}
+                    
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>
