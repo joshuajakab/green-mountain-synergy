@@ -55,7 +55,7 @@ const PaymentDetails = () => {
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
     //const [tokenTwo, setTokenTwo] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
+    const [billing, setBilling] = useState(false);
     const [codeDiscount, setCodeDiscount] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
@@ -99,7 +99,7 @@ const PaymentDetails = () => {
 
     const handleShipping = evt => {
         const { name, value } = evt.target;
-        if (!isChecked){
+        if (!billing){
         setShippingAddress({
             ...shippingAddress,
             [name]: value
@@ -128,13 +128,13 @@ const PaymentDetails = () => {
     }
     };
 
-    const handleCheckboxChange = evt => {
+    /*const handleCheckboxChange = evt => {
         setIsChecked(evt.target)
-    }
+    }*/
 
     const handleBilling = evt => {
         const { name, value } = evt.target;
-        if (isChecked) {
+        if (billing) {
             setBillingAddress({
                 email: shippingAddress.email,
                 lastNameOnCard: shippingAddress.lastName,
@@ -417,14 +417,14 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.isChecked)} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={billing} onChange={(event) => setBilling(event.currentTarget.billing)} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
 
 
                 <div className='group'>
-                    {isChecked && 
+                    {billing && 
                          <div className='billing-container'>
                          <h2 className='payment-form-title'>
                              Billing Address
@@ -444,7 +444,7 @@ const PaymentDetails = () => {
                              type='text'
                              name='lastNameOnCard'
                              handleChange={evt => setLastNameOnCard(evt.target.value)}
-                             placeholder='Last Name'
+                             placeholder='Changing'
                              value={lastNameOnCard}
                          />
 
@@ -510,7 +510,7 @@ const PaymentDetails = () => {
                          </div>
                     </div>
                     }
-                    {!isChecked &&
+                    {!billing &&
                         <div className='billing-container'>
                             <h2 className='payment-form-title'>
                                 Billing Address
