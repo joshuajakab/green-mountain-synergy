@@ -9,9 +9,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors({origin: 'https://greenmountainsynergy.com'}));
 app.use(express.json());
 
 const accessToken = process.env.ACCESS_TOKEN
