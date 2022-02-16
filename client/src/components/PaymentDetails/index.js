@@ -55,7 +55,7 @@ const PaymentDetails = () => {
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
     //const [tokenTwo, setTokenTwo] = useState('');
-    const [billing, setBilling] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const [codeDiscount, setCodeDiscount] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
@@ -99,7 +99,7 @@ const PaymentDetails = () => {
 
     const handleShipping = evt => {
         const { name, value } = evt.target;
-        if (!billing){
+        if (!isChecked){
         setShippingAddress({
             ...shippingAddress,
             [name]: value
@@ -134,7 +134,7 @@ const PaymentDetails = () => {
 
     const handleBilling = evt => {
         const { name, value } = evt.target;
-        if (billing) {
+        if (isChecked) {
             setBillingAddress({
                 email: shippingAddress.email,
                 lastNameOnCard: shippingAddress.lastName,
@@ -417,19 +417,19 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={billing} onChange={(event) => setBilling(event.target.billing)} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.billing)} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
 
 
                 <div className='group'>
-                    {billing && 
+                    {isChecked && 
                          <div className='billing-container'>
                          
                     </div>
                     }
-                    {!billing &&
+                    {!isChecked &&
                         <div className='billing-container'>
                             <h2 className='payment-form-title'>
                                 Billing Address
