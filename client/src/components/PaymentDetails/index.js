@@ -99,10 +99,33 @@ const PaymentDetails = () => {
 
     const handleShipping = evt => {
         const { name, value } = evt.target;
+        if (!isChecked){
         setShippingAddress({
             ...shippingAddress,
             [name]: value
         });
+        setBillingAddress({
+            ...billingAddress,
+            [name]: value
+        });
+    } else {
+        setShippingAddress({
+            ...shippingAddress,
+            [name]: value
+        });
+        setBillingAddress({
+            email: shippingAddress.email,
+            lastNameOnCard: shippingAddress.lastName,
+            firstNameOnCard: shippingAddress.firstName,
+            country: shippingAddress.country,
+            line1: shippingAddress.line1,
+            line2: shippingAddress.line2,
+            city: shippingAddress.city,
+            state: shippingAddress.state,
+            postalCode: shippingAddress.zip_code,
+
+        });
+    }
     };
 
     const handleBilling = evt => {
@@ -118,7 +141,7 @@ const PaymentDetails = () => {
                 city: shippingAddress.city,
                 state: shippingAddress.state,
                 postalCode: shippingAddress.zip_code,
-                
+
             });
             
         }
@@ -390,7 +413,7 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.checked)} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={handleShipping} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
