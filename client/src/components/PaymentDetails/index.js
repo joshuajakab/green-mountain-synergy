@@ -184,7 +184,7 @@ const PaymentDetails = () => {
 
         else if (discountCode && freeShipTotal) {
             console.log('too many places at once')
-            apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
+            apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
@@ -198,7 +198,7 @@ const PaymentDetails = () => {
 
         else if (!shipTotal && !discountCode) {
             //setOrderTotal(freeShipTotal)
-            apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
+            apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
@@ -213,7 +213,7 @@ const PaymentDetails = () => {
         else {
             //setOrderTotal(shipTotal)
             
-            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo }).then(() => {
+            apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
