@@ -9,7 +9,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-app.use(cors({origin: ['https://greenmountainsynergy.com', 'https://greenmountainsynergy.com/payment']}));
+const corsOptions = {
+  exposedHeaders: 'Authorization',
+  origin: ['https://greenmountainsynergy.com', 'https://greenmountainsynergy.com/payment']
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const accessToken = process.env.ACCESS_TOKEN
@@ -57,13 +61,16 @@ app.post('/process-payment', async (req, res) => {
 
   try {
     const response = await client.paymentsApi.createPayment(request_body);
-
+    res.status(200).json({
+      'title': 'Payment Successful',
+      'result': response
+    });
     console.log(response.result);
   } catch (error) {
     console.log(error);
     res.status(500).json({
       'title': 'Payment Failure',
-      'result': 'fail'
+      'result': error.response.text
     });
   }
 })
