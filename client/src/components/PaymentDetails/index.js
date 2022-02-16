@@ -454,7 +454,7 @@ const PaymentDetails = () => {
                     <label className='checkbox-label'>Subscribe to our Newsletter</label>
 
                     <h2 className='discount-code-title'>Discount Code</h2>
-                    <form onSubmit={handleSubmit}>
+                    
                         <FormInput
                             className='discount-code'
 
@@ -463,7 +463,7 @@ const PaymentDetails = () => {
                             handleChange={e => setDiscountCode(e.target.value)} />
 
                         <Button type='submit'>Apply</Button>
-                    </form>
+                    
 
                     {total < 40 &&
                         <div >
@@ -492,7 +492,7 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {discountCode === 'FACEBOOK' && total >= 40 &&
+                    {total >= 40 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -500,7 +500,11 @@ const PaymentDetails = () => {
                                 Shipping: FREE <br />
                                 6% Sales Tax: ${tax.toFixed(2)} <br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
+                                {discountCode === 'FACEBOOK'&&
+                                <h3>
                                 Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                    }
 
                             </h3>
                         </div>}
