@@ -72,8 +72,8 @@ const PaymentDetails = () => {
 
 
     useEffect(() => {
-        //console.log(freeShipTotal)
-        console.log(shipTotal)
+        console.log(freeShipTotal.toFixed(2))
+        console.log(shipTotal.toFixed(2))
         if (itemCount < 1) {
             history.push('/')
         }
