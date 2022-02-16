@@ -183,7 +183,7 @@ app.post('/process-payment', async (req, res) => {
 
 
 
-app.post('/subscribe', (req, res) => {
+app.post('/subscribe', async (req, res) => {
 
   mailchimp.setConfig({
     apiKey: process.env.MAILCHIMP_API_KEY,
