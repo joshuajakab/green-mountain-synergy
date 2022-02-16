@@ -417,7 +417,7 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={billing} onChange={(event) => setBilling(event.currentTarget.billing)} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={billing} onChange={(event) => setBilling(event.target.billing)} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
