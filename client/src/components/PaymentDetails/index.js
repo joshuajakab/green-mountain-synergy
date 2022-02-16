@@ -473,7 +473,22 @@ const PaymentDetails = () => {
                                 Shipping: $5.00 <br />
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
-                                {discountCode === 'FACEBOOK' || discountCode === 'PHISH' || discountCode === 'INSTAGRAM' || discountCode === 'TIKTOK' &&
+                                {discountCode === 'FACEBOOK' &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'INSTAGRAM' &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'TIKTOK' &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'PHISH' &&
                                 <h3 className='payment-total'>
                                 Discounted Total: ${codeTotal.toFixed(2)}
                                 </h3>
@@ -491,7 +506,22 @@ const PaymentDetails = () => {
                                 Shipping: FREE <br />
                                 6% Sales Tax: ${tax.toFixed(2)} <br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
-                                {discountCode === 'FACEBOOK' || discountCode === 'PHISH' || discountCode === 'INSTAGRAM' || discountCode === 'TIKTOK' &&
+                                {discountCode === 'FACEBOOK'  &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'INSTAGRAM'  &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'TIKTOK'  &&
+                                <h3 className='payment-total'>
+                                Discounted Total: ${codeTotal.toFixed(2)}
+                                </h3>
+                                }
+                                {discountCode === 'PHISH'  &&
                                 <h3 className='payment-total'>
                                 Discounted Total: ${codeTotal.toFixed(2)}
                                 </h3>
