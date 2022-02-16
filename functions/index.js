@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const corsOptions = {
   exposedHeaders: 'Authorization',
-  origin: ['https://greenmountainsynergy.com', 'https://greenmountainsynergy.com/payment']
+  origin: true
 };
 app.use(cors(corsOptions));
 app.use(express.json());
