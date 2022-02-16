@@ -63,14 +63,14 @@ app.post('/process-payment', async (req, res) => {
     const response = await client.paymentsApi.createPayment(request_body);
     res.status(200).json({
       'title': 'Payment Successful',
-      'result': response
+      'result': 'Payment Successful'
     });
     console.log(response.result);
   } catch (error) {
     console.log(error);
     res.status(500).json({
       'title': 'Payment Failure',
-      'result': error.response.text
+      'result': error.response
     });
   }
 })
