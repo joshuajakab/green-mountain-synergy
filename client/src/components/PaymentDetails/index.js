@@ -59,10 +59,12 @@ const PaymentDetails = () => {
     const [codeDiscount, setCodeDiscount] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
-    const codeTotal = ((total * .06) + (total * .8));
-    const shipCodeTotal = ((total * .06) + (total * .8) + 5)
+    const codeTotal = (((total * .8) * .06) + (total * .8));
+    const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5)
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
+    
+    
 
 
 
