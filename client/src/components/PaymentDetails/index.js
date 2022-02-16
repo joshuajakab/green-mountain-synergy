@@ -59,7 +59,7 @@ const PaymentDetails = () => {
     const [codeDiscount, setCodeDiscount] = useState(false);
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
-    const codeTotal = (((total * .8) * .06) + (total * .8)).toFixed(2);
+    const codeTotal = (((total * .8) * .06) + (total * .8));
     const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5)
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
@@ -168,13 +168,14 @@ const PaymentDetails = () => {
 
         if (discountCode && shipTotal) {
             console.log(codeTotal)
-            apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
+            apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
                 apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
             })
         }
 
         else if (discountCode && freeShipTotal) {
+            console.log('too many places at once')
             apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
                 apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
