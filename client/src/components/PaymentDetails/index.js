@@ -91,7 +91,7 @@ const PaymentDetails = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        return
+        return discountCode
     }
 
     const handleShipping = evt => {
@@ -478,7 +478,7 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' && total < 40 &&
+                    {discountCode === 'FACEBOOK' && total < 40 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -492,7 +492,7 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' && total >= 40 &&
+                    {discountCode === 'FACEBOOK' && total >= 40 &&
                         <div >
                             <h3 className='payment-total'>
 
