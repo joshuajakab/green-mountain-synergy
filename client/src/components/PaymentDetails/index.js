@@ -168,8 +168,8 @@ const PaymentDetails = () => {
 
         if (discountCode && shipTotal) {
             console.log(codeTotal)
-            apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+            apiInstance.post('/process-payment', { amount: shipCodeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
             })
         }
@@ -177,7 +177,7 @@ const PaymentDetails = () => {
         else if (discountCode && freeShipTotal) {
             console.log('too many places at once')
             apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
             })
         }
@@ -192,7 +192,7 @@ const PaymentDetails = () => {
         }
         else {
             //setOrderTotal(shipTotal)
-            apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
+            apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo }).then(() => {
                 apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
             })
@@ -491,22 +491,22 @@ const PaymentDetails = () => {
                                 Total: ${shipTotal.toFixed(2)}<br />
                                 {discountCode === 'FACEBOOK' &&
                                 <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
+                                Discounted Total: ${shipCodeTotal.toFixed(2)}
                                 </h3>
                                 }
                                 {discountCode === 'INSTAGRAM' &&
                                 <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
+                                Discounted Total: ${shipCodeTotal.toFixed(2)}
                                 </h3>
                                 }
                                 {discountCode === 'TIKTOK' &&
                                 <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
+                                Discounted Total: ${shipCodeTotal.toFixed(2)}
                                 </h3>
                                 }
                                 {discountCode === 'PHISH' &&
                                 <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
+                                Discounted Total: ${shipCodeTotal.toFixed(2)}
                                 </h3>
                                 }
                             </h3>
