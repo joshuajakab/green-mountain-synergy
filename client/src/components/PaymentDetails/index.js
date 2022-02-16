@@ -173,14 +173,14 @@ const PaymentDetails = () => {
             })
         }
 
-        if (discountCode && freeShipTotal) {
+        else if (discountCode && freeShipTotal) {
             apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
                 apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                 alert("Payment Successful");
             })
         }
 
-        if (!shipTotal) {
+        else if (!shipTotal && !discountCode) {
             //setOrderTotal(freeShipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
                 apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
@@ -486,7 +486,7 @@ const PaymentDetails = () => {
                                 Subtotal: ${total.toFixed(2)} <br />
                                 Shipping: $5.00 <br />
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
-                                Total: ${freeShipTotal.toFixed(2)}<br />
+                                Total: ${shipTotal.toFixed(2)}<br />
                                 {discountCode === 'FACEBOOK' &&
                                 <h3 className='payment-total'>
                                 Discounted Total: ${codeTotal.toFixed(2)}
