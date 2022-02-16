@@ -72,8 +72,7 @@ const PaymentDetails = () => {
 
 
     useEffect(() => {
-        console.log(freeShipTotal.toFixed(2))
-        console.log(shipTotal.toFixed(2))
+        
         if (itemCount < 1) {
             history.push('/')
         }
@@ -110,13 +109,14 @@ const PaymentDetails = () => {
         const { name, value } = evt.target;
         if (isChecked) {
             setBillingAddress({
-                ...billingAddress,
+                ...shippingAddress,
                 [name]: value
             });
+            
         }
         else {
             setBillingAddress({
-                ...shippingAddress,
+                ...billingAddress,
                 [name]: value
             });
         }
