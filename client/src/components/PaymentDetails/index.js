@@ -63,8 +63,9 @@ const PaymentDetails = () => {
     const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5)
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
-    
-    
+    const [subscribed, setSubscribed] = useState(false)
+
+
 
 
 
@@ -169,32 +170,56 @@ const PaymentDetails = () => {
         if (discountCode && shipTotal) {
             console.log(codeTotal)
             apiInstance.post('/process-payment', { amount: shipCodeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                alert("Payment Successful");
+                if (subscribed) {
+                    apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                } else {
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                }
             })
         }
 
         else if (discountCode && freeShipTotal) {
             console.log('too many places at once')
             apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                alert("Payment Successful");
+                if (subscribed) {
+                    apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                } else {
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                }
             })
         }
 
         else if (!shipTotal && !discountCode) {
             //setOrderTotal(freeShipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal, sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                alert("Payment Successful");
+                if (subscribed) {
+                    apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                } else {
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                }
             })
 
         }
         else {
             //setOrderTotal(shipTotal)
             apiInstance.post('/process-payment', { amount: shipTotal, sourceId: tokenTwo }).then(() => {
-                apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                alert("Payment Successful");
+                if (subscribed) {
+                    apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                } else {
+                    apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    alert("Payment Successful");
+                }
             })
         }
 
@@ -466,20 +491,20 @@ const PaymentDetails = () => {
 
                 <div className='group'>
 
-                    <input type='checkbox' name="mc4wp-subscribe" value="1" />
+                    <input type='checkbox' name="mc4wp-subscribe" checked={subscribed} onChange={(event) => setSubscribed(event.currentTarget.subscribed)} />
                     <label className='checkbox-label'>Subscribe to our Newsletter</label>
 
                     <h2 className='discount-code-title'>Discount Code</h2>
-                    
-                        <FormInput
-                            className='discount-code'
 
-                            type='text'
-                            value={discountCode}
-                            handleChange={e => setDiscountCode(e.target.value)} />
+                    <FormInput
+                        className='discount-code'
 
-                        
-                    
+                        type='text'
+                        value={discountCode}
+                        handleChange={e => setDiscountCode(e.target.value)} />
+
+
+
 
                     {total < 40 &&
                         <div >
@@ -490,24 +515,24 @@ const PaymentDetails = () => {
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
                                 Total: ${shipTotal.toFixed(2)}<br />
                                 {discountCode === 'FACEBOOK' &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${shipCodeTotal.toFixed(2)}
-                                </h3>
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>
                                 }
                                 {discountCode === 'INSTAGRAM' &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${shipCodeTotal.toFixed(2)}
-                                </h3>
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>
                                 }
                                 {discountCode === 'TIKTOK' &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${shipCodeTotal.toFixed(2)}
-                                </h3>
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>
                                 }
                                 {discountCode === 'PHISH' &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${shipCodeTotal.toFixed(2)}
-                                </h3>
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>
                                 }
                             </h3>
                         </div>
@@ -522,30 +547,30 @@ const PaymentDetails = () => {
                                 Shipping: FREE <br />
                                 6% Sales Tax: ${tax.toFixed(2)} <br />
                                 Total: ${freeShipTotal.toFixed(2)}<br />
-                                {discountCode === 'FACEBOOK'  &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
-                                </h3>
+                                {discountCode === 'FACEBOOK' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
                                 }
-                                {discountCode === 'INSTAGRAM'  &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
-                                </h3>
+                                {discountCode === 'INSTAGRAM' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
                                 }
-                                {discountCode === 'TIKTOK'  &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
-                                </h3>
+                                {discountCode === 'TIKTOK' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
                                 }
-                                {discountCode === 'PHISH'  &&
-                                <h3 className='payment-total'>
-                                Discounted Total: ${codeTotal.toFixed(2)}
-                                </h3>
+                                {discountCode === 'PHISH' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
                                 }
 
                             </h3>
                         </div>}
-                    
+
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>

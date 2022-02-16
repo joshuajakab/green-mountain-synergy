@@ -7,6 +7,8 @@ const { Client, Environment } = require('square');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 dotenv.config();
+const mailchimp = require("@mailchimp/mailchimp_marketing")
+const md5 = require("md5")
 
 const app = express();
 const corsOptions = {
@@ -31,7 +33,7 @@ client.basePath = 'https://connect.squareup.com'
 
 app.post('/process-payment', async (req, res) => {
   const request_params_pay = req.body;
-  console.log(request_params_pay);
+  //console.log(request_params_pay);
 
   // length of idempotency_key should be less than 45
   const idempotency_key = uuidv4();
@@ -65,7 +67,7 @@ app.post('/process-payment', async (req, res) => {
       'title': 'Payment Successful',
       'result': 'Payment Successful'
     });
-    console.log(response.result);
+    //console.log(response.result);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -181,6 +183,50 @@ app.post('/process-payment', async (req, res) => {
 
 
 
+app.post('/subscribe', (req, res) => {
+
+  mailchimp.setConfig({
+    apiKey: process.env.MAILCHIMP_API_KEY,
+    server: 'us4',
+  });
+
+  const { email, tags } = req.body
+
+  const subscriberHash = md5(email.toLowerCase());
+  const listId = process.env.MAILCHIMP_LIST_ID;
+
+  const listId = 'bed56a4e47';
+
+    const response = await mailchimp.lists.setListMember(
+      listId,
+      subscriberHash,
+      {
+        email_address: email,
+        status_if_new: 'subscribed',
+      })
+      const existingTags = response.tags.map((tag) => tag.name);
+    const allUniqueTags = [...new Set([...existingTags, ...tags])];
+    const formattedTags = allUniqueTags.map((tag) => {
+        return {
+          name: tag,
+          status: 'active',
+        };
+    });
+    const updateSubscriberTags = await mailchimp.lists.updateListMemberTags(
+        listId,
+        subscriberHash,
+        {
+          body: {
+            tags: formattedTags,
+          },
+      
+    }
+    );
+    
+      res.sendStatus(200)
+
+})
+
 
 
 
@@ -218,7 +264,7 @@ app.post('/confirmation', (req, res, next) => {
 
 app.post('/access', (req, res, next) => {
   const request_params = req.body
-  console.log(request_params)
+  //console.log(request_params)
 
   const mail = {
     from: `${request_params.contactEmail}`,
@@ -252,7 +298,7 @@ app.post('/customer', async (req, res) => {
 
     });
 
-    console.log(response.result);
+    //console.log(response.result);
   } catch (error) {
     console.log(error);
   }
@@ -279,7 +325,7 @@ app.post('/order', async (req, res) => {
       idempotencyKey: uuidv4()
     });
   
-    console.log(response.result);
+    //console.log(response.result);
   } catch(error) {
     console.log(error);
   }
@@ -303,7 +349,7 @@ app.post('/item', async (req, res) => {
       }
     });
   
-    console.log(response.result);
+    //console.log(response.result);
   } catch(error) {
     console.log(error);
   }
