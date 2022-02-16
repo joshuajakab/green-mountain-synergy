@@ -73,6 +73,8 @@ const Checkout = ({ }) => {
                         </div>
 
                         <div className='total-container'>
+
+                            
                             
                             {total < 40 &&
                                 <div className='total'>

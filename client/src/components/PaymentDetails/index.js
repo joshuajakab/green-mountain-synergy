@@ -89,10 +89,8 @@ const PaymentDetails = () => {
 
     }
 
-    const handleDiscount = evt => {
-        if (discountCode === 'FACEBOOK') {
-
-        }
+    const handleSubmit = e => {
+        e.preventDefault()
     }
 
     const handleShipping = evt => {
@@ -455,13 +453,16 @@ const PaymentDetails = () => {
                     <label className='checkbox-label'>Subscribe to our Newsletter</label>
 
                     <h2 className='discount-code-title'>Discount Code</h2>
-
+                    <form onSubmit={handleSubmit}>
                     <FormInput
                         className='discount-code'
 
                         type='text'
                         value={discountCode}
                         handleChange={e => setDiscountCode(e.target.value)} />
+
+                    <Button type='submit'>Apply</Button>
+                    </form>
 
                     {total < 40 &&
                         <div >
