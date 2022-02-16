@@ -196,7 +196,7 @@ const PaymentDetails = () => {
             })
         }
 
-        else if (!shipTotal && !discountCode) {
+        else if (shipTotal > 45 && !discountCode) {
             //setOrderTotal(freeShipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
                 if (subscribed) {
