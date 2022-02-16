@@ -91,6 +91,7 @@ const PaymentDetails = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        return
     }
 
     const handleShipping = evt => {
@@ -454,14 +455,14 @@ const PaymentDetails = () => {
 
                     <h2 className='discount-code-title'>Discount Code</h2>
                     <form onSubmit={handleSubmit}>
-                    <FormInput
-                        className='discount-code'
+                        <FormInput
+                            className='discount-code'
 
-                        type='text'
-                        value={discountCode}
-                        handleChange={e => setDiscountCode(e.target.value)} />
+                            type='text'
+                            value={discountCode}
+                            handleChange={e => setDiscountCode(e.target.value)} />
 
-                    <Button type='submit'>Apply</Button>
+                        <Button type='submit'>Apply</Button>
                     </form>
 
                     {total < 40 &&
@@ -477,7 +478,7 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {total < 40 && discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' &&
+                    {discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' && total < 40 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -491,7 +492,7 @@ const PaymentDetails = () => {
                         </div>
                     }
 
-                    {total >= 40 && discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' &&
+                    {discountCode === 'FACEBOOK' || 'INSTAGRAM' || 'TIKTOK' || 'PHISH' && total >= 40 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -503,7 +504,7 @@ const PaymentDetails = () => {
 
                             </h3>
                         </div>}
-                        {total >= 40 &&
+                    {total >= 40 &&
                         <div >
                             <h3 className='payment-total'>
 
