@@ -228,7 +228,7 @@ const PaymentDetails = () => {
 
         dispatch(
 
-            saveOrderHistory(configOrder)
+            //saveOrderHistory(configOrder)
 
         )
 

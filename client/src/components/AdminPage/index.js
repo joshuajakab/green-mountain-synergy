@@ -242,7 +242,7 @@ const AdminPage = props => {
                             max='10000'
                             step='.01'
                             value={price}
-                            onCHange={e => setPrice(e.target.value)}
+                            onChange={e => setPrice(e.target.value)}
                         />
 
                         <CKEditor
