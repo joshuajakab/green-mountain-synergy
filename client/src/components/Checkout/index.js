@@ -108,7 +108,7 @@ const Checkout = ({ }) => {
                                     <h2>Continue Shopping</h2>
                                 </Button>
 
-                                <Button className='checkout-button' onClick={() => history.push('/payment')}>
+                                <Button className='checkout-button' onClick={() => history.push('/payment-msg')}>
                                     <h2>Checkout</h2>
                                 </Button>
 

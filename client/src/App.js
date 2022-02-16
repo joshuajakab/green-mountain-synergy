@@ -25,6 +25,7 @@ import MailchimpFormContainer from './components/MailchimpFormContainer';
 import Return from './components/Return';
 import Shipping from './components/Shipping';
 import EmailPassword from './components/EmailPassword';
+import Message from './components/Message';
 
 function App() {
   const dispatch = useDispatch();
@@ -124,6 +125,11 @@ function App() {
               <PaymentDetails />
             </MainLayout>
           
+        )} />
+        <Route path='/payment-msg' render={() => (
+          <MainLayout>
+            <Message />
+          </MainLayout>
         )} />
         <Route path='/subscribe' render={() => (
           <MainLayout>

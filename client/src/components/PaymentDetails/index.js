@@ -128,9 +128,9 @@ const PaymentDetails = () => {
     }
     };
 
-    /*const handleCheckboxChange = evt => {
-        setIsChecked(evt.target)
-    }*/
+    const handleChangeCheckbox = evt => {
+        handleShipping()
+    }
 
     const handleBilling = evt => {
         const { name, value } = evt.target;
@@ -417,7 +417,7 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.checked)} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => {setIsChecked(event.currentTarget.checked); handleChangeCheckbox()}} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
@@ -614,6 +614,7 @@ const PaymentDetails = () => {
                     </h2>
 
                     <div className='card-payment-container'>
+                        
                         <SquarePaymentsForm
                             /**
                              * Identifies the calling form with a verified application ID
@@ -655,7 +656,7 @@ const PaymentDetails = () => {
                         >
                             <CreditCardInput />
                         </SquarePaymentsForm>
-                    </div>
+                        </div>
                 </div>
 
 
