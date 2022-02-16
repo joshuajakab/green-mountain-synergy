@@ -164,7 +164,19 @@ const PaymentDetails = () => {
 
 
 
+        if (discountCode && shipTotal) {
+            apiInstance.post('/process-payment', { amount: shipCodeTotal, sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                alert("Payment Successful");
+            })
+        }
 
+        if (discountCode && freeShipTotal) {
+            apiInstance.post('/process-payment', { amount: codeTotal, sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                alert("Payment Successful");
+            })
+        }
 
         if (!shipTotal) {
             //setOrderTotal(freeShipTotal)
