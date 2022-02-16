@@ -195,7 +195,7 @@ app.post('/subscribe', (req, res) => {
   const subscriberHash = md5(email.toLowerCase());
   const listId = process.env.MAILCHIMP_LIST_ID;
 
-  const listId = 'bed56a4e47';
+  
 
     const response = await mailchimp.lists.setListMember(
       listId,
