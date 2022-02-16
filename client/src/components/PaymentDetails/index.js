@@ -417,13 +417,99 @@ const PaymentDetails = () => {
 
 
                 <div className='checkbox-container'>
-                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(evt) => {setIsChecked(evt.currentTarget.isChecked); handleShipping()}} />
+                    <input className='checkbox' name='same-address' type='checkbox' checked={isChecked} onChange={(event) => setIsChecked(event.currentTarget.isChecked)} />
                     <label className='checkbox-label' >Billing address is same as shipping</label>
                 </div>
 
 
 
                 <div className='group'>
+                    {isChecked && 
+                         <div className='billing-container'>
+                         <h2 className='payment-form-title'>
+                             Billing Address
+                         </h2>
+
+                         <Input
+                             required
+                             type='text'
+                             name='firstNameOnCard'
+                             handleChange={evt => setFirstNameOnCard(shippingAddress.firstName)}
+                             placeholder='First Name'
+                             value={shippingAddress.firstName}
+                         />
+
+                         <Input
+                             required
+                             type='text'
+                             name='lastNameOnCard'
+                             handleChange={evt => setLastNameOnCard(evt.target.value)}
+                             placeholder='Last Name'
+                             value={lastNameOnCard}
+                         />
+
+                         <Input
+                             required
+                             type='text'
+                             name='line1'
+                             handleChange={evt => handleBilling(evt)}
+                             placeholder='Address Line 1'
+                             value={billingAddress.line1}
+                         />
+
+                         <Input
+                             type='text'
+                             name='line2'
+                             handleChange={evt => handleBilling(evt)}
+                             placeholder='Adress Line 2'
+                             value={billingAddress.line2}
+                         />
+
+                         <Input
+                             required
+                             type='text'
+                             name='city'
+                             handleChange={evt => handleBilling(evt)}
+                             placeholder='City'
+                             value={billingAddress.city}
+                         />
+
+                         <Input
+                             required
+                             type='text'
+                             name='state'
+                             handleChange={evt => handleBilling(evt)}
+                             placeholder='State'
+                             value={billingAddress.state}
+                         />
+
+                         <Input
+                             required
+                             type='text'
+                             name='zip_code'
+                             handleChange={evt => handleBilling(evt)}
+                             placeholder='Zip Code'
+                             value={billingAddress.zip_code}
+                         />
+
+                         <div className='formRow checkoutInput'>
+
+                             <CountryDropdown
+                                 required
+                                 onChange={val => handleBilling({
+                                     target: {
+                                         name: 'country',
+                                         value: val
+                                     }
+                                 })}
+                                 value={billingAddress.country}
+                                 valueType='short'
+                                 className='country-dropdown'
+                             />
+
+                         </div>
+                    </div>
+                    }
                     {!isChecked &&
                         <div className='billing-container'>
                             <h2 className='payment-form-title'>
