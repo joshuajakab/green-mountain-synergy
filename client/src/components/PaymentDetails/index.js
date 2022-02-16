@@ -461,7 +461,7 @@ const PaymentDetails = () => {
                                 Subtotal: ${total.toFixed(2)} <br />
                                 Shipping: $5.00 <br />
                                 6% Sales Tax: ${tax.toFixed(2)}<br />
-                                Total: ${shipTotal.toFixed(2)}
+                                Total: ${freeShipTotal.toFixed(2)}
 
                             </h3>
                         </div>
