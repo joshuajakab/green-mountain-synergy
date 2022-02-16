@@ -173,6 +173,7 @@ const PaymentDetails = () => {
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                    apiInstance.post('/order', {}) 
                     alert("Payment Successful");
                 } else {
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
