@@ -13,6 +13,13 @@ const About = props => {
     const [contactMessage, setContactMessage] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
 
+    const resetContactForm = () => {
+        setContactName('');
+        setContactEmail('');
+        setContactSubject('');
+        setContactMessage('');
+    }
+
     const sendContactEmail = (e, errors) => {
         e.preventDefault();
 
@@ -22,6 +29,8 @@ const About = props => {
         }
 
         apiInstance.post('/access', { contactEmail: contactEmail, contactName: contactName, contactSubject: contactSubject, contactMessage: contactMessage })
+        resetContactForm()
+        alert('Thanks for contacting us. We will get back to you shortly.');
     }
 
     return (
