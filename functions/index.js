@@ -22,11 +22,12 @@ const accessToken = process.env.ACCESS_TOKEN
 
 const client = new Client({
   environment: Environment.Production,
+  //environment: Environment.Sandbox,
   accessToken: accessToken,
 })
 
-//client.basePath = 'https://connect.squareupsandbox.com';
-client.basePath = 'https://connect.squareup.com'
+client.basePath = 'https://connect.squareupsandbox.com';
+//client.basePath = 'https://connect.squareup.com'
 
 //const oauth2 = client.authentications['oauth2'];
 //oauth2.accessToken = accessToken;
@@ -195,7 +196,7 @@ app.post('/subscribe', async (req, res) => {
   const subscriberHash = md5(email.toLowerCase());
   const listId = process.env.MAILCHIMP_LIST_ID;
 
-  
+  try {
 
     const response = await mailchimp.lists.setListMember(
       listId,
@@ -224,7 +225,13 @@ app.post('/subscribe', async (req, res) => {
     );
     
       res.sendStatus(200)
-
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      'title': 'Subscribe Failed',
+      'result': error.response
+    });
+  }
 })
 
 
@@ -252,7 +259,7 @@ app.post('/confirmation', (req, res, next) => {
   transporter.sendMail(mail, (err, data) => {
     if (err) {
       res.json({
-        status: 'fail'
+        status: err
       })
     } else {
       res.json({
@@ -340,16 +347,29 @@ app.post('/item', async (req, res) => {
       idempotencyKey: idempotency_key,
       object: {
         type: 'ITEM',
-        id: '#Cocoa',
+        id: '#123',
         itemData: {
-          name: 'Cocoa',
-          description: 'Hot Chocolate',
-          abbreviation: 'Ch'
+          abbreviation: request_params_item.abbreviation,
+          categoryId: request_params_item.productCategory,
+          variations: [
+            {
+              type: 'ITEM',
+              id: '#123',
+              itemData: {
+                name: request_params_item.productName,
+                productType: 'REGULAR'
+              },
+              itemOptionData: {
+                description: request_params_item.productDesc
+              }
+            }
+          ]
         }
+        
       }
     });
   
-    //console.log(response.result);
+    console.log(response.result);
   } catch(error) {
     console.log(error);
   }
