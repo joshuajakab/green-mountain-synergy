@@ -188,7 +188,8 @@ const PaymentDetails = () => {
                     quantity
                 }
             }),
-            orderedBy: billingAddress.email
+            orderedBy: billingAddress.email,
+            discount: discountCode
         }
 
         const configSquareOrder = {}
