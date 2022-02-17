@@ -9,6 +9,7 @@ import { fetchProductsStart, addProductStart, deleteProductStart } from '../../r
 import { addBlogStart } from '../../redux/Blogs/blogs.actions';
 import './styles.css'
 import FormInput from '../defaultComponents/Input';
+import { apiInstance } from '../../Utils';
 
 const mapState = ({ productsData, blogsData }) => ({
     products: productsData.products,
@@ -23,6 +24,7 @@ const AdminPage = props => {
     const [hideBlogModal, setHideBlogModal] = useState(true);
     const [productCategory, setProductCategory] = useState('tinctures');
     const [productName, setProductName] = useState('');
+    const [abbreviation, setAbbreviation] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productThumbnailTwo, setProductThumbnailTwo] = useState('');
     const [productThumbnailThree, setProductThumbnailThree] = useState('');
@@ -36,6 +38,7 @@ const AdminPage = props => {
     const [blogContent, setBlogContent] = useState('');
     const [blogImage, setBlogImage] = useState('');
     const [blogCategory, setBlogCategory] = useState('news');
+
     const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
@@ -85,16 +88,15 @@ const AdminPage = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
+        apiInstance.post('/item', {productCategory: productCategory, abbreviation: abbreviation, productName: productName, productDesc: productDesc })
         dispatch(
             addProductStart({
                 productCategory,
                 productName,
                 productThumbnail,
+                productThumbnailTwo,
+                productThumbnailThree,
                 productSize,
-                fiveHundredPrice,
-                oneThousandPrice,
-                twoThousandPrice,
                 price,
                 productDesc
             })
@@ -157,6 +159,13 @@ const AdminPage = props => {
                             type='text'
                             value={productName}
                             handleChange={e => setProductName(e.target.value)}
+                        />
+
+                        <Input
+                            label='2 Letter Abbreviation'
+                            type='text'
+                            value={abbreviation}
+                            handleChange={e => setAbbreviation(e.target.value)}
                         />
 
                         <Input

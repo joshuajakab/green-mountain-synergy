@@ -99,42 +99,29 @@ const PaymentDetails = () => {
 
     const handleShipping = evt => {
         const { name, value } = evt.target;
-        if (!isChecked){
+       
         setShippingAddress({
             ...shippingAddress,
             [name]: value
         });
+    };
+
+    const handleChangeCheckbox = evt => {
+        handleBillingSame()
+    }
+
+    const handleBilling = evt => {
+
+        const { name, value } = evt.target;
+
         setBillingAddress({
             ...billingAddress,
             [name]: value
         });
-    } else {
-        setShippingAddress({
-            ...shippingAddress,
-            [name]: value
-        });
-        setBillingAddress({
-            email: shippingAddress.email,
-            lastNameOnCard: shippingAddress.lastName,
-            firstNameOnCard: shippingAddress.firstName,
-            country: shippingAddress.country,
-            line1: shippingAddress.line1,
-            line2: shippingAddress.line2,
-            city: shippingAddress.city,
-            state: shippingAddress.state,
-            postalCode: shippingAddress.zip_code,
-
-        });
-    }
-    };
-
-    const handleChangeCheckbox = evt => {
-        handleShipping()
     }
 
-    const handleBilling = evt => {
-        const { name, value } = evt.target;
-        if (isChecked) {
+    const handleBillingSame = () => {
+        
             setBillingAddress({
                 email: shippingAddress.email,
                 lastNameOnCard: shippingAddress.lastName,
@@ -149,13 +136,7 @@ const PaymentDetails = () => {
             });
             
         }
-        else {
-            setBillingAddress({
-                ...billingAddress,
-                [name]: value
-            });
-        }
-    };
+        
 
     const handleFormSubmit = async evt => {
         evt.preventDefault();
@@ -182,7 +163,15 @@ const PaymentDetails = () => {
         //console.log(token)
 
         const tokenTwo = token.token
-
+        const orderItem = cartItems.map(item => {
+            const { productThumbnail, productName, price, quantity } = item;
+            return {
+                productThumbnail,
+                productName,
+                price,
+                quantity
+            }
+        })
 
 
 
@@ -198,49 +187,53 @@ const PaymentDetails = () => {
                     price,
                     quantity
                 }
-            })
+            }),
+            orderedBy: billingAddress.email
         }
 
+        const configSquareOrder = {}
 
 
-        if (discountCode && shipTotal) {
-            console.log(codeTotal)
+
+        if (total < 40 && discountCode) {
             apiInstance.post('/process-payment', { amount: shipCodeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+            //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 } else {
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                   
                 }
             })
         }
 
-        else if (discountCode && freeShipTotal) {
-            console.log('too many places at once')
+        else if (total >= 40 && discountCode) {
             apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+            //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 } else {
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 }
             })
         }
 
-        else if (shipTotal > 45 && !discountCode) {
+        else if (total >= 40 && !discountCode) {
             //setOrderTotal(freeShipTotal)
             apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+            //apiInstance.post('/order', {productName: orderItem.productName, quantity: orderItem.quantity, price: orderItem.price })
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 } else {
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 }
             })
 
@@ -249,19 +242,20 @@ const PaymentDetails = () => {
             //setOrderTotal(shipTotal)
             
             apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+            //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                 if (subscribed) {
                     apiInstance.post('/subscribe', { email: billingAddress.email, tags: 'newsletter' });
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 } else {
                     apiInstance.post('/confirmation', { email: billingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
-                    alert("Payment Successful");
+                    
                 }
             })
         }
 
 
-
+        alert("Payment Successful");
         dispatch(
 
             saveOrderHistory(configOrder)
@@ -529,8 +523,8 @@ const PaymentDetails = () => {
 
                 <div className='group'>
 
-                    <input type='checkbox' name="mc4wp-subscribe" checked={subscribed} onChange={(event) => setSubscribed(event.currentTarget.subscribed)} />
-                    <label className='checkbox-label'>Subscribe to our Newsletter</label>
+                    {/*<input type='checkbox' name="mc4wp-subscribe" checked={subscribed} onChange={(event) => setSubscribed(event.currentTarget.checked)} />
+                    <label className='checkbox-label'>Subscribe to our Newsletter</label> */}
 
                     <h2 className='discount-code-title'>Discount Code</h2>
 

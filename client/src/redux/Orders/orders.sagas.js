@@ -26,7 +26,7 @@ export function* saveOrder({ payload }) {
         const timestamps = new Date();
         yield handleSaveOrder({
             ...payload,
-            orderUserID: auth.currentUser.uid,
+            //orderUserID: auth.currentUser.uid,
             orderCreatedDate: timestamps
         });
         yield put(

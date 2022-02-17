@@ -84,9 +84,7 @@ const SignIn = props => {
                         <h3> Register</h3>
                     </Button>
 
-                    <Button className='login-button' onClick={() => history.push('./payment')}>
-                        <h3>Pay as Guest</h3>
-                    </Button>
+                    
 
                     <div className='links'>
                         <Link to='/recovery'>
