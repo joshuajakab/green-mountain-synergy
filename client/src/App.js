@@ -26,6 +26,7 @@ import Return from './components/Return';
 import Shipping from './components/Shipping';
 import EmailPassword from './components/EmailPassword';
 import Message from './components/Message';
+import OrderDetailsContainer from './components/OrderDetailsContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,12 @@ function App() {
           <MainLayout>
             <ProductCard />
           </MainLayout>
+        )} />
+        <Route path='/order/:orderID' render={() => (
+          <MainLayout>
+            <OrderDetailsContainer />
+          </MainLayout>
+
         )} />
         <Route path='/about' render={() => (
           <MainLayout>

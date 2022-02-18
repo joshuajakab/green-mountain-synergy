@@ -10,6 +10,7 @@ import { addBlogStart } from '../../redux/Blogs/blogs.actions';
 import './styles.css'
 import FormInput from '../defaultComponents/Input';
 import { apiInstance } from '../../Utils';
+import OrdersContainer from '../OrderContainer';
 
 const mapState = ({ productsData, blogsData }) => ({
     products: productsData.products,
@@ -22,6 +23,7 @@ const AdminPage = props => {
     const [hideModal, setHideModal] = useState(true);
     const [hideManageModal, setHideManageModal] = useState(true);
     const [hideBlogModal, setHideBlogModal] = useState(true);
+    const [hideOrderModal, setHideOrderModal] = useState(true)
     const [productCategory, setProductCategory] = useState('tinctures');
     const [productName, setProductName] = useState('');
     const [abbreviation, setAbbreviation] = useState('');
@@ -44,12 +46,14 @@ const AdminPage = props => {
     useEffect(() => {
         dispatch(
             fetchProductsStart()
-        );
+            
+        )
     }, []);
 
     const toggleModal = () => setHideModal(!hideModal);
     const toggleManageModal = () => setHideManageModal(!hideManageModal);
     const toggleBlogModal = () => setHideBlogModal(!hideBlogModal);
+    const toggleOrderModal = () => setHideOrderModal(!hideOrderModal)
       
     
 
@@ -68,6 +72,11 @@ const AdminPage = props => {
         toggleModal
     };
 
+    const configOrderModal = {
+        hideOrderModal,
+        toggleOrderModal
+    }
+
     
 
     const resetForm = () => {
@@ -75,9 +84,9 @@ const AdminPage = props => {
         setProductCategory('tinctures');
         setProductName('');
         setProductThumbnail('');
-        setFiveHundredPrice(0);
-        setOneThousandPrice(0);
-        setTwoThousandPrice(0);
+        setProductThumbnailTwo('');
+        setProductThumbnailThree('');
+        setPrice('');
         setProductDesc('');
     };
 
@@ -134,7 +143,9 @@ const AdminPage = props => {
                 <Button onClick={() => toggleBlogModal()}>
                     <h2>Add Blog Post</h2>
                 </Button>
-                
+                <Button onClick={() => toggleOrderModal()}>
+                    <h2>View Orders</h2>
+                </Button>
                 
 
 
@@ -336,6 +347,12 @@ const AdminPage = props => {
                 </div>
 
                 </Modal> 
+                    
+
+                <Modal {...configOrderModal} className='modal'>
+                    <OrdersContainer />
+                    <Button onClick={() => toggleOrderModal()} />
+                </Modal>
 
               <Modal {...configBlogModal} className='modal'>
                 <div className='add-new-post-container'>

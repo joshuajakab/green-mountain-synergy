@@ -149,7 +149,7 @@ const PaymentDetails = () => {
             !billingAddress.zip_code || !billingAddress.country ||
             !firstName || !lastName ||
             !firstNameOnCard || !lastNameOnCard ||
-            !billingAddress.email
+            !shippingAddress.email
 
         ) {
             return;
@@ -189,7 +189,7 @@ const PaymentDetails = () => {
                     quantity
                 }
             }),
-            orderedBy: billingAddress.email,
+            orderedBy: shippingAddress.email,
             discount: discountCode
         }
 

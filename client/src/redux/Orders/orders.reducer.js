@@ -3,6 +3,7 @@ import ordersTypes from './orders.types';
 const INITIAL_STATE = {
     orderHistory: [],
     orderDetails: {},
+    ordersHistory: []
 
 }
 
@@ -13,6 +14,11 @@ const ordersReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 orderHistory: action.payload
             };
+        case ordersTypes.SET_ORDER_HISTORY:
+            return {
+                ...state,
+                ordersHistory: action.payload
+            }
         case ordersTypes.SET_ORDER_DETAILS:
             return {
                 ...state,
