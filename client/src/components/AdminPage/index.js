@@ -68,6 +68,8 @@ const AdminPage = props => {
         toggleModal
     };
 
+    
+
     const resetForm = () => {
         setHideModal(true);
         setProductCategory('tinctures');

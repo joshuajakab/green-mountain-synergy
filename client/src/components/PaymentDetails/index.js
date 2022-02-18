@@ -148,8 +148,9 @@ const PaymentDetails = () => {
             !billingAddress.city || !billingAddress.state ||
             !billingAddress.zip_code || !billingAddress.country ||
             !firstName || !lastName ||
-            !firstNameOnCard ||
-            !lastNameOnCard
+            !firstNameOnCard || !lastNameOnCard ||
+            !billingAddress.email
+
         ) {
             return;
         }
@@ -256,14 +257,14 @@ const PaymentDetails = () => {
         }
 
 
-        alert("Payment Successful");
+        
         dispatch(
 
             saveOrderHistory(configOrder)
 
         )
 
-
+        alert("Payment Successful");
 
 
     }
