@@ -31,6 +31,8 @@ const formatText = (columnName, columnValue) => {
             return `$${columnValue}`;
         case 'orderCreatedDate':
             return moment(columnValue.nano).format('MM/DD/YYYY');
+        case 'orderedBy':
+            return `${columnValue}`;
         default:
             return columnValue;
     }

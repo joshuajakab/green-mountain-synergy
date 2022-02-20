@@ -35,6 +35,7 @@ const formatText = (columnName, columnValue) => {
             return <img src={columnValue} width={100} />
         case 'orderedBy':
             return `${columnValue}`;
+      
         default: 
             return columnValue;
     }

@@ -178,20 +178,7 @@ const PaymentDetails = () => {
 
         //alert(`nonce created: ${nonce}, nothing is changing for some reason buyerVerificationToken: ${buyerVerificationToken}, amount: ${total}`)
 
-        const configOrder = {
-            orderTotal: freeShipTotal,
-            orderItems: cartItems.map(item => {
-                const { productThumbnail, productName, price, quantity } = item;
-                return {
-                    productThumbnail,
-                    productName,
-                    price,
-                    quantity
-                }
-            }),
-            orderedBy: shippingAddress.email,
-            discount: discountCode
-        }
+        
 
         const configSquareOrder = {}
 
@@ -256,15 +243,29 @@ const PaymentDetails = () => {
             })
         }
 
-
+        const configOrder = {
+            orderTotal: freeShipTotal,
+            orderItems: cartItems.map(item => {
+                const { productThumbnail, productName, price, quantity } = item;
+                return {
+                    productThumbnail,
+                    productName,
+                    price,
+                    quantity
+                }
+            }),
+            orderedBy: shippingAddress.email,
+            discount: discountCode,
+            address: shippingAddress,
+            firstName: firstName,
+            lastName: lastName
+        }
         
         dispatch(
-
             saveOrderHistory(configOrder)
-
         )
 
-        alert("Payment Successful");
+        
 
 
     }
