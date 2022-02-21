@@ -101,6 +101,10 @@
     color: white;
 }
 
+.sq-card-wrapper .sq-card-message-no-error {
+    color: white;
+}
+
 @media screen and (max-width: 800px) {
 
     .payment-details {

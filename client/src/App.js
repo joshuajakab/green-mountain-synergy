@@ -27,6 +27,8 @@ import Shipping from './components/Shipping';
 import EmailPassword from './components/EmailPassword';
 import Message from './components/Message';
 import OrderDetailsContainer from './components/OrderDetailsContainer';
+import Confirmation from './components/Confirmation';
+import CheckoutSignIn from './components/CheckoutSignIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +79,11 @@ function App() {
         <Route path='/signin' render={() => (
           <MainLayout >
             <SignIn />
+          </MainLayout>
+        )} />
+        <Route path='/login' render={() => (
+          <MainLayout>
+            <CheckoutSignIn />
           </MainLayout>
         )} />
         <Route path='/admin' render={() => (
@@ -137,6 +144,12 @@ function App() {
           <MainLayout>
             <Message />
           </MainLayout>
+        )} />
+        <Route path='/confirmation' render={() => (
+          <MainLayout>
+            <Confirmation />
+          </MainLayout>
+
         )} />
         <Route path='/subscribe' render={() => (
           <MainLayout>
