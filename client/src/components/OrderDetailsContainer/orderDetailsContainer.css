@@ -7,7 +7,9 @@
 }
 
 .shipping-address-container {
-    text-align: center;
+    text-align: left;
+    width: 30%;
+    margin: 0 35%;
 }
 
 .receipt-container {
