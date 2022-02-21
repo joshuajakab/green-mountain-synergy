@@ -50,7 +50,7 @@ const Order = () => {
                     <h3>{firstName} {lastName}</h3>
                     
                 </div>
-                <div>
+                <div className='shipping-address-container'>
                     <h3>{order.line1}</h3>
                     <h3>{order.line2}</h3>
                     <h3>{order.city} {order.state} {order.zip_code}</h3>
