@@ -199,7 +199,7 @@ const PaymentDetails = () => {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: shipCodeTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -222,7 +222,7 @@ const PaymentDetails = () => {
                     } else {
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: shipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: shipCodeTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -254,7 +254,7 @@ const PaymentDetails = () => {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: codeTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -278,7 +278,7 @@ const PaymentDetails = () => {
                     } else {
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: codeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: codeTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -310,7 +310,7 @@ const PaymentDetails = () => {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: freeShipTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -334,7 +334,7 @@ const PaymentDetails = () => {
                     } else {
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: freeShipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: freeShipTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -368,7 +368,7 @@ const PaymentDetails = () => {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: shipTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
@@ -392,7 +392,7 @@ const PaymentDetails = () => {
                     } else {
                         apiInstance.post('/confirmation', { email: shippingAddress.email, total: shipTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
                         const configOrder = {
-                            orderTotal: freeShipTotal,
+                            orderTotal: shipTotal.toFixed(2),
                             orderItems: cartItems.map(item => {
                                 const { productThumbnail, productName, price, quantity } = item;
                                 return {
