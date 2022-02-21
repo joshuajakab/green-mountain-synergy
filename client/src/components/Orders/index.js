@@ -15,6 +15,10 @@ const columns = [
     {
         id: 'orderTotal',
         label: 'Amount'
+    },
+    {
+        id: 'orderedBy',
+        label: 'Customer Email'
     }
 ];
 
