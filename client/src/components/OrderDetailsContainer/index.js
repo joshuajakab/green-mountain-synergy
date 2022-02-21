@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getOrderDetailsStart } from '../../redux/Orders/orders.actions';
 import { useDispatch, useSelector } from 'react-redux';
+import './orderDetailsContainer.css';
 
 import OrderDetails from '../../components/OrderDetails';
 
@@ -13,7 +14,7 @@ const Order = () => {
     const { orderID } = useParams();
     const dispatch = useDispatch();
     const { orderDetails } = useSelector(mapState);
-    const { orderTotal, orderedBy, firstName, lastName, address } = orderDetails;
+    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails;
     const [order, setOrder] = useState('')
     
     
@@ -29,19 +30,19 @@ const Order = () => {
  
 
     return (
-        <div>
+        <div className='receipt-container'>
           
             <div >
                  <h1>
                     Order ID: #{orderID}
                 </h1>
-                <h2>
+                <h3 className='email'>
                     Customer Email: {orderedBy}
-                </h2>
+                </h3>
 
                 <OrderDetails order={orderDetails} />
 
-                <h3>
+                <h3 className='total'>
                     Total: ${orderTotal}
                 </h3>
                 <div className='shipping-address-container'>
@@ -54,6 +55,8 @@ const Order = () => {
                     <h3>{order.line2}</h3>
                     <h3>{order.city} {order.state} {order.zip_code}</h3>
                     <h3>{order.phone}</h3>
+                    <h3>Disount Code</h3>
+                    <h3>{discount}</h3>
                 </div>
 
 

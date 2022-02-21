@@ -1,0 +1,16 @@
+.email {
+    text-align: center;
+}
+
+.total {
+    text-align: right;
+}
+
+.shipping-address-container {
+    text-align: center;
+}
+
+.receipt-container {
+    width: 90%;
+    margin: 0 5%;
+}
