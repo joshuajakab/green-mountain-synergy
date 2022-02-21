@@ -26,37 +26,28 @@ const client = new Client({
   accessToken: accessToken,
 })
 
-client.basePath = 'https://connect.squareupsandbox.com';
-//client.basePath = 'https://connect.squareup.com'
+//client.basePath = 'https://connect.squareupsandbox.com';
+client.basePath = 'https://connect.squareup.com'
 
-//const oauth2 = client.authentications['oauth2'];
-//oauth2.accessToken = accessToken;
 
 app.post('/process-payment', async (req, res) => {
   const request_params_pay = req.body;
-  //console.log(request_params_pay);
+  console.log('Someone making payment');
+  console.log(request_params_pay.amount)
+
+  const fixedAmount = (request_params_pay.amount * 100).toFixed(0)
+
+  console.log(fixedAmount)
 
   // length of idempotency_key should be less than 45
   const idempotency_key = uuidv4();
-
-
-  /*const request_body = {
-    source_id: request_params.token,
-    amount_money: {
-      amount: (request_params.amount) * 100, 
-      currency: 'USD'
-    },
-    //location_id: request_params.location_id,
-    idempotency_key: idempotency_key,
-    verificationToken: request_params.token  // ADD this line
-  };*/
 
   const request_body = {
     sourceId: request_params_pay.sourceId,
     idempotencyKey: idempotency_key,
 
     amountMoney: {
-      amount: request_params_pay.amount * 100,
+      amount: fixedAmount,
       currency: 'USD'
     }
   }
@@ -185,7 +176,7 @@ app.post('/process-payment', async (req, res) => {
 
 
 app.post('/subscribe', async (req, res) => {
-
+  console.log('someone subscribing')
   mailchimp.setConfig({
     apiKey: process.env.MAILCHIMP_API_KEY,
     server: 'us4',
@@ -248,7 +239,8 @@ const transporter = nodemailer.createTransport({
 app.post('/confirmation', (req, res, next) => {
   const request_params = req.body
 
-
+  console.log('sending confirmation email')
+  console.log(request_params.email)
   const mail = {
     from: 'greenmountainsynergy@gmail.com',
     to: `${request_params.email}, greenmountainsynergy@gmail.com`,
