@@ -825,12 +825,12 @@ const PaymentDetails = () => {
                                 }
                                 {discountCode === 'YOUTUBE' &&
                                     <h3 className='payment-total'>
-                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                        Discounted Total: ${codeTotal.toFixed(2)}
                                     </h3>
                                 }
                                 {discountCode === 'LINKEDIN' &&
                                     <h3 className='payment-total'>
-                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                        Discounted Total: ${codeTotal.toFixed(2)}
                                     </h3>
                                 }
 
