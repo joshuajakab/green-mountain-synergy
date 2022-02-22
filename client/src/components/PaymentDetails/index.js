@@ -846,6 +846,7 @@ const PaymentDetails = () => {
                         >
                             <CreditCardInput />
                         </SquarePaymentsForm>
+                        
                     </div>
                 </div>
 

@@ -55,8 +55,11 @@ const Order = () => {
                     <h3>{order.line2}</h3>
                     <h3>{order.city} {order.state} {order.zip_code}</h3>
                     <h3>{order.phone}</h3>
+                    
                     <h3>Disount Code</h3>
+                    {discount &&
                     <h3>{discount}</h3>
+}       
                 </div>
 
 
