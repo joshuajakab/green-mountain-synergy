@@ -7,17 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './default.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import app from 'firebase/app';
-import 'firebase/analytics';
 
-app.initializeApp({
-   //other config
-  measurementId : "G-X9ZGVP4H5C",
-  appId : '1:29419361152:web:e6ec1e516c9e65806f2765'
-})
-
-//put inside your constructor
-app.analytics()
 
 ReactDOM.render(
   <React.StrictMode>
