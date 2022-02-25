@@ -105,6 +105,10 @@
     color: white;
 }
 
+.warning {
+    color: white;
+}
+
 @media screen and (max-width: 800px) {
 
     .payment-details {

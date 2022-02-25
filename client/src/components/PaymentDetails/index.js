@@ -885,6 +885,8 @@ const PaymentDetails = () => {
                         >
                             <CreditCardInput />
                         </SquarePaymentsForm>
+
+                        <p className='warning'>Please only press button once. Payment will take a few moments to process.</p>
                         
                     </div>
                 </div>
