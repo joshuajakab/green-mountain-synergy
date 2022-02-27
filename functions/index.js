@@ -21,13 +21,16 @@ app.use(express.json());
 const accessToken = process.env.ACCESS_TOKEN
 
 const client = new Client({
-  environment: Environment.Production,
-  //environment: Environment.Sandbox,
+  //environment: Environment.Production,
+  environment: Environment.Sandbox,
   accessToken: accessToken,
 })
 
-//client.basePath = 'https://connect.squareupsandbox.com';
-client.basePath = 'https://connect.squareup.com'
+client.basePath = 'https://connect.squareupsandbox.com';
+//client.basePath = 'https://connect.squareup.com'
+
+ // length of idempotency_key should be less than 45
+ 
 
 
 app.post('/process-payment', async (req, res) => {
@@ -39,12 +42,11 @@ app.post('/process-payment', async (req, res) => {
 
   console.log(fixedAmount)
 
-  // length of idempotency_key should be less than 45
-  const idempotency_key = uuidv4();
+ 
 
   const request_body = {
     sourceId: request_params_pay.sourceId,
-    idempotencyKey: idempotency_key,
+    idempotencyKey: request_params_pay.idempotencyKey,
 
     amountMoney: {
       amount: fixedAmount,
@@ -263,13 +265,13 @@ app.post('/confirmation', (req, res, next) => {
 
 app.post('/access', (req, res, next) => {
   const request_params = req.body
-  //console.log(request_params)
+  console.log('someone emailing')
 
   const mail = {
     from: `${request_params.contactEmail}`,
     to: `greenmountainsynergy@gmail.com`,
     subject: `${request_params.contactSubject} from ${request_params.contactName}`,
-    html: `${request_params.contactMessage} Sent from website by ${request_params.contactName}`
+    html: `${request_params.contactMessage} Sent from website by ${request_params.contactName} ${request_params.contactEmail}`
   }
 
   transporter.sendMail(mail, (err, data) => {
@@ -288,6 +290,7 @@ app.post('/access', (req, res, next) => {
 })
 
 app.post('/customer', async (req, res) => {
+  console.log('adding customer to square')
   const request_params_customer = req.body;
   try {
     const response = await client.customersApi.createCustomer({
@@ -303,8 +306,33 @@ app.post('/customer', async (req, res) => {
   }
 })
 
+app.post('/subscription', async (req, res) => {
+  console.log('Monthly Subscription');
+  const request_params_subscription = req.body;
+  const idempotency_key = uuidv4();
+
+  try {
+    const response = await client.subscriptionsApi.createSubscription({
+      idempotencyKey: idempotency_key,
+      locationId: process.env.LOCATION_ID,
+      planId: request_params_subscription.planId,
+      customerId: request_params_subscription.customerId,
+      startDate: request_params_subscription.startDate,
+      priceOverrideMoney: {
+        amount: (request_params_subscription.amount * 100).toFixed(0),
+        currency: 'USD'
+      }
+    });
+  
+    console.log(response.result);
+  } catch(error) {
+    console.log(error);
+  }
+})
+
 app.post('/order', async (req, res) => {
   const request_params_order = req.body;
+  const idempotency_key = uuidv4();
   try {
     const response = await client.ordersApi.createOrder({
       order: {
@@ -321,7 +349,7 @@ app.post('/order', async (req, res) => {
           }
         ]
       },
-      idempotencyKey: uuidv4()
+      idempotencyKey: idempotency_key
     });
   
     //console.log(response.result);
