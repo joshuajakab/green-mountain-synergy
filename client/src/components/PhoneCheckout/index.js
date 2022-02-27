@@ -62,7 +62,7 @@ const PhoneCheckout = ({ }) => {
                             
                                 <div>
                                     
-                                            {total < 40 &&
+                                            {total < 50 &&
                                                 <h3>
                                                     
                                                     Subtotal: ${total} <br />
@@ -73,7 +73,7 @@ const PhoneCheckout = ({ }) => {
                                                 </h3>
                                             }
 
-                                            {total >= 40 &&
+                                            {total >= 50 &&
                                             <h3>
                                                     
                                             Subtotal: ${total} <br />

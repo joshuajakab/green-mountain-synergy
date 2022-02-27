@@ -91,7 +91,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 
                     </div>
 
-                    <Button className='email-submit-button' type="submit">Submit</Button>
+                    <Button className='email-submit-button' type="submit"><h2>Submit</h2></Button>
                     
                 </div>
             ) : null}

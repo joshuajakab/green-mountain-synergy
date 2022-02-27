@@ -76,7 +76,7 @@ const Checkout = ({ }) => {
 
                             
                             
-                            {total < 40 &&
+                            {total < 50 &&
                                 <div className='total'>
                                     <h2>
 
@@ -89,7 +89,7 @@ const Checkout = ({ }) => {
                                 </div>
                             }
 
-                            {total >= 40 &&
+                            {total >= 50 &&
                                 <div className='total'>
                                     <h2>
 
@@ -108,7 +108,7 @@ const Checkout = ({ }) => {
                                     <h2>Continue Shopping</h2>
                                 </Button>
 
-                                <Button className='checkout-button' onClick={() => history.push('/payment-msg')}>
+                                <Button className='checkout-button' onClick={() => history.push('/payment')}>
                                     <h2>Checkout</h2>
                                 </Button>
 

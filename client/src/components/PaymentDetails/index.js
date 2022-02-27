@@ -17,6 +17,7 @@ import {
 } from 'react-square-web-payments-sdk';
 import './payment.css'
 import FormInput from '../defaultComponents/Input';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -60,10 +61,14 @@ const PaymentDetails = () => {
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
     const codeTotal = (((total * .8) * .06) + (total * .8));
-    const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5)
+    const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5);
+    const tenShipCodeTotal = ((((total * .9) *.06) +(total * .9)) + 5);
+    const tenCodeTotal = (((total * .9) * .06) + (total * .9));
     const tax = (total * .06);
     const [discountCode, setDiscountCode] = useState('');
-    const [subscribed, setSubscribed] = useState(false)
+    const tenDiscountCode = discountCode;
+    const [subscribed, setSubscribed] = useState(false);
+    const idempotency_key = uuidv4()
 
 
 
@@ -72,7 +77,7 @@ const PaymentDetails = () => {
 
 
     useEffect(() => {
-
+        ;
         if (itemCount < 1) {
             history.push(`/confirmation`)
         }
@@ -81,7 +86,7 @@ const PaymentDetails = () => {
     }, [itemCount])
 
     const handleTotal = (total) => {
-        if (total < 40) {
+        if (total < 50) {
             const realTotal = ((total * .06) + total + 5)
             return realTotal
         }
@@ -190,10 +195,116 @@ const PaymentDetails = () => {
 
             }
 
+            else if (total < 50 && discountCode && tenDiscountCode === 'LOVE') {
+                apiInstance.post('/process-payment', { amount: tenShipCodeTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
+                    //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
+                    if (subscribed) {
+                        apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
+                        apiInstance.post('/confirmation', { email: shippingAddress.email, total: tenShipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                        const configOrder = {
+                            orderTotal: tenShipCodeTotal.toFixed(2),
+                            orderItems: cartItems.map(item => {
+                                const { productThumbnail, productName, price, quantity } = item;
+                                return {
+                                    productThumbnail,
+                                    productName,
+                                    price,
+                                    quantity
+                                }
+                            }),
+                            orderedBy: shippingAddress.email,
+                            discount: discountCode,
+                            address: shippingAddress,
+                            firstName: firstName,
+                            lastName: lastName
+                        }
 
+                        dispatch(
+                            saveOrderHistory(configOrder)
+                        )
+                    } else {
+                        apiInstance.post('/confirmation', { email: shippingAddress.email, total: tenShipCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                        const configOrder = {
+                            orderTotal: tenShipCodeTotal.toFixed(2),
+                            orderItems: cartItems.map(item => {
+                                const { productThumbnail, productName, price, quantity } = item;
+                                return {
+                                    productThumbnail,
+                                    productName,
+                                    price,
+                                    quantity
+                                }
+                            }),
+                            orderedBy: shippingAddress.email,
+                            discount: discountCode,
+                            address: shippingAddress,
+                            firstName: firstName,
+                            lastName: lastName
+                        }
 
-            else if (total < 40 && discountCode) {
-                apiInstance.post('/process-payment', { amount: shipCodeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+                        dispatch(
+                            saveOrderHistory(configOrder)
+                        )
+                    }
+                })
+            }
+
+            else if (total >= 50 && discountCode && tenDiscountCode === 'LOVE') {
+                apiInstance.post('/process-payment', { amount: tenCodeTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
+                    //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
+                    if (subscribed) {
+                        apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
+                        apiInstance.post('/confirmation', { email: shippingAddress.email, total: tenCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                        const configOrder = {
+                            orderTotal: tenCodeTotal.toFixed(2),
+                            orderItems: cartItems.map(item => {
+                                const { productThumbnail, productName, price, quantity } = item;
+                                return {
+                                    productThumbnail,
+                                    productName,
+                                    price,
+                                    quantity
+                                }
+                            }),
+                            orderedBy: shippingAddress.email,
+                            discount: discountCode,
+                            address: shippingAddress,
+                            firstName: firstName,
+                            lastName: lastName
+                        }
+
+                        dispatch(
+                            saveOrderHistory(configOrder)
+                        )
+                    } else {
+                        apiInstance.post('/confirmation', { email: shippingAddress.email, total: tenCodeTotal.toFixed(2), firstName: firstName, lastName: lastName, line1: shippingAddress.line1, line2: shippingAddress.line2, city: shippingAddress.city, state: shippingAddress.state, zip_code: shippingAddress.zip_code, notes: notes })
+                        const configOrder = {
+                            orderTotal: tenCodeTotal.toFixed(2),
+                            orderItems: cartItems.map(item => {
+                                const { productThumbnail, productName, price, quantity } = item;
+                                return {
+                                    productThumbnail,
+                                    productName,
+                                    price,
+                                    quantity
+                                }
+                            }),
+                            orderedBy: shippingAddress.email,
+                            discount: discountCode,
+                            address: shippingAddress,
+                            firstName: firstName,
+                            lastName: lastName
+                        }
+
+                        dispatch(
+                            saveOrderHistory(configOrder)
+                        )
+                    }
+                })
+            }
+
+            else if (total < 50 && discountCode) {
+                apiInstance.post('/process-payment', { amount: shipCodeTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
                     //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                     if (subscribed) {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
@@ -246,9 +357,9 @@ const PaymentDetails = () => {
                 })
             }
 
-            else if (total >= 40 && discountCode) {
+            else if (total >= 50 && discountCode) {
                 console.log(codeTotal.toFixed(2))
-                apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
                     //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                     if (subscribed) {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
@@ -302,9 +413,9 @@ const PaymentDetails = () => {
                 })
             }
 
-            else if (total >= 40 && !discountCode) {
+            else if (total >= 50 && !discountCode) {
                 //setOrderTotal(freeShipTotal)
-                apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/process-payment', { amount: freeShipTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
                     //apiInstance.post('/order', {productName: orderItem.productName, quantity: orderItem.quantity, price: orderItem.price })
                     if (subscribed) {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
@@ -362,7 +473,7 @@ const PaymentDetails = () => {
             else {
                 //setOrderTotal(shipTotal)
 
-                apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo }).then(() => {
+                apiInstance.post('/process-payment', { amount: shipTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
                     //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                     if (subscribed) {
                         apiInstance.post('/subscribe', { email: shippingAddress.email, tags: 'newsletter' });
@@ -428,10 +539,11 @@ const PaymentDetails = () => {
         const finalFreeShipCodeTotal = (codeTotal * 100).toFixed(0)
         const finalShipTotal = (shipTotal * 100).toFixed(0)
         const finalFreeShipTotal = (freeShipTotal * 100).toFixed(0)
+        const finalTenCodeTotal = (tenCodeTotal * 100).toFixed(0)
 
         console.log(finalFreeShipCodeTotal, finalFreeShipTotal, finalShipCodeTotal, finalShipTotal)
         try {
-        if (total < 40 && discountCode) {
+        if (total < 50 && discountCode) {
             return {
                 amount: `${finalShipCodeTotal}`,
                 currencyCode: "USD",
@@ -447,7 +559,7 @@ const PaymentDetails = () => {
                     phone: shippingAddress.phone
                 }
             }
-        } else if (total >= 40 && discountCode) {
+        } else if (total >= 50 && discountCode) {
             return {
                 amount: `${finalFreeShipCodeTotal}`,
                 currencyCode: "USD",
@@ -463,7 +575,7 @@ const PaymentDetails = () => {
                     phone: shippingAddress.phone
                 }
             }
-        } else if (total >= 40 && !discountCode) {
+        } else if (total >= 50 && !discountCode) {
             return {
                 amount: `${finalFreeShipTotal}`,
                 currencyCode: "USD",
@@ -752,7 +864,7 @@ const PaymentDetails = () => {
 
 
 
-                    {total < 40 &&
+                    {total < 50 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -800,12 +912,17 @@ const PaymentDetails = () => {
                                         Discounted Total: ${shipCodeTotal.toFixed(2)}
                                     </h3>
                                 }
+                                {tenDiscountCode === 'LOVE' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${tenShipCodeTotal.toFixed(2)}
+                                    </h3>
+                                }
                             </h3>
                         </div>
                     }
 
 
-                    {total >= 40 &&
+                    {total >= 50 &&
                         <div >
                             <h3 className='payment-total'>
 
@@ -851,6 +968,11 @@ const PaymentDetails = () => {
                                 {discountCode === 'SWISSY' &&
                                     <h3 className='payment-total'>
                                         Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
+                                }
+                                {tenDiscountCode === 'LOVE' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${tenCodeTotal.toFixed(2)}
                                     </h3>
                                 }
                             </h3>
