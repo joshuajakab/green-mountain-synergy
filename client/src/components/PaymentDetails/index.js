@@ -540,10 +540,48 @@ const PaymentDetails = () => {
         const finalShipTotal = (shipTotal * 100).toFixed(0)
         const finalFreeShipTotal = (freeShipTotal * 100).toFixed(0)
         const finalTenCodeTotal = (tenCodeTotal * 100).toFixed(0)
+        const finalTenShipCodeTotal = (tenShipCodeTotal * 100).toFixed(0)
 
         console.log(finalFreeShipCodeTotal, finalFreeShipTotal, finalShipCodeTotal, finalShipTotal)
         try {
-        if (total < 50 && discountCode) {
+
+        if (total < 50 && discountCode && tenDiscountCode === 'LOVE') {
+            return {
+                amount: `${finalTenShipCodeTotal}`,
+                currencyCode: "USD",
+                intent: "CHARGE",
+                billingContact: {
+                    familyName: lastNameOnCard,
+                    givenName: firstNameOnCard,
+                    email: shippingAddress.email,
+                    country: billingAddress.country,
+                    city: billingAddress.city,
+                    addressLines: [billingAddress.line1, billingAddress.line2],
+                    postalCode: billingAddress.postalCode,
+                    phone: shippingAddress.phone
+                }
+            }
+        }
+
+        else if (total >= 50 && discountCode && tenDiscountCode === 'LOVE') {
+            return {
+                amount: `${finalTenCodeTotal}`,
+                currencyCode: "USD",
+                intent: "CHARGE",
+                billingContact: {
+                    familyName: lastNameOnCard,
+                    givenName: firstNameOnCard,
+                    email: shippingAddress.email,
+                    country: billingAddress.country,
+                    city: billingAddress.city,
+                    addressLines: [billingAddress.line1, billingAddress.line2],
+                    postalCode: billingAddress.postalCode,
+                    phone: shippingAddress.phone
+                }
+            }
+        }
+
+        else if (total < 50 && discountCode) {
             return {
                 amount: `${finalShipCodeTotal}`,
                 currencyCode: "USD",
