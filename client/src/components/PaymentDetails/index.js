@@ -188,8 +188,8 @@ const PaymentDetails = () => {
                 
 
             ) {
-                console.log(billingAddress)
-                console.log(shippingAddress)
+                //console.log(billingAddress)
+                //console.log(shippingAddress)
                 alert('Please fill out shipping and billing information')
                 return;
 
@@ -358,7 +358,7 @@ const PaymentDetails = () => {
             }
 
             else if (total >= 50 && discountCode) {
-                console.log(codeTotal.toFixed(2))
+                //console.log(codeTotal.toFixed(2))
                 apiInstance.post('/process-payment', { amount: codeTotal.toFixed(2), sourceId: tokenTwo, idempotencyKey: idempotency_key }).then(() => {
                     //apiInstance.post('/order', {productName: cartItems.item.productName, quantity: cartItems.item.quantity, price: cartItems.item.price })
                     if (subscribed) {
@@ -542,7 +542,7 @@ const PaymentDetails = () => {
         const finalTenCodeTotal = (tenCodeTotal * 100).toFixed(0)
         const finalTenShipCodeTotal = (tenShipCodeTotal * 100).toFixed(0)
 
-        console.log(finalFreeShipCodeTotal, finalFreeShipTotal, finalShipCodeTotal, finalShipTotal)
+        //console.log(finalFreeShipCodeTotal, finalFreeShipTotal, finalShipCodeTotal, finalShipTotal)
         try {
 
         if (total < 50 && discountCode && tenDiscountCode === 'LOVE') {
