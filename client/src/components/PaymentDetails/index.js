@@ -955,6 +955,11 @@ const PaymentDetails = () => {
                                         Discounted Total: ${tenShipCodeTotal.toFixed(2)}
                                     </h3>
                                 }
+                                {discountCode === 'MUSHLOVE' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>    
+                                }
                             </h3>
                         </div>
                     }
@@ -1004,6 +1009,11 @@ const PaymentDetails = () => {
                                     </h3>
                                 }
                                 {discountCode === 'SWISSY' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${codeTotal.toFixed(2)}
+                                    </h3>
+                                }
+                                {discountCode === 'MUSHLOVE' &&
                                     <h3 className='payment-total'>
                                         Discounted Total: ${codeTotal.toFixed(2)}
                                     </h3>
