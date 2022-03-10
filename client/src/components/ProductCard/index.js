@@ -2,17 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
+import { fetchReviewsStart, setReviews } from '../../redux/Reviews/reviews.actions';
 import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../defaultComponents/Button';
 import { Carousel } from 'react-responsive-carousel';
+import { Rating } from '@mui/material';
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './styles.css';
 import FormSelect from '../defaultComponents/Select';
+import FormInput from '../defaultComponents/Input';
+import TextArea from '../defaultComponents/Textarea';
+import Review from './Review';
+import { addReview } from '../../redux/Reviews/reviews.sagas';
 
 const mapState = state => ({
     product: state.productsData.product,
-    totalNumCartItems: selectCartItemsCount(state)
+    totalNumCartItems: selectCartItemsCount(state),
+    reviews: state.reviewsData.reviews
 })
 
 
@@ -21,38 +29,45 @@ const ProductCard = ({ }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { productID } = useParams();
-    const { product } = useSelector(mapState);
+    const { product, reviews } = useSelector(mapState);
     const [isChecked, setIsChecked] = useState(false);
     const [productQuantity, setProductQuantity] = useState(1);
     const totalNumCartItems = useSelector(mapState);
+    const [reviewName, setReviewName] = useState('');
+    const [reviewText, setReviewText] = useState('');
+    const [rating, setRating] = useState();
     
+
+
     // const [productPrice, setProductPrice] = useState(product)
 
-    
 
-    
 
-    
+
+
+
 
     useEffect(() => {
         dispatch(
-            fetchProductStart(productID)
+            fetchProductStart(productID),
+            fetchReviewsStart(productID)
         )
 
         return () => {
             dispatch(
-                setProduct({})
+                setProduct({}),
+                setReviews([])
             )
         }
-    }, []);
+    }, [productID]);
 
     const handleQuantity = e => {
-       
+
         setProductQuantity(parseInt(e.target.value, 10));
-        
+
     }
 
-    
+
 
     const {
         productThumbnail,
@@ -66,14 +81,14 @@ const ProductCard = ({ }) => {
         quantity
     } = product;
 
-   
+
 
     const handleAddToCart = (product) => {
         if (!productQuantity) setProductQuantity(1);
         //console.log(productQuantity)
         if (!product) return;
-        
-        
+
+
         dispatch(
             addProduct({
                 productThumbnail,
@@ -89,6 +104,21 @@ const ProductCard = ({ }) => {
             })
         );
         history.push('/cart');
+    }
+
+    
+
+    const handleAddReview = (review) => {
+        if (!review) return;
+        
+        dispatch(
+            addReview({
+                reviewName,
+                review,
+                rating,
+                productID
+            })
+        )
     }
 
     const configQuantitySelect = {
@@ -110,7 +140,7 @@ const ProductCard = ({ }) => {
             value: 5
         }, {
             name: '6',
-            value: 6 
+            value: 6
         }, {
             name: '7',
             value: 7
@@ -128,20 +158,22 @@ const ProductCard = ({ }) => {
         type: 'button'
     }
 
+    if (!Array.isArray(reviews)) return null;
+
     return (
         <div className='product-card'>
             <div className='carousel-container'>
-            <Carousel>
-                <div>
-                    <img className='product-img' src={productThumbnail} />
-                </div>
-                <div>
-                    <img className='product-img' src={productThumbnailTwo} />
-                </div>
-                <div>
-                    <img className='product-img' src={productThumbnailThree} />
-                </div>
-            </Carousel>
+                <Carousel>
+                    <div>
+                        <img className='product-img' src={productThumbnail} />
+                    </div>
+                    <div>
+                        <img className='product-img' src={productThumbnailTwo} />
+                    </div>
+                    <div>
+                        <img className='product-img' src={productThumbnailThree} />
+                    </div>
+                </Carousel>
             </div>
             <div className='product-details'>
                 <ul>
@@ -151,7 +183,7 @@ const ProductCard = ({ }) => {
                         </h2>
                     </li>
                     <li>
-                       {/* {fiveHundredPrice > 0 &&
+                        {/* {fiveHundredPrice > 0 &&
                             <h3 className='price'>
                                 ${fiveHundredPrice}
                             </h3>
@@ -196,6 +228,47 @@ const ProductCard = ({ }) => {
                     </li>
                 </ul>
             </div>
+ {/*           <div className='review-container'>
+                <h2>Customer Reviews</h2>
+                <div className='review-list-container'>
+                {reviews.map((review, pos) => {
+                    const { reviewName, reviewText, rating, productID } = review;
+                    //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
+                    
+                    const configReview = {
+                        ...review
+                    }
+
+                    return (
+                        <Review key={pos} {...configReview} />
+                    )
+                })}
+                </div>
+                <div className='review-post-container'>
+                    <h2>Add a Review</h2>
+                    
+                    <FormInput
+                        label='Your Name'
+                        type='text'
+                        value={reviewName}
+                        handleChange={e => setReviewName(e.target.value)}
+                    />
+                    <Rating
+                        name="customized-color"
+                        defaultValue={2}
+                        precision={0.5}
+                        value={rating}
+                        handleChange={e => setRating(e.target.value)}
+                    />
+                    <TextArea
+                        className='shipping-notes'
+                        type='text'
+                        value={reviewText}
+                        handleChange={e => setReviewText(e.target.value)}
+                    />
+                    <Button className='review-button' onClick={handleAddReview}><h2>Submit</h2></Button>
+                </div>
+            </div> */}
         </div>
 
     );

@@ -5,6 +5,7 @@ import blogsReducer from './Blogs/blogs.reducer';
 import cartReducer from './Cart/cart.reducer';
 import ordersReducer from './Orders/orders.reducer';
 import productsReducer from './Products/products.reducer';
+import reviewsReducer from './Reviews/reviews.reducer';
 import userReducer from './Users/users.reducer';
 
 export const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ export const rootReducer = combineReducers({
     productsData: productsReducer,
     blogsData: blogsReducer,
     cartData: cartReducer,
-    orderData: ordersReducer
+    orderData: ordersReducer,
+    reviewsData: reviewsReducer
 });
 
 const configStorage = {

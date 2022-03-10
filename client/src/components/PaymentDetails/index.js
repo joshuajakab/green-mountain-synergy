@@ -965,6 +965,11 @@ const PaymentDetails = () => {
                                         Discounted Total: ${shipCodeTotal.toFixed(2)}
                                     </h3>    
                                 }
+                                {discountCode === 'ASTRAL' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${shipCodeTotal.toFixed(2)}
+                                    </h3>    
+                                }
                             </h3>
                         </div>
                     }
@@ -1033,6 +1038,11 @@ const PaymentDetails = () => {
                                         Discounted Total: ${tenCodeTotal.toFixed(2)}
                                     </h3>
                                 }
+                                {tenDiscountCode === 'ASTRAL' &&
+                                    <h3 className='payment-total'>
+                                        Discounted Total: ${tenCodeTotal.toFixed(2)}
+                                    </h3>
+                                }
                             </h3>
                         </div>}
 
@@ -1066,7 +1076,6 @@ const PaymentDetails = () => {
                             <CreditCardInput />
                         </SquarePaymentsForm>
 
-                        <p className='warning'>Please only press button once. Payment will take a few moments to process.</p>
                         
                     </div>
                 </div>
