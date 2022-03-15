@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
-import { fetchReviewsStart, setReviews } from '../../redux/Reviews/reviews.actions';
+import { addReviewStart, fetchReviewsStart, setReviews } from '../../redux/Reviews/reviews.actions';
 import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../defaultComponents/Button';
@@ -35,7 +35,7 @@ const ProductCard = ({ }) => {
     const totalNumCartItems = useSelector(mapState);
     const [reviewName, setReviewName] = useState('');
     const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState();
+    const [rating, setRating] = useState(5);
     
 
 
@@ -48,6 +48,7 @@ const ProductCard = ({ }) => {
 
 
     useEffect(() => {
+        console.log(reviews)
         dispatch(
             fetchProductStart(productID),
             fetchReviewsStart(productID)
@@ -75,11 +76,15 @@ const ProductCard = ({ }) => {
         productThumbnailThree,
         productName,
         price,
+        subscriptionPrice,
         productDesc,
         productCategory,
         documentID,
-        quantity
+        quantity,
+        planID
     } = product;
+
+    
 
 
 
@@ -100,7 +105,32 @@ const ProductCard = ({ }) => {
                 productCategory,
                 documentID,
                 quantity,
-                productQuantity
+                productQuantity,
+                planID
+            })
+        );
+        history.push('/cart');
+    }
+
+    const handleAddSubscriptionToCart = (product) => {
+        if (!productQuantity) setProductQuantity(1);
+        //console.log(productQuantity)
+        if (!product) return;
+
+
+        dispatch(
+            addProduct({
+                productThumbnail,
+                productThumbnailTwo,
+                productThumbnailThree,
+                productName,
+                subscriptionPrice,
+                productDesc,
+                productCategory,
+                documentID,
+                quantity,
+                productQuantity,
+                planID
             })
         );
         history.push('/cart');
@@ -108,13 +138,13 @@ const ProductCard = ({ }) => {
 
     
 
-    const handleAddReview = (review) => {
-        if (!review) return;
+    const handleAddReview = () => {
+        
         
         dispatch(
-            addReview({
+            addReviewStart({
                 reviewName,
-                review,
+                reviewText,
                 rating,
                 productID
             })
@@ -158,7 +188,7 @@ const ProductCard = ({ }) => {
         type: 'button'
     }
 
-    if (!Array.isArray(reviews)) return null;
+    //if (!Array.isArray(reviews)) return null;
 
     return (
         <div className='product-card'>
@@ -216,6 +246,10 @@ const ProductCard = ({ }) => {
                             <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                                 <h2>Add to cart</h2>
                             </Button>
+                            {/*<h3>Subscribe Monthly and save 20%</h3>
+                            <Button className='add-subscription-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddSubscriptionToCart(product)}>
+                                <h2>Subscribe</h2>
+                        </Button>*/}
                         </div>
                     </li>
                     <li>
@@ -228,7 +262,7 @@ const ProductCard = ({ }) => {
                     </li>
                 </ul>
             </div>
- {/*           <div className='review-container'>
+            {/*<div className='review-container'>
                 <h2>Customer Reviews</h2>
                 <div className='review-list-container'>
                 {reviews.map((review, pos) => {
@@ -258,7 +292,7 @@ const ProductCard = ({ }) => {
                         defaultValue={2}
                         precision={0.5}
                         value={rating}
-                        handleChange={e => setRating(e.target.value)}
+                        onChange={e => setRating(e.target.value)}
                     />
                     <TextArea
                         className='shipping-notes'

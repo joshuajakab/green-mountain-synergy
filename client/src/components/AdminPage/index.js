@@ -30,11 +30,9 @@ const AdminPage = props => {
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productThumbnailTwo, setProductThumbnailTwo] = useState('');
     const [productThumbnailThree, setProductThumbnailThree] = useState('');
-    const [productSize, setProductSize] = useState('fiveHundredPrice')
-    const [fiveHundredPrice, setFiveHundredPrice] = useState(0);
-    const [oneThousandPrice, setOneThousandPrice] = useState(0);
-    const [twoThousandPrice, setTwoThousandPrice] = useState(0);
     const [price, setPrice] = useState(0);
+    const [planID, setPlanID] = useState('');
+    const [subscriptionPrice, setSubscriptionPrice] = useState(0);
     const [productDesc, setProductDesc] = useState('');
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
@@ -107,7 +105,6 @@ const AdminPage = props => {
                 productThumbnail,
                 productThumbnailTwo,
                 productThumbnailThree,
-                productSize,
                 price,
                 productDesc
             })
@@ -295,10 +292,6 @@ const AdminPage = props => {
                         const {
                             productName,
                             productThumbnail,
-                            productSize,
-                            fiveHundredPrice,
-                            oneThousandPrice,
-                            twoThousandPrice,
                             price,
                             documentID
                         } = product;

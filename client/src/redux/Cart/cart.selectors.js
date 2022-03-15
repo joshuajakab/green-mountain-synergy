@@ -25,22 +25,9 @@ export const selectCartTotal = createSelector(
     cartItems.reduce(
         
         (quantity, cartItem) => 
-        
-        (quantity + cartItem.quantity * cartItem.price) ,
+        ((quantity + cartItem.quantity * cartItem.price) || (quantity + cartItem.quantity * cartItem.subscriptionPrice)),
         0
         
-        
-    )
-);
-
-export const selectOtherCartTotal = createSelector(
-    [selectCartItems],
-    otherCartItems => 
-    otherCartItems.reduce(
-        (quantity, otherCartItem) => 
-        
-        (quantity + otherCartItem.quantity) * (otherCartItem.secondProductPrice),
-        0
         
         
     )

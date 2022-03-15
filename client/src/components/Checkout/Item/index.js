@@ -12,11 +12,9 @@ const Item = (product) => {
     const {
         productName,
         productThumbnail,
-        fiveHundredPrice,
-        oneThousandPrice,
-        twoThousandPrice,
         quantity,
         price,
+        subscriptionPrice,
         productDesc,
         documentID
     } = product;
@@ -50,7 +48,12 @@ const Item = (product) => {
 
             {width > 1000 ?
             <div className='full-width-checkout'>
-            <h3 className='product-name'>{productName}</h3>
+            <h3 className='product-name'>
+                {productName} 
+                {/*subscriptionPrice &&
+                <h3>Subscription</h3>
+            */ }
+            </h3>
 
             <div className='quantity-container'>
 
@@ -70,7 +73,12 @@ const Item = (product) => {
             :
             <div className='cart-product-container'>
             <h2>Product</h2>
-            <h3 className='product-name'>{productName}</h3>
+            <h3 className='product-name'>
+                {productName} 
+                {/*subscriptionPrice &&
+                <h3>Subscription</h3>
+            */ }
+            </h3>
             <h2>Quantity</h2>
             <div className='quantity-container'>
 
@@ -105,7 +113,12 @@ const Item = (product) => {
                     ${twoThousandPrice}
                 </h3>
             } */}
+          
             <h3 className='price'>${price}</h3>
+            
+            {/*subscriptionPrice &&
+            <h3 className='price'>${subscriptionPrice}</h3>
+        */ }
             </div>
 
             <div className='cart-button' onClick={() => handleRemoveCartItem(product)}>

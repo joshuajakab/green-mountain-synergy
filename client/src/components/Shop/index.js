@@ -20,10 +20,10 @@ const ProductResults = ({ }) => {
 
     useEffect(() => {
         dispatch(
-            fetchProductsStart({ filterType })
+            fetchProductsStart()
         )
         //console.log(filterType)
-    }, [filterType]);
+    }, []);
 
     const handleFilter = (e) => {
         const nextFilter = e.target.value;

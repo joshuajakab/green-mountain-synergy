@@ -14,16 +14,13 @@ const Product = (product) => {
         documentID,
         productThumbnail,
         productName,
-        fiveHundredPrice,
-        oneThousandPrice,
-        twoThousandPrice,
         price,
         productCategory,
         productDesc
     } = product;
 
 
-    if (!documentID || !productThumbnail || !productName || typeof fiveHundredPrice === 'undefined') return null;
+    if (!documentID || !productThumbnail || !productName ) return null;
 
     const configAddToCartButton = {
         type: 'button',
@@ -40,9 +37,6 @@ const Product = (product) => {
                 productName,
                 productDesc,
                 productCategory,
-                fiveHundredPrice,
-                oneThousandPrice,
-                twoThousandPrice,
                 price,
                 documentID,
                 productQuantity

@@ -19,7 +19,7 @@ export const handleFetchReviews = ({ filterType, startAfterDoc, persistReviews =
     return new Promise((resolve, reject) => {
         let ref = firestore.collection('reviews').orderBy('createdDate');
 
-        if (filterType) ref = ref.where('productName', '==', filterType);
+        if (filterType) ref = ref.where('productID', '==', filterType);
         if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
         ref
