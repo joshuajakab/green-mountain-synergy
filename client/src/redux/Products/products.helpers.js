@@ -16,13 +16,13 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts = [] }) => {
+export const handleFetchProducts = ({ startAfterDoc, persistProducts = [] }) => {
     return new Promise((resolve, reject) => {
-        const pageSize = 25;
+       
 
-        let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
+        let ref = firestore.collection('products').orderBy('createdDate');
 
-        if (filterType) ref = ref.where('productCategory', '==', filterType);
+        
         if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
         ref

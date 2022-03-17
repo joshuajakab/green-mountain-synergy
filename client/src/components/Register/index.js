@@ -75,15 +75,10 @@ const Register = props => {
 
     const handleFormSubmit = event => {
 
-        const configAddress = {
-            addressLine1: '500 Electric Ave',
-            addressLine2: 'Suite 600',
-            locality: 'New York',
-            administrativeDistrictLevel1: 'NY',
-            postalCode: '10003',
-            country: 'US'
+        if ( !firstName || !lastName || !email ) {
+            alert('Please fill out entire form.')
         }
-
+        else {
         event.preventDefault();
         apiInstance.post('/customer', { givenName: firstName, familyName: lastName, emailAddress: email })
         dispatch(signUpUserStart({
@@ -93,7 +88,7 @@ const Register = props => {
             password,
             confirmPassword
         }))
-
+    }
 
 
     }
