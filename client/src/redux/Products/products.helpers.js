@@ -16,14 +16,13 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProducts = ({ startAfterDoc, persistProducts = [] }) => {
+export const handleFetchProducts = () => {
     return new Promise((resolve, reject) => {
        
 
         let ref = firestore.collection('products').orderBy('createdDate');
 
         
-        if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
         ref
             .get()
@@ -31,7 +30,6 @@ export const handleFetchProducts = ({ startAfterDoc, persistProducts = [] }) => 
                 const totalCount = snapshot.size;
 
                 const data = [
-                    ...persistProducts,
                     ...snapshot.docs.map(doc => {
                         return {
                             ...doc.data(),
@@ -43,7 +41,7 @@ export const handleFetchProducts = ({ startAfterDoc, persistProducts = [] }) => 
                 resolve({
                     data,
                     queryDoc: snapshot.docs[totalCount - 1],
-                    isLastPage: totalCount < 1
+                    
                 });
             })
             .catch(err => {
