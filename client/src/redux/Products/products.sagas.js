@@ -35,7 +35,7 @@ export function* fetchProducts({ payload }) {
         )
 
     } catch (err) {
-        //console.log(err)
+        alert(err)
     }
 }
 
