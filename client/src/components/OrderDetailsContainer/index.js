@@ -13,12 +13,7 @@ const mapState = ({ orderData }) => ({
 const Order = () => {
 
     
-    useEffect(() => {
-        dispatch(
-            getOrderDetailsStart(orderID)
-        );
-        
-    }, [])
+    
     
 
     const { orderID } = useParams();
@@ -29,7 +24,12 @@ const Order = () => {
     
     
     
-    
+    useEffect(() => {
+        dispatch(
+            getOrderDetailsStart(orderID)
+        );
+        
+    }, [])
 
  
 
