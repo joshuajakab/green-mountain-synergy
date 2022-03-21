@@ -29,7 +29,7 @@ const Order = () => {
             getOrderDetailsStart(orderID)
         );
         
-    }, [orderID])
+    }, [])
 
  
 
@@ -55,10 +55,10 @@ const Order = () => {
                     
                 </div>
                 <div className='shipping-address-container'>
-                    <h3>{address.line1}</h3>
+                    {/*<h3>{address.line1}</h3>
                     <h3>{address.line2}</h3>
                     <h3>{address.city} {address.state} {address.zip_code}</h3>
-                    <h3>{address.phone}</h3>
+    <h3>{address.phone}</h3>*/}
                     
                     <h3>Disount Code</h3>
                     {discount &&

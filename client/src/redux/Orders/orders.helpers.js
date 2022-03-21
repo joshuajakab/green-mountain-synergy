@@ -83,7 +83,7 @@ export const handleGetOrder = orderID => {
                 }
             })
             .catch(err => {
-                reject(err);
+                console.log(err);
             })
     })
 }
