@@ -82,7 +82,7 @@ const Header = props => {
                             LogOut
                         </Link>
                         {isAdmin &&
-                            <Link className='logged-in-link' to='admin'>
+                            <Link className='logged-in-link' to='/admin'>
                                 Admin
                             </Link>}
 

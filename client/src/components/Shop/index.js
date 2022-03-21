@@ -25,10 +25,10 @@ const ProductResults = ({ }) => {
         //console.log(filterType)
     }, []);
 
-    const handleFilter = (e) => {
+    /*const handleFilter = (e) => {
         const nextFilter = e.target.value;
         history.push(`/shop/${nextFilter}`)
-    };
+    }; */
 
     if (!Array.isArray(data)) return null;
 
@@ -40,7 +40,7 @@ const ProductResults = ({ }) => {
         )
     }
 
-    const configFilters = {
+/*    const configFilters = {
         defaultValue: filterType,
         options: [{
             name: 'Show all',
@@ -53,7 +53,7 @@ const ProductResults = ({ }) => {
             value: 'salves'
         }],
         handleChange: handleFilter
-    };
+    }; */
 
 
     return (
@@ -66,7 +66,7 @@ const ProductResults = ({ }) => {
 
             <div className='products-container'>
                 {data.map((product, pos) => {
-                    const { productThumbnail, productName, productPrice } = product;
+                    //const { productThumbnail, productName, productPrice } = product;
                     //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
                     
                     const configProduct = {

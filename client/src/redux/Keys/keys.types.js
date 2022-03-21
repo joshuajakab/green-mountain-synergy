@@ -1,0 +1,6 @@
+const keysTypes = {
+    CREATE_IDEMPOTENCY_KEY: 'CREATE_IDEMPOTENCY_KEY',
+    DELETE_IDEMPOTENCY_KEY: 'DELETE_IDEMPOTENCY_KEY'
+}
+
+export default keysTypes;

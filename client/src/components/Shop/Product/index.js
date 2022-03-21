@@ -66,28 +66,7 @@ return (
                         </Link>
                     </span>
                 </li>
-                
-               {/* {fiveHundredPrice > 0 &&
-                    <li>
-                        <span>
-                        <h3 className='product-info'>${fiveHundredPrice}</h3>
-                        </span>
-                    </li>
-                }
-                {oneThousandPrice > 0 &&
-                    <li>
-                        <span>
-                        <h3 className='product-info'>${oneThousandPrice}</h3>
-                        </span>
-                    </li>
-                }
-                {twoThousandPrice > 0 &&
-                    <li>
-                        <span>
-                        <h3 className='product-info'>${twoThousandPrice}</h3>
-                        </span>
-                    </li>
-                } */}
+              
                 <li>
                     <span>
                         <h3 className='product-info'>${price}</h3>

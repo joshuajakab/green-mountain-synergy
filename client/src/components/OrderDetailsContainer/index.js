@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getOrderDetailsStart } from '../../redux/Orders/orders.actions';
+import { getOrderDetailsStart, setOrderDetails } from '../../redux/Orders/orders.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import './orderDetailsContainer.css';
 
@@ -11,21 +11,25 @@ const mapState = ({ orderData }) => ({
 })
 
 const Order = () => {
-    const { orderID } = useParams();
-    const dispatch = useDispatch();
-    const { orderDetails } = useSelector(mapState);
-    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails;
-    const [order, setOrder] = useState('')
-    
-    
 
+    
     useEffect(() => {
         dispatch(
             getOrderDetailsStart(orderID)
         );
-        setOrder(orderDetails.address)
         
-    }, [order])
+    }, [])
+    
+
+    const { orderID } = useParams();
+    const dispatch = useDispatch();
+    const { orderDetails } = useSelector(mapState);
+    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails;
+    const [order, setOrder] = useState([])
+    
+    
+    
+    
 
  
 
@@ -51,10 +55,10 @@ const Order = () => {
                     
                 </div>
                 <div className='shipping-address-container'>
-                    <h3>{order.line1}</h3>
-                    <h3>{order.line2}</h3>
-                    <h3>{order.city} {order.state} {order.zip_code}</h3>
-                    <h3>{order.phone}</h3>
+                    <h3>{address.line1}</h3>
+                    <h3>{address.line2}</h3>
+                    <h3>{address.city} {address.state} {address.zip_code}</h3>
+                    <h3>{address.phone}</h3>
                     
                     <h3>Disount Code</h3>
                     {discount &&

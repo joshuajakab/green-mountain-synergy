@@ -45,13 +45,7 @@ const OrderDetails = ({ order }) => {
     const dispatch = useDispatch()
     const orderItems = order && order.orderItems;
 
-    useEffect(() => {
-        return () => {
-            dispatch(
-                setOrderDetails({})
-            );
-        }
-    }, []);
+    
 
 
     return (

@@ -19,10 +19,7 @@ import './payment.css'
 import FormInput from '../defaultComponents/Input';
 import { v4 as uuidv4 } from 'uuid';
 
-
-
-
-
+//---------------------------------State----------------------------------------//
 
 const initialAddressState = {
     line1: '',
@@ -33,7 +30,7 @@ const initialAddressState = {
     country: '',
     phone: '',
     email: ''
-}
+};
 
 const mapState = createStructuredSelector({
     total: selectCartTotal,
@@ -47,6 +44,10 @@ const PaymentDetails = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { total, itemCount, cartItems } = useSelector(mapState);
+    const idempotency_key = uuidv4();
+
+//-----------------------------Shipping and Billing-----------------------------------------//
+
     const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
     const [shippingAddress, setShippingAddress] = useState({ ...initialAddressState });
     const [firstName, setFirstName] = useState('');
@@ -55,9 +56,11 @@ const PaymentDetails = () => {
     const [lastNameOnCard, setLastNameOnCard] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [notes, setNotes] = useState('');
-    //const [tokenTwo, setTokenTwo] = useState('');
     const [isChecked, setIsChecked] = useState(false);
-    const [codeDiscount, setCodeDiscount] = useState(false);
+    const [subscribed, setSubscribed] = useState(false);
+
+//------------------------------Totals-----------------------------------------------------//
+    
     const freeShipTotal = ((total * .06) + total);
     const shipTotal = ((total * .06) + total + 5);
     const codeTotal = (((total * .8) * .06) + (total * .8));
@@ -65,27 +68,29 @@ const PaymentDetails = () => {
     const tenShipCodeTotal = ((((total * .9) *.06) +(total * .9)) + 5);
     const tenCodeTotal = (((total * .9) * .06) + (total * .9));
     const tax = (total * .06);
+
+//------------------------------Discount Codes--------------------------------------------//
+    
     const [discountCode, setDiscountCode] = useState('');
     const tenDiscountCode = discountCode;
-    const [subscribed, setSubscribed] = useState(false);
-    const idempotency_key = uuidv4()
 
-
-
-
-
-
+//------------------------------Push to Confirmation------------------------------------//
 
     useEffect(() => {
-        ;
+        
         if (itemCount < 1) {
             history.push(`/confirmation`)
         }
 
 
-    }, [itemCount])
+    }, [itemCount]);
 
-    const handleTotal = (total) => {
+    useEffect(() => {
+        
+    }, [])
+
+
+/*    const handleTotal = (total) => {
         if (total < 50) {
             const realTotal = ((total * .06) + total + 5)
             return realTotal
@@ -95,14 +100,15 @@ const PaymentDetails = () => {
             return realTotal
         }
 
-    }
+    } 
 
     const handleSubmit = e => {
         e.preventDefault()
         return discountCode
-    }
+    }  */
 
     const handleShipping = evt => {
+
         const { name, value } = evt.target;
 
         setShippingAddress({
@@ -138,34 +144,16 @@ const PaymentDetails = () => {
 
     }
 
-
-    /*const handleFormSubmit = async evt => {
-        evt.preventDefault();
-
-        if (
-            !shippingAddress.line1 || !shippingAddress.city ||
-            !shippingAddress.state || !shippingAddress.zip_code ||
-            !shippingAddress.country || billingAddress.line1 ||
-            !billingAddress.city || !billingAddress.state ||
-            !billingAddress.zip_code || !billingAddress.country ||
-            !firstName || !lastName ||
-            !firstNameOnCard || !lastNameOnCard ||
-            !shippingAddress.email
-
-        ) {
-            return;
-        }
-
-    };*/
+//-----------------------------------------Send payment to backend---------------------------------//
 
     const cardTokenizeResponseReceived = async (token, buyer) => {
-        console.info({ token, buyer });
+        //console.info({ token, buyer });
         //setTokenTwo(token.token)
 
         //console.log(token)
 
         const tokenTwo = token.token
-        const orderItem = cartItems.map(item => {
+        /*const orderItem = cartItems.map(item => {
             const { productThumbnail, productName, price, quantity } = item;
             return {
                 productThumbnail,
@@ -173,7 +161,7 @@ const PaymentDetails = () => {
                 price,
                 quantity
             }
-        })
+        })*/
 
         try {
 
@@ -531,7 +519,9 @@ const PaymentDetails = () => {
         } catch (error) {
             alert(error)
         }
-    }
+    };
+
+    //--------------------------------------------------Verify------------------------------//
 
     const createVerificationDetails = () => {
 
@@ -975,6 +965,7 @@ const PaymentDetails = () => {
                     }
 
 
+
                     {total >= 50 &&
                         <div >
                             <h3 className='payment-total'>
@@ -1053,22 +1044,9 @@ const PaymentDetails = () => {
                     <div className='card-payment-container'>
 
                         <SquarePaymentsForm
-                            /**
-                             * Identifies the calling form with a verified application ID
-                             * generated from the Square Application Dashboard.
-                             */
+
                             applicationId={process.env.REACT_APP_APPLICATION_ID}
-                            /**
-                             * Invoked when payment form receives the result of a tokenize generation request.
-                             * The result will be a valid credit card or wallet token, or an error.
-                             */
                             cardTokenizeResponseReceived={cardTokenizeResponseReceived}
-                            /*cardTokenizeResponseReceived={async (token, buyer) => {
-                            
-                            
-                             * Identifies the location of the merchant that is taking the payment.
-                             * Obtained from the Square Application Dashboard - Locations tab.
-                        */
                             locationId={process.env.REACT_APP_LOCATION_ID}
                             createVerificationDetails={createVerificationDetails}
 
