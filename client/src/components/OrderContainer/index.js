@@ -5,13 +5,13 @@ import OrderHistory from '../Orders';
 
 const mapState = ({ user, orderData }) => ({
     currentUser: user.currentUser,
-    ordersHistory: orderData.ordersHistory.data
+    ordersHistory: orderData.ordersHistory.orders
 })
 
 const OrdersContainer = props => {
     const dispatch = useDispatch();
     const { currentUser, ordersHistory } = useSelector(mapState);
-    const { data } = ordersHistory;
+    const { orders } = ordersHistory;
 
     useEffect(() => {
         dispatch(
@@ -22,7 +22,7 @@ const OrdersContainer = props => {
     return (
         <div>
             <h2>Orders</h2>
-            <OrderHistory orders={data} />
+            <OrderHistory orders={orders} />
         </div>
     )
 };
