@@ -11,6 +11,7 @@ const mapState = ({ user, orderData }) => ({
 const OrdersContainer = props => {
     const dispatch = useDispatch();
     const { currentUser, ordersHistory } = useSelector(mapState);
+    const { data } = ordersHistory;
 
     useEffect(() => {
         dispatch(
@@ -21,7 +22,7 @@ const OrdersContainer = props => {
     return (
         <div>
             <h2>Orders</h2>
-            <OrderHistory orders={ordersHistory.data} />
+            <OrderHistory orders={data} />
         </div>
     )
 };
