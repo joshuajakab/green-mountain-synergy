@@ -51,7 +51,7 @@ export const handleGetOrderHistory = () => {
         ref
             .get()
             .then(snap => {
-                const orders = [
+                const data = [
                     ...snap.docs.map(doc => {
                         return {
                             ...doc.data(),
@@ -60,7 +60,7 @@ export const handleGetOrderHistory = () => {
                     })
                 ];
 
-                resolve({ orders })
+                resolve({ data })
             })
             .catch(err => {
                 reject(err)
