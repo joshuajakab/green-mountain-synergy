@@ -2,7 +2,24 @@ import ordersTypes from './orders.types';
 
 const INITIAL_STATE = {
     orderHistory: [],
-    orderDetails: {},
+    orderDetails: {
+        address:{
+            city: "",
+            country: "",
+            email: "",
+            line1: "",
+            line2: "",
+            phone: "",
+            state: "",
+            zip_code: ""},
+        discount: "",
+        documentID: "",
+        firstName: "",
+        lastName: "",
+        orderCreatedDate: '',
+        orderItems: [],
+        orderTotal: "",
+        orderedBy: ""},
     ordersHistory: []
 
 }
