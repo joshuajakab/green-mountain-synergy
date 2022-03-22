@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './orderDetailsContainer.css';
 
 import OrderDetails from '../../components/OrderDetails';
+import Address from './Address';
 
 const mapState = ({ orderData }) => ({
     orderDetails: orderData.orderDetails
@@ -61,6 +62,7 @@ const Order = () => {
                     
                 </div>
                 <div className='shipping-address-container'>
+                    <Address address={address} />
                     {/*<h3>{line1}</h3>
                     <h3>{line2}</h3>
                     <h3>{city} {state} {zip_code}</h3>
