@@ -5,7 +5,7 @@ import OrderHistory from '../Orders';
 
 const mapState = ({ user, orderData }) => ({
     currentUser: user.currentUser,
-    ordersHistory: orderData.ordersHistory
+    ordersHistory: orderData.ordersHistory.data
 })
 
 const OrdersContainer = props => {
@@ -21,7 +21,7 @@ const OrdersContainer = props => {
     return (
         <div>
             <h2>Orders</h2>
-            <OrderHistory orders={ordersHistory} />
+            <OrderHistory orders={ordersHistory.data} />
         </div>
     )
 };
