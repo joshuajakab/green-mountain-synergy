@@ -46,6 +46,10 @@ const formatText = (columnName, columnValue) => {
 const OrderHistory = ({ orders }) => {
     const history = useHistory();
 
+    if (!Array.isArray(orders)) {
+        console.log('broken')
+    }
+
     return (
         <TableContainer>
             <Table>
