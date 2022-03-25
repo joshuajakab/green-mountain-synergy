@@ -48,7 +48,7 @@ const Header = props => {
 
     return (
         <div className='header'>
-            
+
             <div className='top-row'>
                 <Link className='logo-link' to='/'>
                     <img className='logo' src={MenuIconMountain} alt='logo'></img>
@@ -64,7 +64,7 @@ const Header = props => {
 
             </div>
             <div className='bottom-row'>
-
+                <p className='shipping-tag'>Free shipping on orders over $50</p>
                 {!currentUser &&
                     <div className='logged-out'>
                         <Link className='logged-out-link' to='/register'>
@@ -92,7 +92,7 @@ const Header = props => {
 
             </div>
             <div className='top-top-row'>
-                <p className='shipping-tag'>Free shipping on orders over $50 to the contiguous United States</p>    
+
             </div>
 
         </div>
