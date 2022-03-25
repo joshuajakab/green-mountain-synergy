@@ -21,7 +21,6 @@ const INITIAL_STATE = {
         orderTotal: "",
         orderedBy: ""},
     ordersHistory: []
-
 }
 
 const ordersReducer = (state=INITIAL_STATE, action) => {

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Input from '../defaultComponents/Input';
 import Button from '../defaultComponents/Button';
 import TextArea from '../defaultComponents/Textarea';
-import { CountryDropdown } from 'react-country-region-selector';
+
 import { apiInstance } from '../../Utils';
 import { selectCartTotal, selectCartItemsCount, selectCartItems } from '../../redux/Cart/cart.selectors';
 import { saveOrderHistory } from '../../redux/Orders/orders.actions';
@@ -133,7 +133,7 @@ const PaymentDetails = () => {
 
         setBillingAddress({
             email: shippingAddress.email,
-            country: shippingAddress.country,
+            country: 'US',
             line1: shippingAddress.line1,
             line2: shippingAddress.line2,
             city: shippingAddress.city,
@@ -544,7 +544,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -562,7 +562,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -580,7 +580,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -596,7 +596,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -612,7 +612,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -628,7 +628,7 @@ const PaymentDetails = () => {
                     familyName: lastNameOnCard,
                     givenName: firstNameOnCard,
                     email: shippingAddress.email,
-                    country: billingAddress.country,
+                    country: 'US',
                     city: billingAddress.city,
                     addressLines: [billingAddress.line1, billingAddress.line2],
                     postalCode: billingAddress.postalCode,
@@ -678,6 +678,9 @@ const PaymentDetails = () => {
                         <h2 className='payment-form-title'>
                             Shipping Address
                         </h2>
+                        <p className='ship-to-us'>
+                            We currently only ship to the US
+                        </p>
 
                         <Input
                             required
@@ -741,23 +744,7 @@ const PaymentDetails = () => {
                             value={shippingAddress.zip_code}
                         />
 
-                        <div className='country'>
-
-                            <CountryDropdown
-                                required
-                                priorityOptions={['US']}
-                                onChange={val => handleShipping({
-                                    target: {
-                                        name: 'country',
-                                        value: val
-                                    }
-                                })}
-                                valueType='short'
-                                value={shippingAddress.country}
-                                className='country-dropdown'
-                            />
-
-                        </div>
+                        
 
                     </div>
 
@@ -841,22 +828,7 @@ const PaymentDetails = () => {
                                 value={billingAddress.zip_code}
                             />
 
-                            <div className='formRow checkoutInput'>
-
-                                <CountryDropdown
-                                    required
-                                    onChange={val => handleBilling({
-                                        target: {
-                                            name: 'country',
-                                            value: val
-                                        }
-                                    })}
-                                    value={billingAddress.country}
-                                    valueType='short'
-                                    className='country-dropdown'
-                                />
-
-                            </div>
+                            
                         </div>
                     }
 

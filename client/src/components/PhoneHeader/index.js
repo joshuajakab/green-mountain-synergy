@@ -18,6 +18,7 @@ const PhoneHeader = props => {
     const { totalNumCartItems } = useSelector(mapState);
 
     return (
+       
         <div className='phone-header' >
             
             <Link to='/' className='title' onClick={props.click}>Green Mountain Synergy</Link> 
@@ -25,6 +26,8 @@ const PhoneHeader = props => {
                 <img className='cart-img' src={Cart} alt='cart' />
             </Link>
         </div>
+        
+        
     )
 };
 
