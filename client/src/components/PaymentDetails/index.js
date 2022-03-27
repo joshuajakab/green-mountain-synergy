@@ -166,11 +166,11 @@ const PaymentDetails = () => {
         try {
 
             if (
-                !shippingAddress.country || !shippingAddress.line1 ||
+                 !shippingAddress.line1 ||
                 !shippingAddress.city || !shippingAddress.state ||
                 !shippingAddress.zip_code || !billingAddress.line1 ||
                 !billingAddress.city || !billingAddress.state ||
-                !billingAddress.zip_code || !billingAddress.country ||
+                !billingAddress.zip_code || 
                 !shippingAddress.email || !shippingAddress.phone ||
                 !firstName || !lastName 
                 
