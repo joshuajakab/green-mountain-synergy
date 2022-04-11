@@ -40,3 +40,10 @@
     align-items: center;
     cursor: pointer;
 }
+
+@media screen and (max-width: 800px) {
+    .age-container{
+        width: 75%;
+        margin: 15% 12.5% 35%;
+    }
+}
