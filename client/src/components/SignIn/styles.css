@@ -22,6 +22,7 @@
     background-color: white;
     width: 80%;
     height: 10%;
+    margin: 0 10%;
     border: 2px solid #043220;
     border-radius: 5%/20%;
     display: flex;
@@ -38,8 +39,15 @@
     font-size: 1.2rem;
 }
 
-a {
-    color: white;
+
+
+.password-link {
+    font-size: 1.2rem;
+    font-family: din-condensed, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #043220;
+    text-align: center;
 }
 
 @media screen and (max-width: 800px) {

@@ -50,9 +50,9 @@ const Item = (product) => {
             <div className='full-width-checkout'>
             <h3 className='product-name'>
                 {productName} 
-                {/*subscriptionPrice &&
+                {subscriptionPrice &&
                 <h3>Subscription</h3>
-            */ }
+                }
             </h3>
 
             <div className='quantity-container'>
@@ -75,9 +75,9 @@ const Item = (product) => {
             <h2>Product</h2>
             <h3 className='product-name'>
                 {productName} 
-                {/*subscriptionPrice &&
+                {subscriptionPrice &&
                 <h3>Subscription</h3>
-            */ }
+                }
             </h3>
             <h2>Quantity</h2>
             <div className='quantity-container'>
@@ -113,12 +113,14 @@ const Item = (product) => {
                     ${twoThousandPrice}
                 </h3>
             } */}
-          
+
+            {!subscriptionPrice &&
             <h3 className='price'>${price}</h3>
+            }
             
-            {/*subscriptionPrice &&
+            {subscriptionPrice &&
             <h3 className='price'>${subscriptionPrice}</h3>
-        */ }
+            }
             </div>
 
             <div className='cart-button' onClick={() => handleRemoveCartItem(product)}>

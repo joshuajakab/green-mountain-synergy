@@ -69,7 +69,7 @@ const SignIn = props => {
                         handleChange={e => setPassword(e.target.value)}
                     />
 
-                    <Link to='/recovery'>Reset Password</Link>
+                    <Link className='password-link' to='/recovery'>Reset Password</Link>
 
                     <Button className='login-button' type='submit' >
                         <h3 >Login</h3>

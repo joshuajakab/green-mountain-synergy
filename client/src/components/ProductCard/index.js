@@ -19,8 +19,8 @@ import { addReview } from '../../redux/Reviews/reviews.sagas';
 
 const mapState = state => ({
     product: state.productsData.product,
-    totalNumCartItems: selectCartItemsCount(state),
-    reviews: state.reviewsData.reviews
+    totalNumCartItems: selectCartItemsCount(state)
+    //reviews: state.reviewsData.reviews
 })
 
 
@@ -262,7 +262,7 @@ const ProductCard = ({ }) => {
                     </li>
                 </ul>
             </div>
-            {/*<div className='review-container'>
+        {/*    <div className='review-container'>
                 <h2>Customer Reviews</h2>
                 <div className='review-list-container'>
                 {reviews.map((review, pos) => {

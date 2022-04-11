@@ -21,6 +21,8 @@ const Checkout = ({ }) => {
     const { cartItems, total } = useSelector(mapState);
     const [width, height] = useWindowWidthAndHeight();
     const [discountCode, setDiscountCode] = useState('');
+    const { subscriptionPrice } =cartItems;
+    
 
     const currencyFormatter = () => {
 
@@ -74,8 +76,8 @@ const Checkout = ({ }) => {
 
                         <div className='total-container'>
 
-                            
-                            
+
+
                             {total < 50 &&
                                 <div className='total'>
                                     <h2>
@@ -111,6 +113,11 @@ const Checkout = ({ }) => {
                                 <Button className='checkout-button' onClick={() => history.push('/payment')}>
                                     <h2>Checkout</h2>
                                 </Button>
+                                {/*subscriptionPrice &&
+                                    <Button className='checkout-button' onClick={() => history.push('/payment')}>
+                                        <h2>Checkout</h2>
+                                    </Button>
+                            */}
 
 
                             </div>

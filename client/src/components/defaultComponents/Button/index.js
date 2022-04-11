@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles.css';
+import './button.css';
 
 const Button = ({ children, ...otherProps }) => {
     return (
-        <div className='formRow'>
+        <div className='btn-container'>
             <button className='btn' {...otherProps}>
                 {children}
             </button>

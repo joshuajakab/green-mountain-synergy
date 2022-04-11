@@ -29,6 +29,7 @@ import Message from './components/Message';
 import OrderDetailsContainer from './components/OrderDetailsContainer';
 import Confirmation from './components/Confirmation';
 import CheckoutSignIn from './components/CheckoutSignIn';
+import Landing from './components/Landing';
 
 function App() {
   const dispatch = useDispatch();
@@ -138,7 +139,6 @@ function App() {
             <MainLayout>
               <PaymentDetails />
             </MainLayout>
-          
         )} />
         <Route path='/payment-msg' render={() => (
           <MainLayout>
@@ -149,7 +149,6 @@ function App() {
           <MainLayout>
             <Confirmation />
           </MainLayout>
-
         )} />
         <Route path='/subscribe' render={() => (
           <MainLayout>
@@ -170,6 +169,9 @@ function App() {
           <MainLayout>
             <EmailPassword />
           </MainLayout>
+        )} />
+        <Route path='/landing' render={() => (
+          <Landing />
         )} />
       </Switch>
     </div>

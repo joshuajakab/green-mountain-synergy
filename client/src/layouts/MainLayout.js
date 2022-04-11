@@ -26,7 +26,7 @@ const MainLayout = props => {
                 <PhoneHeader click={() => menuOpen && menuToggle()}/> 
                 <MenuIcon click={menuToggle}/> 
                 </div>
-                <p className='phone-shipping-tag'>Free shipping on orders over $50 to the contiguous United States</p>
+                <p className='phone-shipping-tag'>Free shipping on orders over $50</p>
                 </div>
                 
             }
