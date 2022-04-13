@@ -28,10 +28,8 @@ const client = new Client({
 
 //client.basePath = 'https://connect.squareupsandbox.com';
 client.basePath = 'https://connect.squareup.com'
-
- // length of idempotency_key should be less than 45
  
-
+//--------------------Square APIs---------------------------------------//
 
 app.post('/process-payment', async (req, res) => {
   const request_params_pay = req.body;
@@ -72,110 +70,115 @@ app.post('/process-payment', async (req, res) => {
 })
 
 
-/* async function createPayment(req, res) {
-  const payload = await json(req);
+app.post('/customer', async (req, res) => {
+  console.log('adding customer to square')
+  const request_params_customer = req.body;
+  try {
+    const response = await client.customersApi.createCustomer({
+      givenName: request_params_customer.givenName,
+      familyName: request_params_customer.familyName,
+      emailAddress: request_params_customer.emailAddress
 
-  if (!validatePaymentPayload(payload)) {
-    throw createError(400, 'Bad Request');
+    });
+
+    //console.log(response.result);
+  } catch (error) {
+    console.log(error);
   }
-  await retry(async (bail, attempt) => {
-    try {
-
-      const idempotencyKey = payload.idempotencyKey
-      const payment = {
-        idempotencyKey,
-        locationId: payload.locationId,
-        sourceId: payload.sourceId,
-        amountMoney: {
-          amount: '100',
-          currency: 'USD',
-        },
-      };
-
-      if (payload.verificationToken) {
-        payment.verificationToken = payload.verificationToken
-      }
-
-      const { result, statusCode } = await square.paymentsApi.createPayment(
-        payment
-      );
-      alert('Payment Successful')
-
-      send(res, statusCode, {
-        success: true,
-        payment: {
-          id: result.payment.id,
-          status: result.payment.status,
-          receiptUrl: result.payment.receiptUrl,
-          OrderId: result.payment.orderId,
-        },
-      });
-    } catch (ex) {
-      if (ex instanceof ApiError) {
-        bail(ex)
-      } else {
-        alert('Payment Failed');
-        throw ex
-      }
-    }
-  })} */
-/*
-//Make a Payment 
-
-// Set Square Connect credentials and environment
-const client = new Client({
-  environment: Environment.Sandbox,
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
 })
 
-// Configure OAuth2 access token for authorization: oauth2
-//const oauth2 = client.authentications['oauth2'];
-//oauth2.accessToken = accessToken;
-
-// Set 'basePath' to switch between sandbox env and production env
-// sandbox: https://connect.squareupsandbox.com
-// production: https://connect.squareup.com
-client.basePath = 'https://connect.squareupsandbox.com';
-
-app.post('/process-payment', async (req, res) => {
-  const request_params = req.body;
-  console.log('request_params', request_params)
-
-  // length of idempotency_key should be less than 45
+app.post('/subscription', async (req, res) => {
+  console.log('Monthly Subscription');
+  const request_params_subscription = req.body;
   const idempotency_key = uuidv4();
 
-  // Charge the customer's card
-  const payments_api = new squareConnect.PaymentsApi();
+  try {
+    const response = await client.subscriptionsApi.createSubscription({
+      idempotencyKey: idempotency_key,
+      locationId: process.env.LOCATION_ID,
+      planId: request_params_subscription.planId,
+      customerId: request_params_subscription.customerId,
+      startDate: request_params_subscription.startDate,
+      priceOverrideMoney: {
+        amount: (request_params_subscription.amount * 100).toFixed(0),
+        currency: 'USD'
+      }
+    });
+  
+    console.log(response.result);
+  } catch(error) {
+    console.log(error);
+  }
+})
 
+app.post('/order', async (req, res) => {
+  console.log('adding order to square')
+  const request_params_order = req.body;
+  const idempotency_key = uuidv4();
+  try {
+    const response = await client.ordersApi.createOrder({
+      order: {
+        locationId: process.env.LOCATION_ID,
+        referenceId: 'my-order-001',
+        lineItems: [
+          {
+            name: request_params_order.productName,
+            quantity: request_params_order.quantity,
+            basePriceMoney: {
+              amount: request_params_order.price,
+              currency: 'USD'
+            }
+          }
+        ]
+      },
+      idempotencyKey: idempotency_key
+    });
+  
+    //console.log(response.result);
+  } catch(error) {
+    console.log(error);
+  }
+})
 
-  const request_body = {
-    source_id: request_params.nonce,
-    amount_money: {
-      amount: (request_params.amount) * 100, 
-      currency: 'USD'
-    },
-    //location_id: request_params.location_id,
-    idempotency_key: idempotency_key,
-    verificationToken: request_params.token  // ADD this line
-  };
+app.post('/item', async (req, res) => {
+  console.log('adding item to square')
+  const request_params_item = req.body;
+  const idempotency_key = uuidv4();
 
   try {
-    const response = await payments_api.createPayment(request_body);
-    res.status(200).json({
-      'title': 'Payment Successful',
-      'result': response
+    const response = await client.catalogApi.upsertCatalogObject({
+      idempotencyKey: idempotency_key,
+      object: {
+        type: 'ITEM',
+        id: '#123',
+        itemData: {
+          abbreviation: request_params_item.abbreviation,
+          categoryId: request_params_item.productCategory,
+          variations: [
+            {
+              type: 'ITEM',
+              id: '#123',
+              itemData: {
+                name: request_params_item.productName,
+                productType: 'REGULAR'
+              },
+              itemOptionData: {
+                description: request_params_item.productDesc
+              }
+            }
+          ]
+        }
+        
+      }
     });
+  
+    console.log(response.result);
   } catch(error) {
-    console.log(error.text)
-    res.status(500).json({
-      'title': 'Payment Failure',
-      'result': error.response.text
-    });
+    console.log(error);
   }
-});
-*/
+})
 
-
+//--------------------------------MailChimp APIs--------------------------------//
 
 app.post('/subscribe', async (req, res) => {
   console.log('someone subscribing')
@@ -227,8 +230,7 @@ app.post('/subscribe', async (req, res) => {
   }
 })
 
-
-
+//-----------------------------------Send Emails---------------------------//
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -289,111 +291,8 @@ app.post('/access', (req, res, next) => {
   })
 })
 
-app.post('/customer', async (req, res) => {
-  console.log('adding customer to square')
-  const request_params_customer = req.body;
-  try {
-    const response = await client.customersApi.createCustomer({
-      givenName: request_params_customer.givenName,
-      familyName: request_params_customer.familyName,
-      emailAddress: request_params_customer.emailAddress
 
-    });
 
-    //console.log(response.result);
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-app.post('/subscription', async (req, res) => {
-  console.log('Monthly Subscription');
-  const request_params_subscription = req.body;
-  const idempotency_key = uuidv4();
-
-  try {
-    const response = await client.subscriptionsApi.createSubscription({
-      idempotencyKey: idempotency_key,
-      locationId: process.env.LOCATION_ID,
-      planId: request_params_subscription.planId,
-      customerId: request_params_subscription.customerId,
-      startDate: request_params_subscription.startDate,
-      priceOverrideMoney: {
-        amount: (request_params_subscription.amount * 100).toFixed(0),
-        currency: 'USD'
-      }
-    });
-  
-    console.log(response.result);
-  } catch(error) {
-    console.log(error);
-  }
-})
-
-app.post('/order', async (req, res) => {
-  const request_params_order = req.body;
-  const idempotency_key = uuidv4();
-  try {
-    const response = await client.ordersApi.createOrder({
-      order: {
-        locationId: process.env.LOCATION_ID,
-        referenceId: 'my-order-001',
-        lineItems: [
-          {
-            name: request_params_order.productName,
-            quantity: request_params_order.quantity,
-            basePriceMoney: {
-              amount: request_params_order.price,
-              currency: 'USD'
-            }
-          }
-        ]
-      },
-      idempotencyKey: idempotency_key
-    });
-  
-    //console.log(response.result);
-  } catch(error) {
-    console.log(error);
-  }
-})
-
-app.post('/item', async (req, res) => {
-  const request_params_item = req.body;
-  const idempotency_key = uuidv4();
-
-  try {
-    const response = await client.catalogApi.upsertCatalogObject({
-      idempotencyKey: idempotency_key,
-      object: {
-        type: 'ITEM',
-        id: '#123',
-        itemData: {
-          abbreviation: request_params_item.abbreviation,
-          categoryId: request_params_item.productCategory,
-          variations: [
-            {
-              type: 'ITEM',
-              id: '#123',
-              itemData: {
-                name: request_params_item.productName,
-                productType: 'REGULAR'
-              },
-              itemOptionData: {
-                description: request_params_item.productDesc
-              }
-            }
-          ]
-        }
-        
-      }
-    });
-  
-    console.log(response.result);
-  } catch(error) {
-    console.log(error);
-  }
-})
 
 app.get('*', (req, res) => {
   res
