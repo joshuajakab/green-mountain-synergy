@@ -27,6 +27,7 @@ const Order = () => {
     
     
     useEffect(() => {
+        
         dispatch(
             getOrderDetailsStart(orderID)
         );
@@ -38,7 +39,7 @@ const Order = () => {
         console.log(orderDetails)
     }, [])
 
- 
+
 
     return (
         <div className='receipt-container'>

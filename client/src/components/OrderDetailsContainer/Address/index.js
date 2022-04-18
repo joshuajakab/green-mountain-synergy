@@ -4,6 +4,8 @@ const Address = ({ address }) => {
 
     const { line1, line2, city, state, zip_code, phone } = address;
 
+    if (!line1) return null;
+
     return (
         <div className='address-container'>
             <h3>{line1}</h3>
