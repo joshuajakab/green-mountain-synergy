@@ -849,8 +849,8 @@ const PaymentDetails = () => {
 
                 <div className='group'>
 
-                   {/*} <input type='checkbox' name="mc4wp-subscribe" checked={subscribed} onChange={(event) => setSubscribed(event.currentTarget.checked)} />
-                    <label className='checkbox-label'>Subscribe to our Newsletter</label>*/}
+                    <input type='checkbox' name="mc4wp-subscribe" checked={subscribed} onChange={(event) => setSubscribed(event.currentTarget.checked)} />
+                    <label className='checkbox-label'>Subscribe to our Newsletter</label>
 
                     <h2 className='discount-code-title'>Discount Code</h2>
 

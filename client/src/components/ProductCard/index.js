@@ -19,8 +19,8 @@ import { addReview } from '../../redux/Reviews/reviews.sagas';
 
 const mapState = state => ({
     product: state.productsData.product,
-    totalNumCartItems: selectCartItemsCount(state)
-    //reviews: state.reviewsData.reviews
+    totalNumCartItems: selectCartItemsCount(state),
+    reviews: state.reviewsData.reviews
 })
 
 
@@ -30,13 +30,14 @@ const ProductCard = ({ }) => {
     const history = useHistory();
     const { productID } = useParams();
     const { product, reviews } = useSelector(mapState);
+    const { data } = reviews;
     const [isChecked, setIsChecked] = useState(false);
     const [productQuantity, setProductQuantity] = useState(1);
     const totalNumCartItems = useSelector(mapState);
     const [reviewName, setReviewName] = useState('');
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState(5);
-    
+
 
 
     // const [productPrice, setProductPrice] = useState(product)
@@ -84,7 +85,7 @@ const ProductCard = ({ }) => {
         planID
     } = product;
 
-    
+
 
 
 
@@ -136,11 +137,11 @@ const ProductCard = ({ }) => {
         history.push('/cart');
     }
 
-    
+
 
     const handleAddReview = () => {
-        
-        
+
+
         dispatch(
             addReviewStart({
                 reviewName,
@@ -188,7 +189,7 @@ const ProductCard = ({ }) => {
         type: 'button'
     }
 
-    //if (!Array.isArray(reviews)) return null;
+    if (!Array.isArray(data)) return null;
 
     return (
         <div className='product-card'>
@@ -234,22 +235,15 @@ const ProductCard = ({ }) => {
                     </li>
                     <li>
                         <div className='addToCart'>
-                            {/*<form>
-                            <select className='quantity' name='productQuantity' value={productQuantity} onChnage={e => setProductQuantity(parseInt(e.target.value, 10))}>
-                                <option selected value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
-                            </form>*/}
+                            
                             <FormSelect {...configQuantitySelect} />
                             <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                                 <h2>Add to cart</h2>
                             </Button>
-                            {/*<h3>Subscribe Monthly and save 20%</h3>
+                            <h3>Subscribe Monthly and save 20%</h3>
                             <Button className='add-subscription-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddSubscriptionToCart(product)}>
                                 <h2>Subscribe</h2>
-                        </Button>*/}
+                            </Button>
                         </div>
                     </li>
                     <li>
@@ -262,13 +256,13 @@ const ProductCard = ({ }) => {
                     </li>
                 </ul>
             </div>
-        {/*    <div className='review-container'>
+                <div className='review-container'>
                 <h2>Customer Reviews</h2>
                 <div className='review-list-container'>
-                {reviews.map((review, pos) => {
-                    const { reviewName, reviewText, rating, productID } = review;
-                    //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
+                {data.map((review, pos) => {
                     
+                    //if (!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
+                    if (productID != review.productID) return null;
                     const configReview = {
                         ...review
                     }
@@ -289,9 +283,9 @@ const ProductCard = ({ }) => {
                     />
                     <Rating
                         name="customized-color"
-                        defaultValue={2}
+                        defaultValue={5}
                         precision={0.5}
-                        value={rating}
+                        value={Number(rating)}
                         onChange={e => setRating(e.target.value)}
                     />
                     <TextArea
@@ -302,7 +296,7 @@ const ProductCard = ({ }) => {
                     />
                     <Button className='review-button' onClick={handleAddReview}><h2>Submit</h2></Button>
                 </div>
-            </div> */}
+            </div> 
         </div>
 
     );

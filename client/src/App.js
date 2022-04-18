@@ -173,6 +173,11 @@ function App() {
         <Route path='/landing' render={() => (
           <Landing />
         )} />
+        <Route path='/account' render={() => (
+          <MainLayout>
+
+          </MainLayout>
+        )} />
       </Switch>
     </div>
   );

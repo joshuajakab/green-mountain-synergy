@@ -42,63 +42,71 @@ const Item = (product) => {
     return (
         <div className='cart-items' >
 
-            
+
 
             <img className='cart-thumb' src={productThumbnail} alt={productName} />
 
             {width > 1000 ?
-            <div className='full-width-checkout'>
-            <h3 className='product-name'>
-                {productName} 
-                {subscriptionPrice &&
-                <h3>Subscription</h3>
-                }
-            </h3>
+                <div className='full-width-checkout'>
+                    <h3 className='product-name'>
+                        {productName}
+                        {subscriptionPrice &&
+                            <h3>Subscription</h3>
+                        }
+                    </h3>
+                    {!subscriptionPrice &&
+                        <div className='quantity-container'>
 
-            <div className='quantity-container'>
+                            <div className='cartBtn' onClick={() => handleReduceItem(product)}>
+                                <h3 className='quantity-buttons'>{`< `}</h3>
+                            </div>
+                            <div>
+                                <h3 className='quantity-buttons'>{quantity}</h3>
+                            </div>
+                            <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
+                                <h3 className='quantity-buttons'>{` >`}</h3>
+                            </div>
 
-                <div className='cartBtn' onClick={() => handleReduceItem(product)}>
-                    <h3 className='quantity-buttons'>{`< `}</h3>
-                </div>
-                <div>
-                    <h3 className='quantity-buttons'>{quantity}</h3>
-                </div>
-                <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
-                    <h3 className='quantity-buttons'>{` >`}</h3>
-                </div>
-                
 
-            </div>
-            </div>
-            :
-            <div className='cart-product-container'>
-            <h2>Product</h2>
-            <h3 className='product-name'>
-                {productName} 
-                {subscriptionPrice &&
-                <h3>Subscription</h3>
-                }
-            </h3>
-            <h2>Quantity</h2>
-            <div className='quantity-container'>
+                        </div>
+                    }
+                    {subscriptionPrice &&
+                        <div className='quantity-container'>
+                            <div>
+                                <h3 className='quantity-buttons'>{quantity}</h3>
+                            </div>
+                        </div>
+                    }
+                </div>
+                :
+                <div className='cart-product-container'>
+                    <h2>Product</h2>
+                    <h3 className='product-name'>
+                        {productName}
+                        {subscriptionPrice &&
+                            <h3>Subscription</h3>
+                        }
+                    </h3>
+                    <h2>Quantity</h2>
+                    <div className='quantity-container'>
 
-                <div className='cartBtn' onClick={() => handleReduceItem(product)}>
-                    <h3 className='quantity-buttons'>{`< `}</h3>
+                        <div className='cartBtn' onClick={() => handleReduceItem(product)}>
+                            <h3 className='quantity-buttons'>{`< `}</h3>
+                        </div>
+                        <div>
+                            <h3 className='quantity-buttons'>{quantity}</h3>
+                        </div>
+                        <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
+                            <h3 className='quantity-buttons'>{` >`}</h3>
+                        </div>
+                    </div>
+
+                    <h2>Price</h2>
                 </div>
-                <div>
-                    <h3 className='quantity-buttons'>{quantity}</h3>
-                </div>
-                <div className='cartBtn' onClick={() => handleAddOneProduct(product)}>
-                    <h3 className='quantity-buttons'>{` >`}</h3>
-                </div>
-            </div>
-                
-            <h2>Price</h2>
-            </div>
-}
+            }
             <div className='price-container'>
-            
-          {/*  {fiveHundredPrice > 0 &&
+
+                {/*  {fiveHundredPrice > 0 &&
                 <h3 className='price'>
                     ${fiveHundredPrice}
                 </h3>
@@ -114,20 +122,20 @@ const Item = (product) => {
                 </h3>
             } */}
 
-            {!subscriptionPrice &&
-            <h3 className='price'>${price}</h3>
-            }
-            
-            {subscriptionPrice &&
-            <h3 className='price'>${subscriptionPrice}</h3>
-            }
+                {!subscriptionPrice &&
+                    <h3 className='price'>${price}</h3>
+                }
+
+                {subscriptionPrice &&
+                    <h3 className='price'>${subscriptionPrice}</h3>
+                }
             </div>
 
             <div className='cart-button' onClick={() => handleRemoveCartItem(product)}>
                 <h3 className='remove-button'>Remove</h3>
             </div>
 
-        
+
         </div>
 
     );

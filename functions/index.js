@@ -21,13 +21,13 @@ app.use(express.json());
 const accessToken = process.env.ACCESS_TOKEN
 
 const client = new Client({
-  environment: Environment.Production,
-  //environment: Environment.Sandbox,
+  //environment: Environment.Production,
+  environment: Environment.Sandbox,
   accessToken: accessToken,
 })
 
-//client.basePath = 'https://connect.squareupsandbox.com';
-client.basePath = 'https://connect.squareup.com'
+client.basePath = 'https://connect.squareupsandbox.com';
+//client.basePath = 'https://connect.squareup.com'
  
 //--------------------Square APIs---------------------------------------//
 
