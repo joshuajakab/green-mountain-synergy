@@ -64,6 +64,10 @@
     cursor: pointer;
 }
 
+.sold-out {
+    color: rgb(0, 17, 255);
+}
+
 @media screen and (max-width: 800px) {
     .product-card {
         flex-direction: column;

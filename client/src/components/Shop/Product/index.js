@@ -16,13 +16,14 @@ const Product = (product) => {
         productName,
         price,
         productCategory,
-        productDesc
+        productDesc,
+        soldOut
     } = product;
 
 
     if (!documentID || !productThumbnail || !productName ) return null;
 
-    const configAddToCartButton = {
+    const configAddToCartBtn = {
         type: 'button',
     }
 
@@ -75,9 +76,14 @@ return (
 
                 <li>
                     <div className='add-to-cart'>
-                        <Button className='add-to-cart-button' {...configAddToCartButton} onClick={() => handleAddToCart(product)}>
-                            <h2>Add to Cart</h2>
-                        </Button>
+                    {!soldOut &&
+                            <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
+                                <h2>Add to cart</h2>
+                            </Button>
+                            }
+                            {soldOut && 
+                            <h3 className='sold-out'>Sorry we are temporarily sold out.</h3>
+                            }
                     </div>
                 </li>
             </ul>

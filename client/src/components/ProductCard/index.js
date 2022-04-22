@@ -30,6 +30,7 @@ const ProductCard = ({ }) => {
     const history = useHistory();
     const { productID } = useParams();
     const { product, reviews } = useSelector(mapState);
+    const { soldOut } = product;
     const [isChecked, setIsChecked] = useState(false);
     const [productQuantity, setProductQuantity] = useState(1);
     const totalNumCartItems = useSelector(mapState);
@@ -243,9 +244,14 @@ const ProductCard = ({ }) => {
                             </select>
                             </form>*/}
                             <FormSelect {...configQuantitySelect} />
+                            {!soldOut &&
                             <Button className='add-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                                 <h2>Add to cart</h2>
                             </Button>
+                            }
+                            {soldOut && 
+                            <h3 className='sold-out'>Sorry we are temporarily sold out.</h3>
+                            }
                             {/*<h3>Subscribe Monthly and save 20%</h3>
                             <Button className='add-subscription-to-cart-button' {...configAddToCartBtn} onClick={() => handleAddSubscriptionToCart(product)}>
                                 <h2>Subscribe</h2>
