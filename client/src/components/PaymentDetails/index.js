@@ -35,7 +35,8 @@ const initialAddressState = {
 const mapState = createStructuredSelector({
     total: selectCartTotal,
     itemCount: selectCartItemsCount,
-    cartItems: selectCartItems
+    cartItems: selectCartItems,
+    currentUser: user.currentUser
 });
 
 
@@ -43,7 +44,8 @@ const mapState = createStructuredSelector({
 const PaymentDetails = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { total, itemCount, cartItems } = useSelector(mapState);
+    const { total, itemCount, cartItems, currentUser } = useSelector(mapState);
+    const { squareID } = currentUser;
     const idempotency_key = uuidv4();
 
 //-----------------------------Shipping and Billing-----------------------------------------//
@@ -1012,7 +1014,7 @@ const PaymentDetails = () => {
                     <h2 className='payment-form-title'>
                         Card Details
                     </h2>
-
+                    
                     <div className='card-payment-container'>
 
                         <SquarePaymentsForm

@@ -30,6 +30,7 @@ import OrderDetailsContainer from './components/OrderDetailsContainer';
 import Confirmation from './components/Confirmation';
 import CheckoutSignIn from './components/CheckoutSignIn';
 import Landing from './components/Landing';
+import CheckoutRegister from './components/CheckoutRegister';
 
 function App() {
   const dispatch = useDispatch();
@@ -176,6 +177,11 @@ function App() {
         <Route path='/account' render={() => (
           <MainLayout>
 
+          </MainLayout>
+        )} />
+        <Route path='/checkout-register' render={() => (
+          <MainLayout>
+            <CheckoutRegister />
           </MainLayout>
         )} />
       </Switch>

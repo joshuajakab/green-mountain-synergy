@@ -8,9 +8,8 @@ const mapState = ({ user }) => ({
 
 const SquareSignUp = () => {
 
-    const { currentUser } = useSelector(mapState)
-
-    const [squareUser, setSquareUser] = useState(false);
+    const { currentUser } = useSelector(mapState);
+    const { squareID } = currentUser;
 
     const addCustomerToSquare = async (currentUser) => {
 
@@ -22,9 +21,9 @@ const SquareSignUp = () => {
         <div className='sqaure-sign-up-container'>
             <h2>Subscription</h2>
             
-            {!currentUser && !squareUser &&
+            {!currentUser &&
             <div>
-                <p>Thanks for signing up for our subscription! In order to sign up you will have to register on our website.</p>
+                <p>Thanks for signing up for our subscription! In order to sign up you will have to register or log in to our website.</p>
                 <Button className='sub-login-button' onClick={() => history.push('/login')}>Register/Sign In</Button>
             </div>}
             

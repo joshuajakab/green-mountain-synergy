@@ -1,0 +1,25 @@
+.register-form {
+    width: 30%;
+    margin: 0 35%;
+}
+
+.register-button {
+    background-color: white;
+    width: 60%;
+    height: 10%;
+    margin: 0 20%;
+    border: 2px solid #043220;
+    border-radius: 5%/20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+@media screen and (max-width: 800px) {
+    .register-form {
+        width: 75%;
+        margin: 0 12.5%;
+    }
+}

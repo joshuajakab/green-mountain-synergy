@@ -80,7 +80,7 @@ const CheckoutSignIn = props => {
                         <h3 >Sign in with Google</h3>
                     </Button>
                        
-                    <Button className='login-button' onClick={() => history.push('/register')}>
+                    <Button className='login-button' onClick={() => history.push('/checkout-register')}>
                         <h3> Register</h3>
                     </Button>
 
