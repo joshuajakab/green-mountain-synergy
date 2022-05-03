@@ -22,7 +22,7 @@ const OrdersContainer = props => {
     return (
         <div>
             <h2>Orders</h2>
-            <OrderHistory orders={ordersHistory} />
+            
         </div>
     )
 };

@@ -7,23 +7,26 @@ import Input from '../defaultComponents/Input';
 import Modal from '../defaultComponents/Modal';
 import { fetchProductsStart, addProductStart, deleteProductStart } from '../../redux/Products/products.actions';
 import { addBlogStart } from '../../redux/Blogs/blogs.actions';
+import { getOrderHistory } from '../../redux/Orders/orders.actions';
 import './styles.css'
 import FormInput from '../defaultComponents/Input';
 import { apiInstance } from '../../Utils';
 import OrdersContainer from '../OrderContainer';
+import OrderHistory from '../Orders';
 
-const mapState = ({ productsData, blogsData }) => ({
+const mapState = ({ productsData, blogsData, orderData }) => ({
     products: productsData.products,
-    blogs: blogsData.blogs
+    blogs: blogsData.blogs,
+    ordersHistory: orderData.ordersHistory.data
 });
 
 const AdminPage = props => {
-    const { products, blogs } = useSelector(mapState);
+    const { products, blogs, ordersHistory } = useSelector(mapState);
     const dispatch = useDispatch();
     const [hideModal, setHideModal] = useState(true);
     const [hideManageModal, setHideManageModal] = useState(true);
     const [hideBlogModal, setHideBlogModal] = useState(true);
-    const [hideOrderModal, setHideOrderModal] = useState(true)
+    const [hideOrderModal, setHideOrderModal] = useState(true);
     const [productCategory, setProductCategory] = useState('tinctures');
     const [productName, setProductName] = useState('');
     const [abbreviation, setAbbreviation] = useState('');
@@ -47,6 +50,13 @@ const AdminPage = props => {
             
         )
     }, []);
+
+    useEffect(() => {
+        dispatch(
+            getOrderHistory()
+        )
+    }, []);
+
 
     const toggleModal = () => setHideModal(!hideModal);
     const toggleManageModal = () => setHideManageModal(!hideManageModal);
@@ -343,7 +353,7 @@ const AdminPage = props => {
                     
 
                 <Modal {...configOrderModal} className='modal'>
-                    <OrdersContainer />
+                <OrderHistory orders={ordersHistory} />
                     <Button onClick={() => toggleOrderModal()} />
                 </Modal>
 
