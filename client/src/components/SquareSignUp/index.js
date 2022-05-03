@@ -8,6 +8,14 @@ const mapState = ({ user }) => ({
 
 const SquareSignUp = () => {
 
+    useEffect(() => {
+        if (squareID) {
+            reset();
+            history.push('/payment');
+        }
+
+    }, [squareID]);
+
     const { currentUser } = useSelector(mapState);
     const { squareID } = currentUser;
 
@@ -27,10 +35,10 @@ const SquareSignUp = () => {
                 <Button className='sub-login-button' onClick={() => history.push('/login')}>Register/Sign In</Button>
             </div>}
             
-            {currentUser && !squareUser &&
+            {currentUser && !squareID &&
                 <div>
-                    <p>It looks like you are registered and signed in but your info needs to be added to Square's database.</p>
-                    <Button>Add me to Square</Button>
+                    <p>Last Step! Your info needs to be added to Square.</p>
+                    <Button><h2>Add me to Square</h2></Button>
                 </div>
             }
 
