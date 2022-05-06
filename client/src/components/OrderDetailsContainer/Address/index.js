@@ -10,7 +10,7 @@ const Address = ({ address }) => {
 
     return (
         <div className='address-container'>
-            <h3>{line1}</h3>
+            {/*<h3>{line1}</h3>*/}
                     <h3>{line2}</h3>
                     <h3>{city} {state} {zip_code}</h3>
     <h3>{phone}</h3>

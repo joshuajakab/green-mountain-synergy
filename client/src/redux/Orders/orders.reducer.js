@@ -3,15 +3,7 @@ import ordersTypes from './orders.types';
 const INITIAL_STATE = {
     orderHistory: [],
     orderDetails: {
-        address:{
-            city: "city",
-            country: "",
-            email: "",
-            line1: "line1",
-            line2: "line2",
-            phone: "phone",
-            state: "state",
-            zip_code: "zip_code"},
+        address:{},
         discount: "",
         documentID: "",
         firstName: "",

@@ -7,6 +7,17 @@ import './orderDetailsContainer.css';
 import OrderDetails from '../../components/OrderDetails';
 import Address from './Address';
 
+const initialOrderAddressState = {
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    zip_code: '',
+    country: '',
+    phone: '',
+    email: ''
+}
+
 const mapState = ({ orderData }) => ({
     orderDetails: orderData.orderDetails
 })
@@ -20,8 +31,9 @@ const Order = () => {
     const { orderID } = useParams();
     const dispatch = useDispatch();
     const { orderDetails } = useSelector(mapState);
-    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails;
-    //const { line1, line2, city, state, zip_code, phone } = address;
+    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails; 
+   
+
     const [order, setOrder] = useState([])
     
     
@@ -30,9 +42,14 @@ const Order = () => {
         
         dispatch(
             getOrderDetailsStart(orderID)
-        );
+        )
+        return () => {
+            dispatch(
+                setOrderDetails({})
+            )
+            }
         
-    }, [])
+    }, [orderID])
 
     useEffect(() => {
         console.log(address)
@@ -63,11 +80,11 @@ const Order = () => {
                     
                 </div>
                 <div className='shipping-address-container'>
-                    <Address address={address} />
-                    {/*<h3>{line1}</h3>
-                    <h3>{line2}</h3>
-                    <h3>{city} {state} {zip_code}</h3>
-    <h3>{phone}</h3>*/}
+                    
+                    {/*<h3>{address.line1}</h3>
+                    <h3>{address.line2}</h3>
+                    <h3>{address.city} {address.state} {address.zip_code}</h3>
+    <h3>{address.phone}</h3>*/}
                     
                     <h3>Disount Code</h3>
                     {discount &&

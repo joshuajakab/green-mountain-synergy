@@ -35,6 +35,7 @@ const formatText = (columnName, columnValue) => {
             return <img src={columnValue} width={100} />
         case 'orderedBy':
             return `${columnValue}`;
+        
       
         default: 
             return columnValue;
@@ -44,11 +45,12 @@ const formatText = (columnName, columnValue) => {
 const OrderDetails = ({ order }) => {
     const dispatch = useDispatch()
     const orderItems = order && order.orderItems;
-
+;
     
 
 
     return (
+        
         <TableContainer>
             <Table>
                 <TableHead>
@@ -88,6 +90,9 @@ const OrderDetails = ({ order }) => {
 
             </Table>
         </TableContainer>
+        
+
+       
 
     )
 }
