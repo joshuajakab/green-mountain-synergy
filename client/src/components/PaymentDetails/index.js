@@ -67,6 +67,8 @@ const PaymentDetails = () => {
     const shipCodeTotal = ((((total * .8) * .06) + (total * .8)) + 5);
     const tenShipCodeTotal = ((((total * .9) *.06) +(total * .9)) + 5);
     const tenCodeTotal = (((total * .9) * .06) + (total * .9));
+    const fiftyShipCodeTotal = ((((total * .5) * .06) +(total * .5)) + 5);
+    const fiftyCodeTotal = (((total * .5) * .06) + (total * .5));
     const tax = (total * .06);
 
 //------------------------------Discount Codes--------------------------------------------//
@@ -932,6 +934,11 @@ const PaymentDetails = () => {
                                         Discounted Total: ${shipCodeTotal.toFixed(2)}
                                     </h3>    
                                 }
+                                {discountCode === 'ELIZA' &&
+                                <h3 className='payment-total'>
+                                    Discounted Total: ${fiftyShipCodeTotal.toFixed(2)}
+                                </h3>
+                                }
                             </h3>
                         </div>
                     }
@@ -1005,6 +1012,11 @@ const PaymentDetails = () => {
                                     <h3 className='payment-total'>
                                         Discounted Total: ${tenCodeTotal.toFixed(2)}
                                     </h3>
+                                }
+                                {discountCode === 'ELIZA' &&
+                                <h3 className='payment-total'>
+                                    Discounted Total: ${fiftyCodeTotal.toFixed(2)}
+                                </h3>
                                 }
                             </h3>
                         </div>}
