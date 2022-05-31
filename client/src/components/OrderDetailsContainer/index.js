@@ -24,22 +24,22 @@ const mapState = ({ orderData }) => ({
 
 const Order = () => {
 
-    
-    
-    
+
+
+
 
     const { orderID } = useParams();
     const dispatch = useDispatch();
     const { orderDetails } = useSelector(mapState);
-    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails; 
-   
+    const { orderTotal, orderedBy, firstName, lastName, address, discount } = orderDetails;
+
 
     const [order, setOrder] = useState([])
-    
-    
-    
+
+
+
     useEffect(() => {
-        
+
         dispatch(
             getOrderDetailsStart(orderID)
         )
@@ -47,8 +47,8 @@ const Order = () => {
             dispatch(
                 setOrderDetails({})
             )
-            }
-        
+        }
+
     }, [orderID])
 
     useEffect(() => {
@@ -60,11 +60,16 @@ const Order = () => {
 
     return (
         <div className='receipt-container'>
-          
+
             <div >
-                 <h1>
-                    Order ID: #{orderID}
+                <h1>
+                    Customer: {firstName} {lastName}
+
                 </h1>
+                <h3 className='email'>
+                    Order ID: {orderID}
+
+                </h3>
                 <h3 className='email'>
                     Customer Email: {orderedBy}
                 </h3>
@@ -77,23 +82,26 @@ const Order = () => {
                 <div className='shipping-address-container'>
                     <h2>Ship To:</h2>
                     <h3>{firstName} {lastName}</h3>
-                    
+
                 </div>
                 <div className='shipping-address-container'>
-                    
-                    {/*<h3>{address.line1}</h3>
+
+                    <h3>{address.line1}</h3>
                     <h3>{address.line2}</h3>
                     <h3>{address.city} {address.state} {address.zip_code}</h3>
-    <h3>{address.phone}</h3>*/}
-                    
-                    <h3>Disount Code</h3>
+                    <h3>{address.phone}</h3>
+
+
                     {discount &&
-                    <h3>{discount}</h3>
-}       
+                        <div>
+                            <h3>Disount Code</h3>
+                            <h3>{discount}</h3>
+                        </div>
+                    }
                 </div>
 
 
-            </div> 
+            </div>
 
         </div>
     );

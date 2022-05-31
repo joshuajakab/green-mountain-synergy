@@ -4,6 +4,7 @@ import FormInput from '../defaultComponents/Input';
 import TextArea from '../defaultComponents/Textarea';
 import { apiInstance } from '../../Utils';
 import './styles.css'
+import useLoader from '../../hooks/useLoader';
 
 const About = props => {
 
@@ -12,6 +13,7 @@ const About = props => {
     const [contactSubject, setContactSubject] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
+    //const [loader, showLoader, hideLoader] = useLoader();
 
     const resetContactForm = () => {
         setContactName('');
@@ -29,8 +31,9 @@ const About = props => {
         }
 
         apiInstance.post('/access', { contactEmail: contactEmail, contactName: contactName, contactSubject: contactSubject, contactMessage: contactMessage })
+        //showLoader()
         resetContactForm()
-        alert('Thanks for contacting us. We will get back to you shortly.');
+        
     }
 
     return (
@@ -93,7 +96,7 @@ const About = props => {
                         Send
                     </Button>
                 </form>
-
+            
             </div>
 
         </div>

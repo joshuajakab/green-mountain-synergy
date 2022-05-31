@@ -18,6 +18,7 @@ import {
 import './payment.css'
 import FormInput from '../defaultComponents/Input';
 import { v4 as uuidv4 } from 'uuid';
+import useLoader from '../../hooks/useLoader';
 
 //---------------------------------State----------------------------------------//
 
@@ -45,6 +46,7 @@ const PaymentDetails = () => {
     const history = useHistory();
     const { total, itemCount, cartItems } = useSelector(mapState);
     const idempotency_key = uuidv4();
+    //const [loader, showLoader, hideLoader] = useLoader();
 
 //-----------------------------Shipping and Billing-----------------------------------------//
 
@@ -87,9 +89,7 @@ const PaymentDetails = () => {
 
     }, [itemCount]);
 
-    useEffect(() => {
-        
-    }, [])
+    
 
 
 /*    const handleTotal = (total) => {
