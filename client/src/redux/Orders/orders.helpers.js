@@ -45,7 +45,9 @@ export const handleGetUserOrderHistory = uid => {
 
 export const handleGetOrderHistory = () => {
     return new Promise((resolve, reject) => {
-        let ref = firestore.collection('orders').orderBy('orderCreatedDate');
+
+        const pageSize = 10;
+        let ref = firestore.collection('orders').orderBy('orderCreatedDate', 'desc').limit(pageSize);
         
 
         ref
