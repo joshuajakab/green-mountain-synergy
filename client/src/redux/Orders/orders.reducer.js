@@ -3,7 +3,16 @@ import ordersTypes from './orders.types';
 const INITIAL_STATE = {
     orderHistory: [],
     orderDetails: {
-        address: [],
+        address: {
+            line1: 'line 1',
+            line2: 'line 2',
+            city: 'city',
+            state: 'state',
+            zip_code: 'zip code',
+            country: 'country',
+            phone: 'phone',
+            email: 'email'
+        },
         discount: "",
         documentID: "",
         firstName: "",
@@ -11,12 +20,13 @@ const INITIAL_STATE = {
         orderCreatedDate: '',
         orderItems: [],
         orderTotal: "",
-        orderedBy: ""},
+        orderedBy: ""
+    },
     ordersHistory: []
 }
 
-const ordersReducer = (state=INITIAL_STATE, action) => {
-    switch(action.type) {
+const ordersReducer = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
         case ordersTypes.SET_USER_ORDER_HISTORY:
             return {
                 ...state,
